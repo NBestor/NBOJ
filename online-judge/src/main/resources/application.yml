@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: online-judge
+    name: nboj
   datasource:
     url: jdbc:h2:file:./data/onlinejudge
     driver-class-name: org.h2.Driver
@@ -35,7 +35,7 @@ ai:
 
 logging:
   file:
-    name: logs/online-judge.log
+    name: logs/nboj.log
   level:
     root: INFO
     com.onlinejudge: INFO

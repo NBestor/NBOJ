@@ -465,7 +465,7 @@ int main() {
 
         currentProblem = result;
         document.getElementById("edit-problem-link").href = `/problem-create.html?id=${currentProblem.id}`;
-        document.title = `${currentProblem.title} - CodeJudge`;
+        document.title = `${currentProblem.title} - NBOJ`;
         renderProblem(currentProblem);
         logProblemFeature("info", "problem", "Problem detail loaded.", {
             title: currentProblem.title,

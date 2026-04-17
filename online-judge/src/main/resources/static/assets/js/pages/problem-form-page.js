@@ -244,11 +244,11 @@ $$`
         const submitButton = document.getElementById("create-problem-btn");
 
         if (!isEditMode) {
-            document.title = "创建题目 - CodeJudge";
+            document.title = "创建题目 - NBOJ";
             return;
         }
 
-        document.title = "编辑题目 - CodeJudge";
+        document.title = "编辑题目 - NBOJ";
         heroTitle.textContent = "在原有题目的基础上继续修改题面、测试点和 AI 分析方向。";
         heroCopy.textContent = "编辑模式会先带出现有配置；顶部标签仍然只保留三个主分区，方便集中处理每一类内容。";
         submitTitle.textContent = "保存修改";

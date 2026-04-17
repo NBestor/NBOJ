@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>com.onlinejudge</groupId>
-    <artifactId>online-judge</artifactId>
+    <artifactId>nboj</artifactId>
     <version>1.0.0</version>
-    <name>Online Judge MVP</name>
-    <description>Minimal Viable Online Judge for competitive programming</description>
+    <name>NBOJ</name>
+    <description>AI-powered online judge for coding practice, evaluation, and feedback</description>
 
     <properties>
         <java.version>17</java.version>
