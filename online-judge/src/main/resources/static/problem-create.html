@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建题目 - CodeJudge</title>
+    <link rel="stylesheet" href="/assets/css/app.css?v=20260415h">
+</head>
+<body class="page-editor">
+    <header class="app-header">
+        <div class="app-header__inner">
+            <a href="/" class="brand">
+                <div class="brand__mark">&lt;/&gt;</div>
+                <div>
+                    <div class="brand__title">CodeJudge</div>
+                    <div class="brand__subtitle">中文在线评测与题面工作台</div>
+                </div>
+            </a>
+            <div class="app-header__actions">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换深浅色主题"></button>
+                <nav class="app-nav">
+                    <a href="/" class="app-nav__link">题库</a>
+                    <a href="/problem-create.html" class="app-nav__link active">创建题目</a>
+                    <a href="/leaderboard.html" class="app-nav__link">排行榜</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero hero--dense editor-hero">
+            <div>
+                <p class="eyebrow">Problem Studio</p>
+                <h1 id="editor-hero-title">把题面、测试点和 AI 分析方向收进同一套编辑分区里。</h1>
+                <p id="editor-hero-copy">创建和修改题目共用这一页。顶部标签只保留三个主分区，切换时不翻页、不动效，只切换当前内容面板。</p>
+                <div class="hero-actions">
+                    <a href="/" class="btn btn-secondary">返回题库</a>
+                    <button type="button" class="btn btn-primary" id="use-template-btn">载入题面模板</button>
+                </div>
+            </div>
+            <div class="mini-grid">
+                <div class="mini-card"><span>公开样例</span><strong id="hero-visible-count">0</strong></div>
+                <div class="mini-card"><span>隐藏测试</span><strong id="hero-hidden-count">0</strong></div>
+                <div class="mini-card"><span>测试点总数</span><strong id="hero-total-count">0</strong></div>
+                <div class="mini-card"><span>预览状态</span><strong id="preview-render-state-mini">已同步</strong></div>
+            </div>
+        </section>
+
+        <div id="form-alert"></div>
+
+        <form id="problem-form" class="editor-form">
+            <div class="editor-tabs" role="tablist" aria-label="题目编辑分区">
+                <button type="button" class="editor-tab is-active" data-editor-tab="description" aria-selected="true">题目描述</button>
+                <button type="button" class="editor-tab" data-editor-tab="testcases" aria-selected="false">测试点配置</button>
+                <button type="button" class="editor-tab" data-editor-tab="ai" aria-selected="false">AI助手提示词方向</button>
+            </div>
+
+            <div class="editor-tab-shell">
+                <section class="editor-tab-panel is-active" data-editor-panel="description">
+                    <div class="editor-section-head">
+                        <div>
+                            <p class="eyebrow">Description</p>
+                            <h2>题面与公式样式</h2>
+                            <p>这里同时编辑题目元数据、Markdown 题面和公式样式测试。当前标签与下面面板是连成一体的。</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="title">题目标题</label>
+                            <input id="title" type="text" placeholder="例如：两数之和" required>
+                        </div>
+                        <div class="field">
+                            <label for="difficulty">难度</label>
+                            <select id="difficulty">
+                                <option value="EASY">简单</option>
+                                <option value="MEDIUM">中等</option>
+                                <option value="HARD">困难</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="timeLimit">时间限制（ms）</label>
+                            <input id="timeLimit" type="number" min="100" step="100" value="1000">
+                        </div>
+                        <div class="field">
+                            <label for="memoryLimit">空间限制（KB）</label>
+                            <input id="memoryLimit" type="number" min="1024" step="1024" value="131072">
+                        </div>
+                    </div>
+
+                    <div class="editor-preview-meta">
+                        <span class="difficulty-pill easy" id="preview-difficulty">简单</span>
+                        <span class="limit-pill" id="preview-time">时限 1000 ms</span>
+                        <span class="limit-pill" id="preview-memory">空间 128 MB</span>
+                        <span class="source-pill" id="preview-problem-title">未命名题目</span>
+                    </div>
+
+                    <div class="editor-preview-sync">
+                        <section class="markdown-pane markdown-pane--input">
+                            <div class="markdown-pane__head">
+                                <div>
+                                    <h3>Markdown 原始文本</h3>
+                                    <p class="helper">左侧输入区和右侧预览区使用相同行高、相同内边距与相同基线，滚动时严格逐行对齐。</p>
+                                </div>
+                                <button type="button" class="btn btn-secondary" id="upload-markdown-btn">上传 Markdown</button>
+                            </div>
+                            <div class="markdown-pane__body">
+                                <input id="markdown-upload" type="file" accept=".md,text/markdown,text/plain" hidden>
+                                <label class="visually-hidden" for="description-editor">题面编辑区</label>
+                                <textarea id="description-editor" class="native-editor native-editor--markdown native-editor--aligned" spellcheck="false"></textarea>
+                            </div>
+                        </section>
+                        <section class="markdown-pane markdown-pane--preview">
+                            <div class="markdown-pane__head">
+                                <div>
+                                    <h3>Markdown 实时预览</h3>
+                                    <p class="helper">预览区不额外居中、不加大行距、不做整体偏移，只保留逐行对应的渲染样式。</p>
+                                </div>
+                                <strong id="preview-render-state">已同步</strong>
+                            </div>
+                            <div class="markdown-pane__body markdown-pane__body--preview" id="description-preview-body">
+                                <div id="rendered-preview" class="statement-body statement-body--aligned"></div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="editor-split">
+                        <div class="editor-split__pane">
+                            <div class="editor-block">
+                                <div class="editor-block__head">
+                                    <div>
+                                        <h3>公式样式实验台</h3>
+                                        <p class="helper">可直接测试 `$$...$$` 中的颜色、字体、字号和边框。</p>
+                                    </div>
+                                </div>
+                                <div class="chip-row" id="formula-example-list">
+                                    <button type="button" class="tab-chip active" data-formula-example="color">颜色</button>
+                                    <button type="button" class="tab-chip" data-formula-example="style">字体</button>
+                                    <button type="button" class="tab-chip" data-formula-example="boxed">边框</button>
+                                </div>
+                                <label class="helper" for="formula-style-editor" style="display:block;margin-top:1rem;">测试用 Markdown / TeX</label>
+                                <textarea id="formula-style-editor" class="native-editor native-editor--markdown" style="min-height:280px;"></textarea>
+                                <div class="hero-actions" style="margin-top:1rem;">
+                                    <button type="button" class="btn btn-secondary" id="copy-formula-example-btn">复制示例</button>
+                                    <button type="button" class="btn btn-primary" id="insert-formula-example-btn">插入到题面</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editor-split__pane">
+                            <div class="preview-panel formula-lab-preview">
+                                <div class="preview-panel__head">
+                                    <div>
+                                        <h3>公式实时渲染</h3>
+                                        <p class="helper">如果右侧能看到颜色、字体和框线变化，就说明当前浏览器已经正确加载数学渲染。</p>
+                                    </div>
+                                    <strong id="formula-preview-state">已同步</strong>
+                                </div>
+                                <div id="formula-style-preview" class="statement-body"></div>
+                                <div class="note-card formula-lab-note">
+                                    <strong>建议重点验证这三类能力</strong>
+                                    <p><code>\textcolor</code> 的颜色变化，<code>\style</code> 的字体与字号变化，以及 <code>\bbox</code> 的盒子装饰。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="editor-tab-panel" data-editor-panel="testcases" hidden>
+                    <div class="editor-section-head">
+                        <div>
+                            <p class="eyebrow">Testcases</p>
+                            <h2>测试点配置</h2>
+                            <p>当前面板只显示测试点相关内容。公开样例、隐藏测试和批量导入都集中在这里。</p>
+                        </div>
+                        <div class="toolbar-cluster">
+                            <button type="button" class="btn btn-secondary" id="add-sample-btn">新增公开样例</button>
+                            <button type="button" class="btn btn-secondary" id="add-hidden-btn">新增隐藏测试</button>
+                            <button type="button" class="btn btn-ghost" id="clear-testcases-btn">恢复默认</button>
+                        </div>
+                    </div>
+
+                    <div class="import-panel">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="input-files">输入文件</label>
+                                <input id="input-files" class="file-input" type="file" accept=".in,.txt,text/plain" multiple>
+                            </div>
+                            <div class="field">
+                                <label for="answer-files">答案文件</label>
+                                <input id="answer-files" class="file-input" type="file" accept=".ans,.txt,text/plain" multiple>
+                            </div>
+                            <div class="field">
+                                <label for="uploaded-testcase-visibility">导入后类型</label>
+                                <select id="uploaded-testcase-visibility">
+                                    <option value="hidden">作为隐藏测试</option>
+                                    <option value="visible">作为公开样例</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input id="zip-testcase-upload" type="file" accept=".zip,application/zip,application/x-zip-compressed" hidden>
+                        <div class="hero-actions" style="margin-top:1rem;">
+                            <button type="button" class="btn btn-secondary" id="import-testcase-btn">导入已配对文件</button>
+                            <button type="button" class="btn btn-secondary" id="import-zip-btn">导入 ZIP 压缩包</button>
+                        </div>
+                    </div>
+
+                    <p class="helper" style="margin-bottom:1rem;">建议至少保留一个公开样例，方便做题者理解输入输出格式。</p>
+                    <div id="testcase-list" class="testcase-list"></div>
+                </section>
+
+                <section class="editor-tab-panel" data-editor-panel="ai" hidden>
+                    <div class="editor-section-head">
+                        <div>
+                            <p class="eyebrow">AI Direction</p>
+                            <h2>AI助手提示词方向</h2>
+                            <p>这里填写这道题希望 AI 重点关注的分析方向。提交诊断和成长报告生成时会把这段内容一起带给 AI。</p>
+                        </div>
+                    </div>
+
+                    <div class="editor-split">
+                        <div class="editor-split__pane">
+                            <div class="editor-block">
+                                <div class="editor-block__head">
+                                    <div>
+                                        <h3>提示词方向</h3>
+                                        <p class="helper">可以写成阅卷偏好、关注点、鼓励风格、算法方向提示，或你不希望 AI 偏离的边界。</p>
+                                    </div>
+                                </div>
+                                <label class="helper" for="ai-prompt-direction">面向 AI 的补充说明</label>
+                                <textarea id="ai-prompt-direction" class="native-editor native-editor--markdown" style="min-height:360px;" placeholder="例如：优先指出边界条件遗漏；如果代码已 AC，则重点评价复杂度和可维护性；避免空泛鼓励，尽量结合 OJ 场景给出可执行建议。"></textarea>
+                            </div>
+                        </div>
+                        <div class="editor-split__pane">
+                            <div class="preview-panel">
+                                <div class="preview-panel__head">
+                                    <div>
+                                        <h3>填写建议</h3>
+                                        <p class="helper">这块不是写给做题者看的，而是写给后续 AI 分析模型看的。</p>
+                                    </div>
+                                </div>
+                                <div class="note-card">
+                                    <strong>适合写的内容</strong>
+                                    <p>例如：希望 AI 更关注边界条件、复杂度、代码风格、首次失败测试点的定位过程，或者希望 AI 采用更严格/更鼓励的语气。</p>
+                                </div>
+                                <div class="note-card">
+                                    <strong>不建议写的内容</strong>
+                                    <p>不要直接泄露隐藏测试点，不要要求 AI 输出与评测事实冲突的结论，也不要让 AI 忽略错误结果本身。</p>
+                                </div>
+                                <div class="note-card">
+                                    <strong>推荐模板</strong>
+                                    <p>请优先结合 OJ 场景分析代码正确性；如果未通过，重点定位首个失败样例背后的逻辑偏差；如果已通过，则重点评价复杂度、边界覆盖和代码可维护性。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="editor-submit-shell">
+                <div class="editor-submit-shell__meta">
+                    <div class="checklist">
+                        <div class="check-item" data-check="title"><div class="check-item__main"><div class="check-item__icon">1</div><span>已填写题目标题</span></div><strong>待完成</strong></div>
+                        <div class="check-item" data-check="description"><div class="check-item__main"><div class="check-item__icon">2</div><span>题面内容已完善</span></div><strong>待完成</strong></div>
+                        <div class="check-item" data-check="visible"><div class="check-item__main"><div class="check-item__icon">3</div><span>至少一个公开样例</span></div><strong>待完成</strong></div>
+                        <div class="check-item" data-check="tests"><div class="check-item__main"><div class="check-item__icon">4</div><span>测试点数量有效</span></div><strong>待完成</strong></div>
+                    </div>
+
+                    <div class="summary-grid">
+                        <div class="summary-card"><span>公开样例</span><strong id="summary-visible-count">0</strong></div>
+                        <div class="summary-card"><span>隐藏测试</span><strong id="summary-hidden-count">0</strong></div>
+                        <div class="summary-card"><span>测试点总数</span><strong id="summary-total-count">0</strong></div>
+                        <div class="summary-card"><span>完成项</span><strong id="summary-ready-count">0 / 4</strong></div>
+                    </div>
+                </div>
+
+                <div class="editor-submit-shell__actions">
+                    <div>
+                        <p class="eyebrow" id="submit-section-eyebrow">发布</p>
+                        <h2 id="submit-section-title">创建题目</h2>
+                        <p id="submit-section-copy" class="helper">校验通过后会直接创建题目，并跳转到题目详情页。</p>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="/" class="btn btn-secondary" id="cancel-link">取消</a>
+                        <button type="submit" class="btn btn-primary" id="create-problem-btn">发布题目</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </main>
+
+    <template id="testcase-template">
+        <article class="testcase-card">
+            <div class="testcase-head">
+                <div>
+                    <div class="item-title">测试点 <span class="testcase-number"></span></div>
+                    <div class="testcase-origin">手动录入</div>
+                </div>
+                <button type="button" class="btn btn-ghost remove-testcase-btn">删除</button>
+            </div>
+            <label class="toggle-line">
+                <input type="checkbox" class="testcase-hidden">
+                作为隐藏评测点
+            </label>
+            <div class="testcase-grid">
+                <div class="field">
+                    <label>输入</label>
+                    <textarea class="testcase-input" rows="7" placeholder="填写该测试点的输入"></textarea>
+                </div>
+                <div class="field">
+                    <label>标准输出</label>
+                    <textarea class="testcase-output" rows="7" placeholder="填写该测试点的标准输出"></textarea>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <script src="/assets/js/core/ui.js?v=20260415h" defer></script>
+    <script src="/assets/vendor/jszip.min.js" defer></script>
+    <script src="/assets/js/pages/problem-form-page.js?v=20260415g" defer></script>
+</body>
+</html>

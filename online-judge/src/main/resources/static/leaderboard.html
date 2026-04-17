@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeJudge 排行榜</title>
+    <link rel="stylesheet" href="/assets/css/app.css?v=20260415h">
+</head>
+<body>
+    <header class="app-header">
+        <div class="app-header__inner">
+            <a href="/" class="brand">
+                <div class="brand__mark" aria-hidden="true">&lt;/&gt;</div>
+                <div>
+                    <div class="brand__title">CodeJudge</div>
+                    <div class="brand__subtitle">轻量中文在线评测台</div>
+                </div>
+            </a>
+
+            <div class="app-header__actions">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换夜间模式"></button>
+                <nav class="app-nav">
+                    <a href="/" class="app-nav__link">题库</a>
+                    <a href="/problem-create.html" class="app-nav__link">创建题目</a>
+                    <a href="/leaderboard.html" class="app-nav__link active">排行榜</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">题目排行榜</p>
+                <h1>像一个数据看板，而不是一张笨重表格。</h1>
+                <p>排行榜会优先命中本地缓存，再由后台拉取最新聚合统计。后端也已经改成直接查询排行榜投影，不再为了展示榜单把所有提交整批拉回内存。</p>
+                <div class="hero-actions">
+                    <a href="/" class="btn btn-secondary">返回题库</a>
+                    <a href="/problem-create.html" class="btn btn-primary">新增题目</a>
+                </div>
+            </div>
+            <div class="mini-grid">
+                <div class="mini-card">
+                    <span>上榜题目</span>
+                    <strong id="hero-ranked-count">-</strong>
+                </div>
+                <div class="mini-card">
+                    <span>总通过数</span>
+                    <strong id="hero-accepted-total">-</strong>
+                </div>
+                <div class="mini-card">
+                    <span>总提交数</span>
+                    <strong id="hero-submission-total">-</strong>
+                </div>
+                <div class="mini-card">
+                    <span>平均通过率</span>
+                    <strong id="hero-acceptance-rate">-</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-top">
+            <div>
+                <h2>榜单视图</h2>
+                <p class="helper" id="leaderboard-summary">正在加载排行榜...</p>
+            </div>
+        </section>
+
+        <section class="control-bar">
+            <div class="search-shell field">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-3.5-3.5"></path>
+                </svg>
+                <input id="leaderboard-search" type="search" placeholder="搜索题目标题">
+            </div>
+
+            <div class="filter-row" id="leaderboard-filter">
+                <button type="button" class="chip active" data-filter="ALL">全部</button>
+                <button type="button" class="chip" data-filter="EASY">简单</button>
+                <button type="button" class="chip" data-filter="MEDIUM">中等</button>
+                <button type="button" class="chip" data-filter="HARD">困难</button>
+            </div>
+
+            <div class="field">
+                <select id="leaderboard-sort">
+                    <option value="rank">按榜单顺序</option>
+                    <option value="accepted">按通过数</option>
+                    <option value="acceptance">按通过率</option>
+                    <option value="speed">按最快 AC</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="ranking-list" id="leaderboard-list">
+            <div class="skeleton" style="height: 164px;"></div>
+            <div class="skeleton" style="height: 164px;"></div>
+            <div class="skeleton" style="height: 164px;"></div>
+        </section>
+    </main>
+
+    <script src="/assets/js/core/ui.js?v=20260415h" defer></script>
+    <script src="/assets/js/pages/leaderboard-page.js?v=20260415e" defer></script>
+</body>
+</html>

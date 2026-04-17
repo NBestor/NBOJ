@@ -1,0 +1,43 @@
+debug: false
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: online-judge
+  datasource:
+    url: jdbc:h2:file:./data/onlinejudge
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+executor:
+  mode: local
+
+ai:
+  enabled: true
+  base-url: https://api-inference.modelscope.cn/v1
+  api-key: ${MODELSCOPE_API_KEY:}
+  model: MiniMax/MiniMax-M2.7
+  timeout-seconds: 25
+
+logging:
+  file:
+    name: logs/online-judge.log
+  level:
+    root: INFO
+    com.onlinejudge: INFO
+    org.springframework: INFO
+    org.hibernate.SQL: WARN

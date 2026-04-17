@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeJudge 题库</title>
+    <meta name="description" content="浏览题库、筛选难度并快速进入在线评测。">
+    <link rel="stylesheet" href="/assets/css/app.css?v=20260415h">
+</head>
+<body>
+    <header class="app-header">
+        <div class="app-header__inner">
+            <a href="/" class="brand">
+                <div class="brand__mark" aria-hidden="true">&lt;/&gt;</div>
+                <div>
+                    <div class="brand__title">CodeJudge</div>
+                    <div class="brand__subtitle">轻量中文在线评测台</div>
+                </div>
+            </a>
+
+            <div class="app-header__actions">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换夜间模式"></button>
+                <nav class="app-nav">
+                    <a href="/" class="app-nav__link active">题库</a>
+                    <a href="/problem-create.html" class="app-nav__link">创建题目</a>
+                    <a href="/leaderboard.html" class="app-nav__link">排行榜</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">题库工作台</p>
+                <h1>更快地找题、筛题，然后直接开做。</h1>
+                <p>首页优先显示本地缓存，再由后台同步最新题库。搜索、排序和难度筛选都在前端完成，题量增大时页面也更轻快。</p>
+                <div class="hero-actions">
+                    <a href="/problem-create.html" class="btn btn-primary">创建新题</a>
+                    <a href="/leaderboard.html" class="btn btn-secondary">查看排行榜</a>
+                </div>
+                <div class="chip-row">
+                    <span class="chip">中文界面优先</span>
+                    <span class="chip">缓存秒开</span>
+                    <span class="chip">按难度筛选</span>
+                </div>
+            </div>
+            <div class="mini-grid">
+                <div class="mini-card">
+                    <span>当前展示</span>
+                    <strong id="hero-problem-count">-</strong>
+                </div>
+                <div class="mini-card">
+                    <span>简单题占比</span>
+                    <strong id="hero-easy-rate">-</strong>
+                </div>
+                <div class="mini-card">
+                    <span>时限中位数</span>
+                    <strong id="hero-time-median">-</strong>
+                </div>
+                <div class="mini-card">
+                    <span>最近发布时间</span>
+                    <strong id="hero-latest-time">-</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <span>题目总数</span>
+                <strong id="stat-total">-</strong>
+            </div>
+            <div class="stat-card">
+                <span>简单题</span>
+                <strong id="stat-easy">-</strong>
+            </div>
+            <div class="stat-card">
+                <span>中等题</span>
+                <strong id="stat-medium">-</strong>
+            </div>
+            <div class="stat-card">
+                <span>困难题</span>
+                <strong id="stat-hard">-</strong>
+            </div>
+        </section>
+
+        <section class="section-top">
+            <div>
+                <h2>题目列表</h2>
+                <p class="helper" id="problem-summary">正在加载题库...</p>
+            </div>
+        </section>
+
+        <section class="control-bar">
+            <div class="search-shell field">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-3.5-3.5"></path>
+                </svg>
+                <input id="problem-search" type="search" placeholder="搜索题目标题或摘要">
+            </div>
+
+            <div class="filter-row" id="difficulty-filter">
+                <button type="button" class="chip active" data-filter="ALL">全部</button>
+                <button type="button" class="chip" data-filter="EASY">简单</button>
+                <button type="button" class="chip" data-filter="MEDIUM">中等</button>
+                <button type="button" class="chip" data-filter="HARD">困难</button>
+            </div>
+
+            <div class="field">
+                <select id="problem-sort">
+                    <option value="recent">按发布时间</option>
+                    <option value="id">按编号</option>
+                    <option value="difficulty">按难度</option>
+                    <option value="timeLimit">按时限</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="card-list" id="problem-list">
+            <div class="skeleton" style="height: 132px;"></div>
+            <div class="skeleton" style="height: 132px;"></div>
+            <div class="skeleton" style="height: 132px;"></div>
+        </section>
+    </main>
+
+    <script src="/assets/js/core/ui.js?v=20260415h" defer></script>
+    <script src="/assets/js/pages/index-page.js?v=20260415e" defer></script>
+</body>
+</html>

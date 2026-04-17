@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题目详情 - CodeJudge</title>
+    <link rel="stylesheet" href="/assets/css/app.css?v=20260416i">
+</head>
+<body class="page-problem">
+    <header class="app-header">
+        <div class="app-header__inner">
+            <a href="/" class="brand">
+                <div class="brand__mark">&lt;/&gt;</div>
+                <div>
+                    <div class="brand__title">CodeJudge</div>
+                    <div class="brand__subtitle">中文在线评测与 AI 诊断工作台</div>
+                </div>
+            </a>
+            <div class="app-header__actions">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换深浅色主题"></button>
+                <nav class="app-nav">
+                    <a href="/" class="app-nav__link active">题库</a>
+                    <a href="/problem-create.html" class="app-nav__link">创建题目</a>
+                    <a href="/leaderboard.html" class="app-nav__link">排行榜</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero hero--dense">
+            <div>
+                <a href="/" class="text-link">返回题库</a>
+                <h1 id="problem-title">加载题目中...</h1>
+                <p id="problem-summary" class="helper">正在读取题面、样例和最近提交。</p>
+                <div class="chip-row">
+                    <span class="difficulty-pill easy" id="difficulty-badge">-</span>
+                    <span class="limit-pill" id="time-limit-pill">时限 -</span>
+                    <span class="limit-pill" id="memory-limit-pill">内存 -</span>
+                    <span class="source-pill" id="analysis-source-pill">AI 分析待生成</span>
+                </div>
+            </div>
+
+            <div class="mini-grid">
+                <div class="mini-card"><span>公开样例</span><strong id="sample-count">0</strong></div>
+                <div class="mini-card"><span>提交记录</span><strong id="submission-count">0</strong></div>
+                <div class="mini-card"><span>当前语言</span><strong id="language-label">Python 3</strong></div>
+                <div class="mini-card"><span>最新结果</span><strong id="result-status">未提交</strong></div>
+            </div>
+        </section>
+
+        <div id="page-alert"></div>
+
+        <section class="problem-browser" id="problem-browser">
+            <div class="problem-browser__left" id="problem-left-panel">
+                <article class="panel problem-side-panel">
+                    <div class="problem-side-panel__toolbar">
+                        <div class="problem-tablist" role="tablist" aria-label="题目浏览分区">
+                            <button type="button" class="problem-tab is-active" data-problem-tab="statement" aria-selected="true">题目描述</button>
+                            <button type="button" class="problem-tab" data-problem-tab="history" aria-selected="false">测试历史</button>
+                            <button type="button" class="problem-tab" data-problem-tab="analysis" aria-selected="false">AI 过程分析</button>
+                        </div>
+                        <div class="problem-side-panel__actions">
+                            <div class="toolbar-cluster" id="statement-action-group">
+                                <a href="/problem-create.html" class="btn btn-secondary" id="edit-problem-link">编辑题目</a>
+                                <button type="button" class="btn-danger" id="delete-problem-btn">删除题目</button>
+                            </div>
+                            <button type="button" class="btn btn-secondary section-expand-btn" id="toggle-left-expand-btn" data-expand-target="left" aria-pressed="false" aria-label="扩展左侧区域">
+                                <span class="tech-frame-icon" aria-hidden="true">
+                                    <span class="corner top-left"></span>
+                                    <span class="corner top-right"></span>
+                                    <span class="corner bottom-left"></span>
+                                    <span class="corner bottom-right"></span>
+                                </span>
+                                <span class="section-expand-btn__label">扩展</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="problem-side-panel__body">
+                        <section class="problem-tab-panel is-active" data-problem-panel="statement">
+                            <div class="panel-head problem-tab-panel__head">
+                                <div>
+                                    <p class="eyebrow">Statement</p>
+                                    <h2>题目描述</h2>
+                                    <p>这里保持纯 Markdown 渲染展示，样例切换与复制也保留在同一区域。</p>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div id="problem-description" class="statement-body">
+                                    <div class="skeleton" style="height: 280px;"></div>
+                                </div>
+                                <div class="section-top" style="margin-top:1.5rem;">
+                                    <div>
+                                        <h2 style="font-size:1.2rem;">样例演示</h2>
+                                        <p class="helper">支持切换公开样例，并可直接复制输入输出。</p>
+                                    </div>
+                                </div>
+                                <div class="chip-row" id="sample-tab-bar"></div>
+                                <div id="sample-testcases"></div>
+                            </div>
+                        </section>
+
+                        <section class="problem-tab-panel" data-problem-panel="history" hidden>
+                            <div class="panel-head problem-tab-panel__head">
+                                <div>
+                                    <p class="eyebrow">History</p>
+                                    <h2>测试历史</h2>
+                                    <p>默认展示摘要列表，点击单条再展开代码、AI 评价和测试点明细。</p>
+                                </div>
+                                <div class="toolbar-cluster">
+                                    <button type="button" class="btn btn-secondary" id="refresh-history-btn">刷新历史</button>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div id="history-list" class="history-list"></div>
+                            </div>
+                        </section>
+
+                        <section class="problem-tab-panel" data-problem-panel="analysis" hidden>
+                            <div class="panel-head problem-tab-panel__head">
+                                <div>
+                                    <p class="eyebrow">AI Insight</p>
+                                    <h2>AI 过程分析</h2>
+                                    <p>这里集中展示最新 AI 诊断、代码对比和成长历程，避免和题面、历史混在一起。</p>
+                                </div>
+                            </div>
+                            <div class="panel-body problem-analysis-stack">
+                                <article class="analysis-module">
+                                    <div class="section-top">
+                                        <div>
+                                            <h3>最新 AI 分析</h3>
+                                            <p class="helper">保留摘要，完整报告继续通过悬浮窗查看。</p>
+                                        </div>
+                                    </div>
+                                    <div id="analysis-host">
+                                        <div class="empty-card">
+                                            <h3>还没有 AI 报告</h3>
+                                            <p>完成一次提交后，这里会显示最新分析摘要与查看入口。</p>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="analysis-module">
+                                    <div class="section-top">
+                                        <div>
+                                            <h3>代码对比</h3>
+                                            <p class="helper">选择任意两次提交，查看代码变化与结果迁移。</p>
+                                        </div>
+                                    </div>
+                                    <div class="compare-toolbar">
+                                        <div class="field">
+                                            <label for="compare-left">基线提交</label>
+                                            <select id="compare-left"></select>
+                                        </div>
+                                        <div class="field">
+                                            <label for="compare-right">目标提交</label>
+                                            <select id="compare-right"></select>
+                                        </div>
+                                        <div class="hero-actions" style="margin-top:auto;">
+                                            <button type="button" class="btn btn-primary" id="run-compare-btn">生成对比</button>
+                                        </div>
+                                    </div>
+                                    <div id="comparison-host" class="compare-host"></div>
+                                </article>
+
+                                <article class="analysis-module">
+                                    <div class="section-top">
+                                        <div>
+                                            <h3>成长历程</h3>
+                                            <p class="helper">按需生成整题复盘，主页面只保留里程碑和摘要。</p>
+                                        </div>
+                                        <div class="toolbar-cluster">
+                                            <button type="button" class="btn btn-primary" id="generate-report-btn">生成成长报告</button>
+                                            <a class="btn btn-secondary is-disabled" id="export-markdown-btn" href="#" aria-disabled="true">导出 Markdown</a>
+                                            <a class="btn btn-secondary is-disabled" id="export-pdf-btn" href="#" aria-disabled="true">导出 PDF</a>
+                                        </div>
+                                    </div>
+                                    <div id="growth-report-summary" class="summary-grid"></div>
+                                    <div id="growth-report-host" class="statement-body" style="margin-top:1rem;">
+                                        <div class="empty-card">
+                                            <h3>尚未生成成长报告</h3>
+                                            <p>点击上方按钮后，会基于当前提交轨迹生成完整复盘。</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+            </div>
+
+            <aside class="problem-browser__right">
+                <article class="panel problem-ide-panel">
+                    <div class="panel-head">
+                        <div>
+                            <p class="eyebrow">Workspace</p>
+                            <h2>代码 IDE 区域</h2>
+                            <p>分屏时与左侧标签内容并排；扩展后会独占主区域，但仍保留当前语言、草稿与评测状态。</p>
+                        </div>
+                        <button type="button" class="btn btn-secondary section-expand-btn" id="toggle-right-expand-btn" data-expand-target="right" aria-pressed="false" aria-label="扩展代码区域">
+                            <span class="tech-frame-icon" aria-hidden="true">
+                                <span class="corner top-left"></span>
+                                <span class="corner top-right"></span>
+                                <span class="corner bottom-left"></span>
+                                <span class="corner bottom-right"></span>
+                            </span>
+                            <span class="section-expand-btn__label">扩展</span>
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="action-row" style="justify-content:space-between;">
+                            <div class="field" style="min-width:180px;">
+                                <label for="language-select">语言</label>
+                                <select id="language-select">
+                                    <option value="71">Python 3</option>
+                                    <option value="62">Java</option>
+                                    <option value="54">C++ (GCC)</option>
+                                    <option value="63">JavaScript (Node.js)</option>
+                                    <option value="50">C (GCC)</option>
+                                </select>
+                            </div>
+                            <div class="toolbar-cluster" style="margin-top:auto;">
+                                <button type="button" class="btn btn-secondary" id="reset-template-btn">恢复模板</button>
+                                <button type="button" class="btn btn-ghost" id="clear-code-btn">清空代码</button>
+                            </div>
+                        </div>
+                        <div class="code-editor-layout">
+                            <div class="code-editor-shell" id="code-editor-shell">
+                                <div class="code-editor-gutter" id="code-editor-gutter" aria-hidden="true"></div>
+                                <div class="code-editor-backdrop" id="code-editor-backdrop" aria-hidden="true"></div>
+                                <textarea id="code-editor" class="native-editor native-editor--code"></textarea>
+                            </div>
+                            <div class="code-editor-insights" id="code-editor-insights" aria-live="polite"></div>
+                        </div>
+                        <p class="helper" id="draft-status" style="margin-top:0.75rem;">草稿会自动保存到本地浏览器。</p>
+                        <div class="hero-actions" style="margin-top:0.75rem;">
+                            <button type="button" class="btn btn-secondary" id="rerun-analysis-btn">重新纠错</button>
+                            <button type="button" class="btn btn-ghost" id="clear-insights-btn">清除高亮</button>
+                        </div>
+                        <div class="hero-actions" style="margin-top:1rem;">
+                            <button type="button" class="btn btn-primary" id="submit-btn">提交评测</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="panel results-panel" id="results-panel">
+                    <div class="panel-head">
+                        <div>
+                            <p class="eyebrow">Judge</p>
+                            <h2>最近一次提交</h2>
+                        </div>
+                        <span class="verdict-pill pending" id="verdict-badge">-</span>
+                    </div>
+                    <div class="panel-body">
+                        <p class="helper" id="results-stats">暂无评测结果。</p>
+                        <div id="results-content" style="margin-top:1rem;">
+                            <div class="empty-card">
+                                <h3>还没有提交</h3>
+                                <p>完成一次提交后，这里会显示最新评测摘要和测试点结果。</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </aside>
+        </section>
+    </main>
+
+    <div class="overlay-modal" id="insight-modal" hidden>
+        <div class="overlay-modal__backdrop" data-modal-close></div>
+        <div class="overlay-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="insight-modal-title">
+            <div class="overlay-modal__head">
+                <div>
+                    <p class="eyebrow" id="insight-modal-eyebrow">详情</p>
+                    <h2 id="insight-modal-title">加载中...</h2>
+                </div>
+                <button type="button" class="overlay-modal__close" id="insight-modal-close" aria-label="关闭详情窗口">×</button>
+            </div>
+            <div class="overlay-modal__meta" id="insight-modal-meta"></div>
+            <div class="overlay-modal__body statement-body" id="insight-modal-body"></div>
+        </div>
+    </div>
+
+    <script src="/assets/js/core/ui.js?v=20260416i" defer></script>
+    <script src="/assets/js/core/code-assist.js?v=20260416i" defer></script>
+    <script src="/assets/js/pages/problem-page.js?v=20260416i" defer></script>
+</body>
+</html>
