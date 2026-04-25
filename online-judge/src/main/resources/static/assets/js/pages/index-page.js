@@ -1,6 +1,7 @@
 (function () {
     const API_BASE = "";
     const CACHE_KEY = "oj:problem-catalog:v1";
+    const SNAPSHOT_KEY = "oj:problem-catalog:snapshot:v1";
     const ui = window.CodeJudgeUI;
     const state = {
         problems: [],
@@ -12,6 +13,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         bindControls();
+        restoreSnapshot();
         hydrateCatalogFromCache();
         loadCatalog();
     });
@@ -53,6 +55,21 @@
 
         applyCatalog(cached.value, { showingCache: true });
         document.getElementById("problem-summary").textContent = "已优先展示本地缓存，正在同步最新题库...";
+    }
+
+    function restoreSnapshot() {
+        const cached = ui.readCache(SNAPSHOT_KEY, 5 * 60 * 1000);
+        if (!cached || !cached.value || cached.expired) {
+            return;
+        }
+
+        const snapshot = cached.value;
+        syncStateFromSnapshot(snapshot);
+        if (window.__OJ_HOME_SNAPSHOT_APPLIED__ === true) {
+            return;
+        }
+
+        applySnapshot(snapshot);
     }
 
     async function loadCatalog() {
@@ -98,6 +115,7 @@
             updateHero(filtered);
             updateStats(filtered);
             renderProblems(filtered);
+            saveSnapshot();
         });
     }
 
@@ -153,6 +171,86 @@
         document.getElementById("problem-summary").textContent = state.showingCache
             ? `共 ${state.problems.length} 道题，当前显示 ${problems.length} 道。正在后台刷新最新数据...`
             : `共 ${state.problems.length} 道题，当前显示 ${problems.length} 道。`;
+    }
+
+    function applySnapshot(snapshot) {
+        if (!snapshot || typeof snapshot !== "object") {
+            return;
+        }
+
+        setText("problem-summary", snapshot.summaryText);
+        setText("hero-problem-count", snapshot.heroProblemCount);
+        setText("hero-easy-rate", snapshot.heroEasyRate);
+        setText("hero-time-median", snapshot.heroTimeMedian);
+        setText("hero-latest-time", snapshot.heroLatestTime);
+        setText("stat-total", snapshot.statTotal);
+        setText("stat-easy", snapshot.statEasy);
+        setText("stat-medium", snapshot.statMedium);
+        setText("stat-hard", snapshot.statHard);
+
+        const problemList = document.getElementById("problem-list");
+        if (problemList && typeof snapshot.problemListHtml === "string" && snapshot.problemListHtml.trim()) {
+            problemList.innerHTML = snapshot.problemListHtml;
+        }
+    }
+
+    function syncStateFromSnapshot(snapshot) {
+        if (!snapshot || typeof snapshot !== "object") {
+            return;
+        }
+
+        const searchField = document.getElementById("problem-search");
+        if (searchField && typeof snapshot.search === "string") {
+            searchField.value = snapshot.search;
+            state.search = ui.normalizeKeyword(snapshot.search);
+        }
+
+        const sortField = document.getElementById("problem-sort");
+        if (sortField && typeof snapshot.sort === "string") {
+            sortField.value = snapshot.sort;
+            state.sort = snapshot.sort;
+        }
+
+        if (typeof snapshot.difficulty === "string") {
+            state.difficulty = snapshot.difficulty;
+            document.querySelectorAll("#difficulty-filter .chip").forEach(chip => {
+                chip.classList.toggle("active", chip.dataset.filter === snapshot.difficulty);
+            });
+        }
+    }
+
+    function saveSnapshot() {
+        const problemList = document.getElementById("problem-list");
+        if (!problemList) {
+            return;
+        }
+
+        ui.writeCache(SNAPSHOT_KEY, {
+            search: document.getElementById("problem-search").value || "",
+            difficulty: state.difficulty,
+            sort: state.sort,
+            summaryText: document.getElementById("problem-summary").textContent || "",
+            problemListHtml: problemList.innerHTML,
+            heroProblemCount: document.getElementById("hero-problem-count").textContent || "",
+            heroEasyRate: document.getElementById("hero-easy-rate").textContent || "",
+            heroTimeMedian: document.getElementById("hero-time-median").textContent || "",
+            heroLatestTime: document.getElementById("hero-latest-time").textContent || "",
+            statTotal: document.getElementById("stat-total").textContent || "",
+            statEasy: document.getElementById("stat-easy").textContent || "",
+            statMedium: document.getElementById("stat-medium").textContent || "",
+            statHard: document.getElementById("stat-hard").textContent || ""
+        });
+    }
+
+    function setText(id, value) {
+        if (typeof value !== "string") {
+            return;
+        }
+
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = value;
+        }
     }
 
     function updateStats(problems) {

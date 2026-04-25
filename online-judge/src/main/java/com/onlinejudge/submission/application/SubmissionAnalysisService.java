@@ -13,6 +13,8 @@ import com.onlinejudge.submission.domain.SubmissionCaseResult;
 import com.onlinejudge.problem.persistence.ProblemRepository;
 import com.onlinejudge.submission.persistence.SubmissionAnalysisRepository;
 import com.onlinejudge.submission.persistence.SubmissionCaseResultRepository;
+import com.onlinejudge.submission.persistence.SubmissionCaseResultStatsProjection;
+import com.onlinejudge.submission.persistence.SubmissionHistoryProjection;
 import com.onlinejudge.submission.persistence.SubmissionRepository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -79,32 +81,37 @@ public class SubmissionAnalysisService {
     }
 
     public List<SubmissionHistorySummaryResponse> getSubmissionHistorySummaries(Long problemId) {
-        Problem problem = problemRepository.findById(problemId)
+        String problemTitle = problemRepository.findTitleById(problemId)
                 .orElseThrow(() -> new IllegalArgumentException("题目不存在: " + problemId));
 
-        List<Submission> submissions = submissionRepository.findByProblemIdOrderBySubmittedAtDesc(problemId);
+        Problem problem = Problem.builder()
+                .title(problemTitle)
+                .build();
+
+        List<SubmissionHistoryProjection> submissions = submissionRepository.findHistorySummariesByProblemId(problemId);
         if (submissions.isEmpty()) {
             return List.of();
         }
 
         List<Long> submissionIds = submissions.stream()
-                .map(Submission::getId)
+                .map(SubmissionHistoryProjection::getId)
                 .toList();
 
         Map<Long, SubmissionAnalysis> analysisBySubmissionId = new HashMap<>();
         submissionAnalysisRepository.findBySubmissionIdIn(submissionIds)
                 .forEach(analysis -> analysisBySubmissionId.put(analysis.getSubmissionId(), analysis));
 
-        Map<Long, List<SubmissionCaseResult>> caseResultsBySubmissionId = submissionCaseResultRepository.findBySubmissionIdIn(submissionIds)
+        Map<Long, SubmissionCaseResultStatsProjection> caseResultStatsBySubmissionId = submissionCaseResultRepository
+                .summarizeBySubmissionIdIn(submissionIds)
                 .stream()
-                .collect(Collectors.groupingBy(SubmissionCaseResult::getSubmissionId));
+                .collect(Collectors.toMap(SubmissionCaseResultStatsProjection::getSubmissionId, stats -> stats));
 
         return submissions.stream()
                 .map(submission -> toHistorySummary(
                         submission,
                         problem,
                         analysisBySubmissionId.get(submission.getId()),
-                        caseResultsBySubmissionId.getOrDefault(submission.getId(), List.of())
+                        caseResultStatsBySubmissionId.get(submission.getId())
                 ))
                 .toList();
     }
@@ -562,14 +569,16 @@ public class SubmissionAnalysisService {
         return new ArrayList<>(unique);
     }
 
-    private SubmissionHistorySummaryResponse toHistorySummary(Submission submission,
+    private SubmissionHistorySummaryResponse toHistorySummary(SubmissionHistoryProjection submission,
                                                               Problem problem,
                                                               SubmissionAnalysis analysis,
-                                                              List<SubmissionCaseResult> caseResults) {
-        int totalTestCases = caseResults == null ? 0 : caseResults.size();
-        int passedTestCases = caseResults == null ? 0 : (int) caseResults.stream()
-                .filter(result -> Boolean.TRUE.equals(result.getPassed()))
-                .count();
+                                                              SubmissionCaseResultStatsProjection caseResultStats) {
+        int totalTestCases = caseResultStats == null || caseResultStats.getTotalTestCases() == null
+                ? 0
+                : caseResultStats.getTotalTestCases().intValue();
+        int passedTestCases = caseResultStats == null || caseResultStats.getPassedTestCases() == null
+                ? 0
+                : caseResultStats.getPassedTestCases().intValue();
         return SubmissionHistorySummaryResponse.builder()
                 .id(submission.getId())
                 .problemId(submission.getProblemId())

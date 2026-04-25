@@ -1,7 +1,10 @@
 (function () {
     const EMPTY_SUMMARY = "查看题目说明、样例和评测限制。";
     const THEME_KEY = "oj:theme";
-    const MATHJAX_CDN = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+    const NAV_CURRENT_ROUTE_KEY = "oj:nav:current-route";
+    const NAV_PREVIOUS_ROUTE_KEY = "oj:nav:previous-route";
+    const MATHJAX_CDN = "/assets/vendor/mathjax/tex-mml-svg.js?v=20260425d";
+    const MATHJAX_LOAD_TIMEOUT_MS = 1500;
     const MATHJAX_TEX_EXTENSIONS = ["color", "html", "bbox", "textmacros"];
     const MATHJAX_TEX_LOADS = MATHJAX_TEX_EXTENSIONS.map(name => `[tex]/${name}`);
     let mathJaxPromise = null;
@@ -84,10 +87,29 @@
         }
 
         mathJaxPromise = new Promise((resolve, reject) => {
+            let settled = false;
+            const settle = callback => value => {
+                if (settled) {
+                    return;
+                }
+                settled = true;
+                callback(value);
+            };
+            const resolveOnce = settle(resolve);
+            const rejectOnce = settle(reject);
+            const timeout = window.setTimeout(() => {
+                rejectOnce(new Error("MathJax load timed out."));
+            }, MATHJAX_LOAD_TIMEOUT_MS);
             const existingScript = document.querySelector(`script[data-mathjax-loader="true"]`);
             if (existingScript) {
-                existingScript.addEventListener("load", () => resolve(window.MathJax), { once: true });
-                existingScript.addEventListener("error", reject, { once: true });
+                existingScript.addEventListener("load", () => {
+                    window.clearTimeout(timeout);
+                    resolveOnce(window.MathJax);
+                }, { once: true });
+                existingScript.addEventListener("error", error => {
+                    window.clearTimeout(timeout);
+                    rejectOnce(error);
+                }, { once: true });
                 return;
             }
 
@@ -131,8 +153,14 @@
             script.src = MATHJAX_CDN;
             script.async = true;
             script.dataset.mathjaxLoader = "true";
-            script.addEventListener("load", () => resolve(window.MathJax), { once: true });
-            script.addEventListener("error", error => reject(error), { once: true });
+            script.addEventListener("load", () => {
+                window.clearTimeout(timeout);
+                resolveOnce(window.MathJax);
+            }, { once: true });
+            script.addEventListener("error", error => {
+                window.clearTimeout(timeout);
+                rejectOnce(error);
+            }, { once: true });
             document.head.appendChild(script);
         }).catch(error => {
             mathJaxPromise = null;
@@ -600,6 +628,76 @@
         }
     }
 
+    function getCurrentRoute() {
+        return `${window.location.pathname || "/"}${window.location.search || ""}`;
+    }
+
+    function isHomeRoute(route) {
+        return typeof route === "string" && (route === "/" || route.startsWith("/?"));
+    }
+
+    function trackNavigationRoute() {
+        const storage = getSessionStorage();
+        if (!storage) {
+            return;
+        }
+
+        try {
+            const currentRoute = getCurrentRoute();
+            const previousCurrentRoute = storage.getItem(NAV_CURRENT_ROUTE_KEY);
+            if (previousCurrentRoute && previousCurrentRoute !== currentRoute) {
+                storage.setItem(NAV_PREVIOUS_ROUTE_KEY, previousCurrentRoute);
+            }
+            storage.setItem(NAV_CURRENT_ROUTE_KEY, currentRoute);
+        } catch (error) {
+            // ignore navigation tracking failures
+        }
+    }
+
+    function shouldUseHistoryBackForHome() {
+        if (isHomeRoute(getCurrentRoute()) || window.history.length <= 1) {
+            return false;
+        }
+
+        const storage = getSessionStorage();
+        if (!storage) {
+            return false;
+        }
+
+        try {
+            return isHomeRoute(storage.getItem(NAV_PREVIOUS_ROUTE_KEY));
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function isModifiedNavigation(event) {
+        return event.defaultPrevented
+            || event.button !== 0
+            || event.metaKey
+            || event.ctrlKey
+            || event.shiftKey
+            || event.altKey;
+    }
+
+    function bindSmartHomeLinks() {
+        document.querySelectorAll('a[href="/"], a[href^="/?"]').forEach(link => {
+            if (link.dataset.smartHomeBound === "true") {
+                return;
+            }
+
+            link.dataset.smartHomeBound = "true";
+            link.addEventListener("click", event => {
+                if (isModifiedNavigation(event) || !shouldUseHistoryBackForHome()) {
+                    return;
+                }
+
+                event.preventDefault();
+                window.history.back();
+            });
+        });
+    }
+
     function getLocalStorage() {
         try {
             return window.localStorage;
@@ -667,8 +765,13 @@
     }
 
     applyTheme(readTheme());
+    trackNavigationRoute();
+    window.addEventListener("pageshow", () => {
+        trackNavigationRoute();
+    });
     document.addEventListener("DOMContentLoaded", () => {
         bindThemeToggles();
+        bindSmartHomeLinks();
         bindMathObserver();
     });
 

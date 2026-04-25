@@ -9,7 +9,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "submissions")
+@Table(
+        name = "submissions",
+        indexes = {
+                @Index(name = "idx_submissions_problem_submitted_at", columnList = "problem_id, submitted_at")
+        }
+)
 @Data
 @Builder
 @NoArgsConstructor

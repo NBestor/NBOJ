@@ -76,20 +76,54 @@ public class AiReportService {
                     submission.getId(),
                     submission.getProblemId(),
                     submission.getLanguageName());
+            String rawSourceCode = submission.getSourceCode() == null ? "" : submission.getSourceCode();
+            List<SubmissionAnalysisResponse.LineIssue> baselineLineIssues = fallback == null || fallback.getLineIssues() == null
+                    ? List.of()
+                    : fallback.getLineIssues();
             Map<String, Object> context = new LinkedHashMap<>();
             context.put("problemTitle", problem.getTitle());
             context.put("problemDescription", problem.getDescription());
             context.put("aiPromptDirection", problem.getAiPromptDirection() == null ? "" : problem.getAiPromptDirection());
             context.put("verdict", submission.getVerdict() == null ? "UNKNOWN" : submission.getVerdict().name());
             context.put("language", submission.getLanguageName());
-            context.put("sourceCode", truncateSourceCode(submission.getSourceCode()));
-            context.put("numberedSourceCode", aiCodeAssistSupport.addLineNumbers(truncateSourceCode(submission.getSourceCode())));
+            context.put("sourceCode", truncateSourceCode(rawSourceCode));
+            context.put("sourceCodeLineCount", countSourceLines(rawSourceCode));
+            context.put("sourceCodeForLineAnalysis", buildLineAwareSourceCode(rawSourceCode));
+            context.put("baselineLineIssues", baselineLineIssues);
             context.put("compileOutput", submission.getCompileOutput() == null ? "" : submission.getCompileOutput());
             context.put("runtimeErrorMessage", submission.getErrorMessage() == null ? "" : submission.getErrorMessage());
             context.put("baselineAnalysis", fallback);
             context.put("firstFailedCase", fallback == null ? null : fallback.getFirstFailedCase());
 
-            String content = chatCompletion(
+            String systemPrompt = """
+                    You are an online judge debugging assistant.
+                    Return strict JSON only. Do not wrap the response in markdown fences.
+                    Do not output explanations, chain-of-thought, XML, or any text outside the JSON object.
+                    All generated user-facing strings must be Simplified Chinese.
+
+                    Required JSON fields:
+                    headline(string),
+                    summary(string),
+                    focusPoints(string[]),
+                    fixDirections(string[]),
+                    wrongSolution(string|null),
+                    correctSolution(string|null),
+                    lineIssues([{lineNumber(number), error(string), suggestion(string)}]),
+                    reportMarkdown(string)
+
+                    Rules for line-aware analysis:
+                    1. You must analyze sourceCodeForLineAnalysis first. It contains the real source code with line numbers.
+                    2. If baselineLineIssues, compileOutput, or runtimeErrorMessage already expose concrete line numbers, preserve or refine those lines instead of inventing new ones.
+                    3. Any code-specific diagnosis must include a concrete lineNumber.
+                    4. Every lineIssues item must contain both error and suggestion.
+                    5. If you cannot confidently locate a concrete line, return an empty array [] instead of guessing.
+                    6. If verdict is COMPILATION_ERROR, prioritize compileOutput. If verdict is RUNTIME_ERROR, prioritize runtimeErrorMessage and stack traces.
+                    7. reportMarkdown should mention concrete line numbers whenever it talks about code issues.
+                    8. Hidden test cases must not be guessed or leaked.
+                    9. Keep the advice grounded in the judging facts and the provided code.
+                    """;
+            String userPrompt = "Generate the JSON from this context: " + objectMapper.writeValueAsString(context);
+            String content = chatCompletion(systemPrompt, userPrompt); /*
                     """
                     你是中文 OJ 智能教练。
                     请根据评测结果输出严格 JSON，不要输出 Markdown 代码块，不要输出 JSON 之外的任何解释，不要输出 <think>、思考过程或草稿。
@@ -122,7 +156,7 @@ public class AiReportService {
                     4. 可以比 baseline 更自然，但不能偏离评测事实。
                     """,
                     "请基于以下上下文生成 JSON：" + objectMapper.writeValueAsString(context)
-            );
+            ); */
 
             AiAnalysisPayload payload = parseAnalysisPayload(content);
             if (payload == null || payload.reportMarkdown == null || payload.reportMarkdown.isBlank()) {
@@ -139,7 +173,7 @@ public class AiReportService {
                             .fixDirections(cleanList(fallback.getFixDirections(), List.of()))
                             .wrongSolution(fallback.getWrongSolution())
                             .correctSolution(fallback.getCorrectSolution())
-                            .lineIssues(fallback.getLineIssues() == null ? List.of() : fallback.getLineIssues())
+                            .lineIssues(baselineLineIssues)
                             .firstFailedCase(fallback.getFirstFailedCase())
                             .reportMarkdown(markdownFallback)
                             .generatedAt(fallback.getGeneratedAt())
@@ -162,8 +196,8 @@ public class AiReportService {
                             toLineIssueCandidates(payload),
                             payload == null ? null : payload.reportMarkdown,
                             content,
-                            submission.getSourceCode(),
-                            fallback.getLineIssues()
+                            rawSourceCode,
+                            baselineLineIssues
                     ))
                     .firstFailedCase(fallback.getFirstFailedCase())
                     .reportMarkdown(cleanupAiText(payload.reportMarkdown))
@@ -338,7 +372,7 @@ public class AiReportService {
         return sourceCode.substring(0, MAX_SOURCE_CODE_LENGTH) + "\n// ... truncated ...";
     }
 
-    private String addLineNumbers(String sourceCode) {
+    private String buildLineAwareSourceCode(String sourceCode) {
         if (sourceCode == null || sourceCode.isBlank()) {
             return "";
         }
@@ -347,12 +381,19 @@ public class AiReportService {
         String[] lines = normalized.split("\n", -1);
         StringBuilder builder = new StringBuilder();
         for (int index = 0; index < lines.length; index++) {
+            String numberedLine = (index + 1) + ": " + lines[index];
+            if (builder.length() > 0 && builder.length() + numberedLine.length() + 1 > MAX_SOURCE_CODE_LENGTH) {
+                builder.append("\n... truncated after line ")
+                        .append(index)
+                        .append(" of ")
+                        .append(lines.length)
+                        .append(" ...");
+                break;
+            }
             if (index > 0) {
                 builder.append('\n');
             }
-            builder.append(index + 1)
-                    .append(": ")
-                    .append(lines[index]);
+            builder.append(numberedLine);
         }
         return builder.toString();
     }

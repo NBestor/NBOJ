@@ -16,10 +16,6 @@ import java.util.regex.Pattern;
 @Slf4j
 public class AiCodeAssistSupport {
 
-    private static final Pattern REPORT_LINE_ISSUE_PATTERN = Pattern.compile(
-            "行号[:：]\\s*(\\d+)\\s*错误[:：]\\s*(.+?)\\s*建议[:：]\\s*(.+?)(?=(?:\\n\\s*行号[:：])|\\Z)",
-            Pattern.DOTALL
-    );
     private static final Pattern COMPILER_LINE_PATTERN = Pattern.compile(
             "(?im)^([^\\n:]+\\.(?:java|c|cc|cpp|cxx|h|hpp)):(\\d+)(?::\\d+)?:\\s*(?:fatal\\s+)?(?:error|warning):\\s*(.+)$"
     );
@@ -33,6 +29,18 @@ public class AiCodeAssistSupport {
             "(?im)\\((?:Main|solution)\\.java:(\\d+)\\)"
     );
     private static final Pattern GENERIC_LINE_PATTERN = Pattern.compile("(?im)\\bline\\s+(\\d+)\\b");
+    private static final Pattern LINE_REFERENCE_PATTERN = Pattern.compile(
+            "(?i)^\\s*(?:[-*]\\s*)?(?:行号|行|line|l)\\s*[:：#-]?\\s*(\\d+)\\b(.*)$"
+    );
+    private static final Pattern ORDINAL_LINE_REFERENCE_PATTERN = Pattern.compile(
+            "^\\s*(?:[-*]\\s*)?第\\s*(\\d+)\\s*行\\b(.*)$"
+    );
+    private static final Pattern ERROR_LABEL_PATTERN = Pattern.compile(
+            "(?im)^\\s*(?:错误|问题|error|issue)\\s*[:：-]?\\s*(.+)$"
+    );
+    private static final Pattern SUGGESTION_LABEL_PATTERN = Pattern.compile(
+            "(?im)^\\s*(?:建议|修复|修改建议|suggestion|fix)\\s*[:：-]?\\s*(.+)$"
+    );
 
     public String addLineNumbers(String sourceCode) {
         if (sourceCode == null || sourceCode.isBlank()) {
@@ -123,6 +131,9 @@ public class AiCodeAssistSupport {
             Integer lineNumber = normalizeLineNumber(issue.lineNumber(), maxLineNumber);
             String error = sanitizeText(issue.error());
             String suggestion = sanitizeText(issue.suggestion());
+            if (suggestion.isBlank()) {
+                suggestion = buildSuggestionForDiagnostic(error, false);
+            }
             if (lineNumber == null || error.isBlank() || suggestion.isBlank()) {
                 continue;
             }
@@ -150,19 +161,118 @@ public class AiCodeAssistSupport {
         }
 
         List<LineIssueCandidate> issues = new ArrayList<>();
-        Matcher matcher = REPORT_LINE_ISSUE_PATTERN.matcher(normalized);
-        while (matcher.find()) {
-            issues.add(new LineIssueCandidate(
-                    parseInteger(matcher.group(1)),
-                    sanitizeText(matcher.group(2)),
-                    sanitizeText(matcher.group(3))
-            ));
+        String[] lines = normalizeLineEndings(normalized).split("\n", -1);
+
+        Integer currentLineNumber = null;
+        List<String> currentBlock = new ArrayList<>();
+        for (String rawLine : lines) {
+            String line = sanitizeText(rawLine);
+            if (line.isBlank()) {
+                if (currentLineNumber != null) {
+                    currentBlock.add("");
+                }
+                continue;
+            }
+
+            LineReference reference = parseLineReference(line);
+            if (reference != null) {
+                flushLineIssueBlock(issues, currentLineNumber, currentBlock);
+                currentLineNumber = reference.lineNumber();
+                currentBlock = new ArrayList<>();
+                if (!reference.remainder().isBlank()) {
+                    currentBlock.add(reference.remainder());
+                }
+                continue;
+            }
+
+            if (currentLineNumber != null) {
+                currentBlock.add(line);
+            }
         }
+        flushLineIssueBlock(issues, currentLineNumber, currentBlock);
 
         if (!issues.isEmpty()) {
             log.info("AI code assist parsed {} candidate line issues from plain text.", issues.size());
         }
         return issues;
+    }
+
+    private LineReference parseLineReference(String line) {
+        Matcher directMatcher = LINE_REFERENCE_PATTERN.matcher(line);
+        if (directMatcher.matches()) {
+            return new LineReference(
+                    parseInteger(directMatcher.group(1)),
+                    cleanupLineReferenceRemainder(directMatcher.group(2))
+            );
+        }
+
+        Matcher ordinalMatcher = ORDINAL_LINE_REFERENCE_PATTERN.matcher(line);
+        if (ordinalMatcher.matches()) {
+            return new LineReference(
+                    parseInteger(ordinalMatcher.group(1)),
+                    cleanupLineReferenceRemainder(ordinalMatcher.group(2))
+            );
+        }
+
+        return null;
+    }
+
+    private String cleanupLineReferenceRemainder(String value) {
+        return sanitizeText(value)
+                .replaceFirst("^[：:，,;；\\-\\s]+", "")
+                .trim();
+    }
+
+    private void flushLineIssueBlock(List<LineIssueCandidate> issues,
+                                     Integer lineNumber,
+                                     List<String> blockLines) {
+        if (lineNumber == null || blockLines == null || blockLines.isEmpty()) {
+            return;
+        }
+
+        String blockText = sanitizeText(String.join("\n", blockLines));
+        String error = extractLabeledValue(blockText, ERROR_LABEL_PATTERN);
+        String suggestion = extractLabeledValue(blockText, SUGGESTION_LABEL_PATTERN);
+
+        if (error.isBlank()) {
+            error = extractFallbackError(blockLines);
+        }
+        if (error.isBlank()) {
+            return;
+        }
+        if (suggestion.isBlank()) {
+            suggestion = buildSuggestionForDiagnostic(error, false);
+        }
+
+        issues.add(new LineIssueCandidate(lineNumber, error, suggestion));
+    }
+
+    private String extractLabeledValue(String blockText, Pattern pattern) {
+        Matcher matcher = pattern.matcher(blockText);
+        if (!matcher.find()) {
+            return "";
+        }
+        return sanitizeText(matcher.group(1));
+    }
+
+    private String extractFallbackError(List<String> blockLines) {
+        for (String line : blockLines) {
+            String normalized = sanitizeText(line);
+            if (normalized.isBlank()) {
+                continue;
+            }
+            if (SUGGESTION_LABEL_PATTERN.matcher(normalized).find()) {
+                continue;
+            }
+
+            String withoutLabel = normalized
+                    .replaceFirst("(?i)^(?:错误|问题|error|issue)\\s*[:：-]?\\s*", "")
+                    .trim();
+            if (!withoutLabel.isBlank()) {
+                return withoutLabel;
+            }
+        }
+        return "";
     }
 
     private List<LineIssueCandidate> parseCompilerLineIssues(String text) {
@@ -288,7 +398,7 @@ public class AiCodeAssistSupport {
                 return sanitizeText(matcher.group(1) + ": " + matcher.group(2));
             }
         }
-        return "运行时错误";
+        return "运行时报错";
     }
 
     private String buildSuggestionForDiagnostic(String error, boolean compilePhase) {
@@ -328,6 +438,9 @@ public class AiCodeAssistSupport {
         return compilePhase
                 ? "先修复这一行及其附近的编译问题，再重新提交。"
                 : "检查这一行及其附近的逻辑和边界处理，再重新运行。";
+    }
+
+    private record LineReference(Integer lineNumber, String remainder) {
     }
 
     public record LineIssueCandidate(Integer lineNumber, String error, String suggestion) {

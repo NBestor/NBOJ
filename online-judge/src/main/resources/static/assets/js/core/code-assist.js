@@ -36,14 +36,18 @@
             : String(text || "");
     }
 
-    function renderLineIssueTag(ui, issue) {
+    function renderLineIssueTag(ui, issue, options = {}) {
+        const collapsed = options.collapsed !== false;
         return `
-            <div class="code-line-tag code-line-tag--severity">
+            <div class="code-line-tag code-line-tag--severity ${collapsed ? "is-collapsed" : ""}">
                 <div class="code-line-tag__head">
-                    <strong>行 ${issue.lineNumber}</strong>
+                    <div class="code-line-tag__title">
+                        <strong>行 ${issue.lineNumber}</strong>
+                        <span class="code-line-tag__summary">${escapeWithUi(ui, issue.error)}</span>
+                    </div>
                     <div class="toolbar-cluster" style="gap:0.35rem;">
                         <button type="button" class="code-line-tag__jump" data-jump-line="${issue.lineNumber}">定位</button>
-                        <button type="button" class="code-line-tag__toggle" data-line-tag-toggle>收起</button>
+                        <button type="button" class="code-line-tag__toggle" data-line-tag-toggle>${collapsed ? "展开" : "收起"}</button>
                     </div>
                 </div>
                 <div class="code-line-tag__body">
@@ -116,6 +120,10 @@
             return toEditorLines(editor ? editor.value : "");
         }
 
+        function getEditorLineHeight() {
+            return parseFloat(window.getComputedStyle(editor).lineHeight) || 26;
+        }
+
         function normalizeLineIssues(lineIssues) {
             const maxLineNumber = getEditorLines().length;
             const dedupeKeys = new Set();
@@ -143,6 +151,19 @@
             return buckets;
         }
 
+        function syncScrollOffsets() {
+            const scrollTop = editor ? editor.scrollTop : 0;
+            if (gutter) {
+                gutter.scrollTop = scrollTop;
+            }
+            if (backdrop) {
+                backdrop.scrollTop = scrollTop;
+            }
+            if (insights) {
+                insights.scrollTop = scrollTop;
+            }
+        }
+
         function renderHighlightLayer(lines, issuesByLine) {
             if (!gutter || !backdrop) {
                 return;
@@ -155,12 +176,9 @@
             backdrop.innerHTML = lines.map((_, index) => `
                 <div class="code-editor-overlay-line ${issuesByLine.has(index + 1) ? "is-highlight" : ""}"></div>
             `).join("");
-
-            gutter.scrollTop = editor ? editor.scrollTop : 0;
-            backdrop.scrollTop = editor ? editor.scrollTop : 0;
         }
 
-        function renderInsightPanel() {
+        function renderInsightPanel(lines, issuesByLine) {
             if (!insights) {
                 return;
             }
@@ -171,8 +189,21 @@
                 return;
             }
 
+            const lineHeight = getEditorLineHeight();
             insights.hidden = false;
-            insights.innerHTML = state.activeLineIssues.map(issue => renderLineIssueTag(ui, issue)).join("");
+            insights.innerHTML = lines.map((_, index) => {
+                const lineNumber = index + 1;
+                const rowIssues = issuesByLine.get(lineNumber);
+                if (!rowIssues || !rowIssues.length) {
+                    return `<div class="code-editor-insight-row" style="min-height:${lineHeight}px;"></div>`;
+                }
+
+                return `
+                    <div class="code-editor-insight-row code-editor-insight-row--has-issue" style="min-height:${lineHeight}px;">
+                        ${rowIssues.map(issue => renderLineIssueTag(ui, issue, { collapsed: true })).join("")}
+                    </div>
+                `;
+            }).join("");
         }
 
         function renderDecorations() {
@@ -184,7 +215,8 @@
             const lines = getEditorLines();
             const issuesByLine = buildIssueBuckets(state.activeLineIssues);
             renderHighlightLayer(lines, issuesByLine);
-            renderInsightPanel();
+            renderInsightPanel(lines, issuesByLine);
+            syncScrollOffsets();
         }
 
         function initialize() {
@@ -228,7 +260,7 @@
             editor.focus();
             editor.setSelectionRange(start, end);
 
-            const lineHeight = parseFloat(window.getComputedStyle(editor).lineHeight) || 26;
+            const lineHeight = getEditorLineHeight();
             editor.scrollTop = Math.max(0, (safeLine - 2) * lineHeight);
             renderDecorations();
             logCodeAssist("info", `Jumped to line ${safeLine}.`);

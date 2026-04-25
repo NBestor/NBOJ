@@ -64,6 +64,8 @@ int main() {
     let activeProblemTab = "statement";
     let expandedPane = null;
     let codeAssist = null;
+    let historyLoaded = false;
+    let historyLoadPromise = null;
 
     function logProblemFeature(level, feature, message, detail) {
         const method = typeof console[level] === "function" ? console[level] : console.log;
@@ -91,8 +93,8 @@ int main() {
         activateProblemTab("statement");
         applyPaneExpanded(null);
         initializeEditor();
-        initializeCodeInsightLayer();
         loadPage();
+        scheduleCodeInsightInitialization();
     });
 
     function bindControls() {
@@ -112,8 +114,19 @@ int main() {
         document.getElementById("delete-problem-btn").addEventListener("click", deleteProblem);
         document.getElementById("toggle-left-expand-btn").addEventListener("click", () => togglePaneExpanded("left"));
         document.getElementById("toggle-right-expand-btn").addEventListener("click", () => togglePaneExpanded("right"));
-        document.getElementById("refresh-history-btn").addEventListener("click", () => loadHistorySummary({ keepAlert: true }));
-        document.getElementById("run-compare-btn").addEventListener("click", () => loadComparison({ autoOpen: true }));
+        document.getElementById("refresh-history-btn").addEventListener("click", () => {
+            ensureHistorySummaryLoaded({ force: true, keepAlert: true, foreground: true }).catch(error => {
+                showPageAlert(error.message, "error");
+            });
+        });
+        document.getElementById("run-compare-btn").addEventListener("click", async () => {
+            try {
+                await ensureHistorySummaryLoaded({ foreground: true });
+                await loadComparison({ autoOpen: true });
+            } catch (error) {
+                showPageAlert(error.message, "error");
+            }
+        });
         document.getElementById("generate-report-btn").addEventListener("click", generateGrowthReport);
         document.querySelectorAll("[data-problem-tab]").forEach(button => {
             button.addEventListener("click", () => activateProblemTab(button.dataset.problemTab));
@@ -314,6 +327,13 @@ int main() {
         if (statementActionGroup) {
             statementActionGroup.hidden = activeProblemTab !== "statement";
         }
+
+        if (activeProblemTab === "history" || activeProblemTab === "analysis") {
+            ensureHistorySummaryLoaded({ foreground: true }).catch(error => {
+                logProblemFeature("warn", "history", "Failed to load history for active tab.", error);
+                showPageAlert(error.message, "error");
+            });
+        }
     }
 
     function togglePaneExpanded(target) {
@@ -362,6 +382,25 @@ int main() {
         });
         logProblemFeature("info", "code-assist", "Initializing code insight layer.");
         codeAssist.initialize();
+    }
+
+    function scheduleCodeInsightInitialization() {
+        if (codeAssist) {
+            return;
+        }
+
+        const run = () => {
+            if (!codeAssist) {
+                initializeCodeInsightLayer();
+            }
+        };
+
+        if (typeof window.requestIdleCallback === "function") {
+            window.requestIdleCallback(run, { timeout: 1200 });
+            return;
+        }
+
+        window.setTimeout(run, 300);
     }
 
     function syncCodeInsightLayer() {
@@ -448,11 +487,61 @@ int main() {
     async function loadPage() {
         try {
             await loadProblem();
-            await loadHistorySummary();
+            scheduleHistorySummaryWarmup();
         } catch (error) {
             logProblemFeature("error", "page", "Failed to load problem page.", error);
             showPageAlert(error.message, "error");
         }
+    }
+
+    function scheduleHistorySummaryWarmup() {
+        const run = () => {
+            ensureHistorySummaryLoaded({ background: true }).catch(error => {
+                logProblemFeature("warn", "history", "Background history sync failed.", error);
+            });
+        };
+
+        if (typeof window.requestIdleCallback === "function") {
+            window.requestIdleCallback(run, { timeout: 1500 });
+            return;
+        }
+
+        window.setTimeout(run, 180);
+    }
+
+    function ensureHistorySummaryLoaded(options = {}) {
+        if (historyLoaded && !options.force) {
+            return Promise.resolve(historySummaries);
+        }
+
+        if (options.foreground && !historyLoaded) {
+            renderHistoryLoadingState();
+        }
+
+        if (!options.force && historyLoadPromise) {
+            return historyLoadPromise;
+        }
+
+        let task = null;
+        task = loadHistorySummary(options)
+            .then(() => {
+                historyLoaded = true;
+                return historySummaries;
+            })
+            .catch(error => {
+                if (options.foreground && !historySummaries.length) {
+                    renderHistoryLoadError(error);
+                }
+                throw error;
+            })
+            .finally(() => {
+                if (historyLoadPromise === task) {
+                    historyLoadPromise = null;
+                }
+            });
+
+        historyLoadPromise = task;
+        return task;
     }
 
     async function loadProblem() {
@@ -504,6 +593,38 @@ int main() {
 
         if (options.keepAlert) {
             showPageAlert("提交历史已刷新。", "success");
+        }
+    }
+
+    function renderHistoryLoadingState() {
+        document.getElementById("history-list").innerHTML = "<div class=\"skeleton\" style=\"height:180px;\"></div>";
+
+        if (!historySummaries.length && !latestComparison) {
+            document.getElementById("comparison-host").innerHTML = `
+                <div class="empty-card">
+                    <h3>Loading submission history</h3>
+                    <p>Comparison options will appear after history finishes syncing.</p>
+                </div>
+            `;
+        }
+    }
+
+    function renderHistoryLoadError(error) {
+        const message = error && error.message ? error.message : "Submission history failed to load.";
+        document.getElementById("history-list").innerHTML = `
+            <div class="empty-card">
+                <h3>Submission history failed to load</h3>
+                <p>${ui.escapeHtml(message)}</p>
+            </div>
+        `;
+
+        if (!latestComparison) {
+            document.getElementById("comparison-host").innerHTML = `
+                <div class="empty-card">
+                    <h3>Comparison unavailable</h3>
+                    <p>${ui.escapeHtml(message)}</p>
+                </div>
+            `;
         }
     }
 
@@ -568,13 +689,23 @@ int main() {
         document.getElementById("memory-limit-pill").textContent = `内存 ${Math.round(problem.memoryLimit / 1024)} MB`;
         document.getElementById("sample-count").textContent = (problem.sampleTestCases || []).length;
         descriptionHost.innerHTML = ui.renderMarkdown(problem.description);
-        ui.typesetMath(descriptionHost);
-        window.requestAnimationFrame(() => ui.typesetMath(descriptionHost));
+        scheduleProblemMathTypeset(descriptionHost);
         logProblemFeature("info", "renderer", "Rendered problem statement.", {
             title: problem.title,
             descriptionLength: String(problem.description || "").length
         });
         renderSampleCases(problem.sampleTestCases || []);
+    }
+
+    function scheduleProblemMathTypeset(descriptionHost) {
+        const run = () => ui.typesetMath(descriptionHost);
+
+        if (typeof window.requestIdleCallback === "function") {
+            window.requestIdleCallback(run, { timeout: 1500 });
+            return;
+        }
+
+        window.setTimeout(run, 200);
     }
 
     function renderSampleCases(testCases) {
@@ -1050,6 +1181,10 @@ int main() {
     }
 
     async function loadComparison(options = {}) {
+        if (!historyLoaded) {
+            await ensureHistorySummaryLoaded({ foreground: true });
+        }
+
         const leftId = document.getElementById("compare-left").value;
         const rightId = document.getElementById("compare-right").value;
         const host = document.getElementById("comparison-host");

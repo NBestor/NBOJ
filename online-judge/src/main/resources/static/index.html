@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBOJ 题库</title>
     <meta name="description" content="浏览题库、筛选难度并快速进入在线评测。">
-    <link rel="stylesheet" href="/assets/css/app.css?v=20260415h">
+    <link rel="stylesheet" href="/assets/css/app.css?v=20260425c">
 </head>
 <body>
     <header class="app-header">
@@ -124,7 +124,65 @@
         </section>
     </main>
 
-    <script src="/assets/js/core/ui.js?v=20260415h" defer></script>
-    <script src="/assets/js/pages/index-page.js?v=20260415e" defer></script>
+    <script>
+        (function () {
+            const SNAPSHOT_KEY = "oj:problem-catalog:snapshot:v1";
+            try {
+                const raw = window.sessionStorage.getItem(SNAPSHOT_KEY);
+                if (!raw) {
+                    return;
+                }
+
+                const cached = JSON.parse(raw);
+                const snapshot = cached && cached.value;
+                if (!cached || !snapshot || !snapshot.problemListHtml || !cached.savedAt || Date.now() - cached.savedAt > 5 * 60 * 1000) {
+                    return;
+                }
+
+                const setText = (id, value) => {
+                    const element = document.getElementById(id);
+                    if (element && typeof value === "string") {
+                        element.textContent = value;
+                    }
+                };
+
+                setText("problem-summary", snapshot.summaryText);
+                setText("hero-problem-count", snapshot.heroProblemCount);
+                setText("hero-easy-rate", snapshot.heroEasyRate);
+                setText("hero-time-median", snapshot.heroTimeMedian);
+                setText("hero-latest-time", snapshot.heroLatestTime);
+                setText("stat-total", snapshot.statTotal);
+                setText("stat-easy", snapshot.statEasy);
+                setText("stat-medium", snapshot.statMedium);
+                setText("stat-hard", snapshot.statHard);
+
+                const searchField = document.getElementById("problem-search");
+                if (searchField && typeof snapshot.search === "string") {
+                    searchField.value = snapshot.search;
+                }
+
+                const sortField = document.getElementById("problem-sort");
+                if (sortField && typeof snapshot.sort === "string") {
+                    sortField.value = snapshot.sort;
+                }
+
+                if (typeof snapshot.difficulty === "string") {
+                    document.querySelectorAll("#difficulty-filter .chip").forEach(chip => {
+                        chip.classList.toggle("active", chip.dataset.filter === snapshot.difficulty);
+                    });
+                }
+
+                const problemList = document.getElementById("problem-list");
+                if (problemList) {
+                    problemList.innerHTML = snapshot.problemListHtml;
+                    window.__OJ_HOME_SNAPSHOT_APPLIED__ = true;
+                }
+            } catch (error) {
+                // ignore snapshot bootstrap failures
+            }
+        })();
+    </script>
+    <script src="/assets/js/core/ui.js?v=20260425e" defer></script>
+    <script src="/assets/js/pages/index-page.js?v=20260425g" defer></script>
 </body>
 </html>

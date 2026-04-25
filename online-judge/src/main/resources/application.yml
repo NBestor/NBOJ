@@ -2,6 +2,10 @@ debug: false
 
 server:
   port: 8081
+  compression:
+    enabled: true
+    min-response-size: 2KB
+    mime-types: application/json,application/javascript,text/html,text/xml,text/plain,text/css,application/xml,image/svg+xml,text/javascript
 
 spring:
   application:
@@ -22,6 +26,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          cache-public: true
+          max-age: 365d
 
 executor:
   mode: local
