@@ -64,6 +64,7 @@ int main() {
     let activeProblemTab = "statement";
     let expandedPane = null;
     let codeAssist = null;
+    let activeLineInsightCount = 0;
     let historyLoaded = false;
     let historyLoadPromise = null;
 
@@ -100,6 +101,7 @@ int main() {
     function bindControls() {
         document.getElementById("language-select").addEventListener("change", handleLanguageChange);
         document.getElementById("code-editor").addEventListener("input", () => {
+            clearStaleCodeLineInsights();
             persistDraft();
             persistCodeInsightLayout();
             document.getElementById("draft-status").textContent = "正在自动保存草稿...";
@@ -456,13 +458,20 @@ int main() {
 
     function applyCodeLineInsights(lineIssues) {
         if (codeAssist) {
-            codeAssist.setLineIssues(lineIssues);
+            activeLineInsightCount = codeAssist.setLineIssues(lineIssues).length;
         }
     }
 
     function clearCodeLineInsights() {
         if (codeAssist) {
             codeAssist.clear();
+        }
+        activeLineInsightCount = 0;
+    }
+
+    function clearStaleCodeLineInsights() {
+        if (activeLineInsightCount > 0) {
+            clearCodeLineInsights();
         }
     }
 
@@ -1334,11 +1343,13 @@ int main() {
         const languageId = Number(event.target.value);
         document.getElementById("language-label").textContent = event.target.selectedOptions[0].textContent;
         restoreDraftOrTemplate(languageId);
+        clearStaleCodeLineInsights();
     }
 
     function resetTemplate() {
         const languageId = Number(document.getElementById("language-select").value);
         document.getElementById("code-editor").value = templates[languageId] || "";
+        clearStaleCodeLineInsights();
         saveDraft();
         syncCodeInsightLayer();
         document.getElementById("draft-status").textContent = "已恢复默认模板，并同步更新本地草稿。";
@@ -1346,6 +1357,7 @@ int main() {
 
     function clearCode() {
         document.getElementById("code-editor").value = "";
+        clearStaleCodeLineInsights();
         saveDraft();
         syncCodeInsightLayer();
         document.getElementById("draft-status").textContent = "代码已清空，并同步更新本地草稿。";
