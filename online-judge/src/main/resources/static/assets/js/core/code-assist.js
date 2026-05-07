@@ -159,9 +159,6 @@
             if (backdrop) {
                 backdrop.scrollTop = scrollTop;
             }
-            if (insights) {
-                insights.scrollTop = scrollTop;
-            }
         }
 
         function renderHighlightLayer(lines, issuesByLine) {
@@ -169,12 +166,13 @@
                 return;
             }
 
+            const lineHeight = getEditorLineHeight();
             gutter.innerHTML = lines.map((_, index) => `
-                <div class="code-editor-gutter-line ${issuesByLine.has(index + 1) ? "is-highlight" : ""}">${index + 1}</div>
+                <div class="code-editor-gutter-line ${issuesByLine.has(index + 1) ? "is-highlight" : ""}" style="min-height:${lineHeight}px;line-height:${lineHeight}px;">${index + 1}</div>
             `).join("");
 
             backdrop.innerHTML = lines.map((_, index) => `
-                <div class="code-editor-overlay-line ${issuesByLine.has(index + 1) ? "is-highlight" : ""}"></div>
+                <div class="code-editor-overlay-line ${issuesByLine.has(index + 1) ? "is-highlight" : ""}" style="min-height:${lineHeight}px;"></div>
             `).join("");
         }
 
@@ -189,21 +187,12 @@
                 return;
             }
 
-            const lineHeight = getEditorLineHeight();
             insights.hidden = false;
-            insights.innerHTML = lines.map((_, index) => {
-                const lineNumber = index + 1;
-                const rowIssues = issuesByLine.get(lineNumber);
-                if (!rowIssues || !rowIssues.length) {
-                    return `<div class="code-editor-insight-row" style="min-height:${lineHeight}px;"></div>`;
-                }
-
-                return `
-                    <div class="code-editor-insight-row code-editor-insight-row--has-issue" style="min-height:${lineHeight}px;">
-                        ${rowIssues.map(issue => renderLineIssueTag(ui, issue, { collapsed: true })).join("")}
+            insights.innerHTML = state.activeLineIssues.map(issue => `
+                    <div class="code-editor-insight-row code-editor-insight-row--has-issue">
+                        ${renderLineIssueTag(ui, issue, { collapsed: true })}
                     </div>
-                `;
-            }).join("");
+                `).join("");
         }
 
         function renderDecorations() {
