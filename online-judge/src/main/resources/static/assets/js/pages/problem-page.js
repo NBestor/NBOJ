@@ -469,8 +469,8 @@ int main() {
         activeLineInsightCount = 0;
     }
 
-    function clearStaleCodeLineInsights() {
-        if (activeLineInsightCount > 0) {
+    function clearStaleCodeLineInsights(options = {}) {
+        if (options.force || activeLineInsightCount > 0) {
             clearCodeLineInsights();
         }
     }
@@ -1186,7 +1186,22 @@ int main() {
         renderLatestSubmission(submission);
         renderAnalysisPanel(submission);
         updateAnalysisSourcePill(submission);
-        applyCodeLineInsights(submission && submission.analysis ? submission.analysis.lineIssues : []);
+        if (submission && submission.analysis && isEditorShowingSubmission(submission)) {
+            applyCodeLineInsights(submission.analysis.lineIssues);
+            return;
+        }
+        clearCodeLineInsights();
+    }
+
+    function isEditorShowingSubmission(submission) {
+        const editor = document.getElementById("code-editor");
+        return normalizeSourceForInsight(editor ? editor.value : "") === normalizeSourceForInsight(submission && submission.sourceCode);
+    }
+
+    function normalizeSourceForInsight(sourceCode) {
+        return String(sourceCode || "")
+            .replace(/\r\n/g, "\n")
+            .replace(/\r/g, "\n");
     }
 
     async function loadComparison(options = {}) {
@@ -1343,13 +1358,13 @@ int main() {
         const languageId = Number(event.target.value);
         document.getElementById("language-label").textContent = event.target.selectedOptions[0].textContent;
         restoreDraftOrTemplate(languageId);
-        clearStaleCodeLineInsights();
+        clearStaleCodeLineInsights({ force: true });
     }
 
     function resetTemplate() {
         const languageId = Number(document.getElementById("language-select").value);
         document.getElementById("code-editor").value = templates[languageId] || "";
-        clearStaleCodeLineInsights();
+        clearStaleCodeLineInsights({ force: true });
         saveDraft();
         syncCodeInsightLayer();
         document.getElementById("draft-status").textContent = "已恢复默认模板，并同步更新本地草稿。";
@@ -1357,7 +1372,7 @@ int main() {
 
     function clearCode() {
         document.getElementById("code-editor").value = "";
-        clearStaleCodeLineInsights();
+        clearStaleCodeLineInsights({ force: true });
         saveDraft();
         syncCodeInsightLayer();
         document.getElementById("draft-status").textContent = "代码已清空，并同步更新本地草稿。";
@@ -2480,7 +2495,7 @@ ${ui.escapeHtml(failedCase.expectedOutput || "")}</pre>
             submissionDetailCache.set(submissionId, latestSubmission);
             syncLatestSubmission(latestSubmission);
             const firstLineIssue = Array.isArray(analysis && analysis.lineIssues) ? analysis.lineIssues[0] : null;
-            if (firstLineIssue && Number.isInteger(Number(firstLineIssue.lineNumber))) {
+            if (isEditorShowingSubmission(latestSubmission) && firstLineIssue && Number.isInteger(Number(firstLineIssue.lineNumber))) {
                 window.requestAnimationFrame(() => {
                     jumpToCodeLine(Number(firstLineIssue.lineNumber), { silent: true });
                 });
