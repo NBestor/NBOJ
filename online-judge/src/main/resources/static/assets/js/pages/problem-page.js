@@ -1664,8 +1664,12 @@ ${ui.escapeHtml(failedCase.expectedOutput || "")}</pre>
             executionTime: submission.executionTime,
             memoryUsed: submission.memoryUsed,
             submittedAt: submission.submittedAt,
-            passedTestCases: Array.isArray(submission.testCaseResults) ? submission.testCaseResults.filter(item => item.passed).length : 0,
-            totalTestCases: Array.isArray(submission.testCaseResults) ? submission.testCaseResults.length : 0,
+            passedTestCases: submission.passedTestCases !== undefined
+                ? submission.passedTestCases
+                : (Array.isArray(submission.testCaseResults) ? submission.testCaseResults.filter(item => item.passed).length : 0),
+            totalTestCases: submission.totalTestCases !== undefined
+                ? submission.totalTestCases
+                : (Array.isArray(submission.testCaseResults) ? submission.testCaseResults.length : 0),
             analysisStatus: submission.analysisStatus || (submission.analysis ? "READY" : "PROCESSING"),
             analysisSourceType: submission.analysis ? submission.analysis.sourceType : null,
             analysisHeadline: submission.analysis ? submission.analysis.headline : null,
@@ -1911,7 +1915,10 @@ ${ui.escapeHtml(failedCase.expectedOutput || "")}</pre>
         document.getElementById("result-status").textContent = ui.formatVerdict(submission.verdict);
         verdictBadge.className = `verdict-pill ${ui.getVerdictClass(submission.verdict)}`;
         verdictBadge.textContent = ui.formatVerdict(submission.verdict);
-        resultsStats.textContent = `提交于 ${ui.formatDateTime(submission.submittedAt)} | ${submission.languageName || "-"} | ${formatPerf(submission)} | ${formatAnalysisState(submission.analysisStatus)}`;
+        const passRate = formatPassRate(submission);
+        const failedCase = submission.firstFailedCase;
+        const failedCaseText = failedCase ? ` | 首个失败点 #${failedCase.testCaseNumber}${failedCase.hidden ? "（隐藏）" : ""}` : "";
+        resultsStats.textContent = `提交于 ${ui.formatDateTime(submission.submittedAt)} | ${submission.languageName || "-"} | ${passRate} | ${formatPerf(submission)} | ${formatAnalysisState(submission.analysisStatus)}${failedCaseText}`;
 
         if (!submission.testCaseResults || !submission.testCaseResults.length) {
             resultsContent.innerHTML = `

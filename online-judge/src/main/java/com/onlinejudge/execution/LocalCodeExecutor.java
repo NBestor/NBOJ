@@ -26,6 +26,8 @@ public class LocalCodeExecutor implements CodeExecutor {
 
     private static final String TEMP_DIR = System.getProperty("java.io.tmpdir") + File.separator + "onlinejudge";
     private static final boolean IS_WINDOWS = System.getProperty("os.name").toLowerCase().contains("win");
+    private static final int MAX_OUTPUT_CHARS = 128 * 1024;
+    private static final String OUTPUT_TRUNCATED_MARKER = "\n[output truncated]";
 
     // Language ID to configuration mapping
     private static final Map<Integer, LanguageConfig> LANGUAGES = Map.of(
@@ -148,31 +150,32 @@ public class LocalCodeExecutor implements CodeExecutor {
                 process.getOutputStream().close();
             }
             
-            // Read stdout and stderr with timeout
             ExecutorService executor = Executors.newFixedThreadPool(2);
-            Future<String> stdoutFuture = executor.submit(() -> readStream(process.getInputStream()));
-            Future<String> stderrFuture = executor.submit(() -> readStream(process.getErrorStream()));
-            
-            boolean completed = process.waitFor(timeoutMs, TimeUnit.MILLISECONDS);
-            
-            if (!completed) {
-                process.destroyForcibly();
+            try {
+                Future<String> stdoutFuture = executor.submit(() -> readStream(process.getInputStream()));
+                Future<String> stderrFuture = executor.submit(() -> readStream(process.getErrorStream()));
+
+                boolean completed = process.waitFor(timeoutMs, TimeUnit.MILLISECONDS);
+
+                if (!completed) {
+                    process.destroyForcibly();
+                    return ExecutionResult.timeLimitExceeded();
+                }
+
+                String stdout = stdoutFuture.get(1, TimeUnit.SECONDS);
+                String stderr = stderrFuture.get(1, TimeUnit.SECONDS);
+
+                int exitCode = process.exitValue();
+
+                if (exitCode != 0 && (stderr.contains("Exception") || stderr.contains("Error") ||
+                        stderr.contains("Segmentation fault") || stderr.contains("core dumped"))) {
+                    return ExecutionResult.runtimeError(stderr, exitCode);
+                }
+
+                return new ExecutionResult(stdout, stderr, exitCode, 0);
+            } finally {
                 executor.shutdownNow();
-                return ExecutionResult.timeLimitExceeded();
             }
-            
-            String stdout = stdoutFuture.get(1, TimeUnit.SECONDS);
-            String stderr = stderrFuture.get(1, TimeUnit.SECONDS);
-            executor.shutdown();
-            
-            int exitCode = process.exitValue();
-            
-            if (exitCode != 0 && (stderr.contains("Exception") || stderr.contains("Error") || 
-                    stderr.contains("Segmentation fault") || stderr.contains("core dumped"))) {
-                return ExecutionResult.runtimeError(stderr, exitCode);
-            }
-            
-            return new ExecutionResult(stdout, stderr, exitCode, 0);
             
         } catch (TimeoutException e) {
             return ExecutionResult.timeLimitExceeded();
@@ -182,15 +185,25 @@ public class LocalCodeExecutor implements CodeExecutor {
     }
 
     private String readStream(InputStream is) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (sb.length() > 0) sb.append("\n");
-                sb.append(line);
+        StringBuilder output = new StringBuilder();
+        boolean truncated = false;
+        try (Reader reader = new InputStreamReader(is)) {
+            char[] buffer = new char[4096];
+            int read;
+            while ((read = reader.read(buffer)) != -1) {
+                int remaining = MAX_OUTPUT_CHARS - output.length();
+                if (remaining > 0) {
+                    output.append(buffer, 0, Math.min(read, remaining));
+                }
+                if (read > remaining) {
+                    truncated = true;
+                }
             }
         }
-        return sb.toString();
+        if (truncated) {
+            output.append(OUTPUT_TRUNCATED_MARKER);
+        }
+        return output.toString();
     }
 
     private void deleteDirectory(Path path) throws IOException {

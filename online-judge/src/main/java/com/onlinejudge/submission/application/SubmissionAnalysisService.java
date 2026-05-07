@@ -185,6 +185,11 @@ public class SubmissionAnalysisService {
                                                       Problem problem,
                                                       List<SubmissionCaseResult> caseResults,
                                                       SubmissionAnalysisResponse analysis) {
+        List<SubmissionResponse.TestCaseResult> publicResults = toPublicResults(caseResults);
+        int passedTestCases = (int) publicResults.stream()
+                .filter(SubmissionResponse.TestCaseResult::isPassed)
+                .count();
+
         return SubmissionResponse.builder()
                 .id(submission.getId())
                 .problemId(submission.getProblemId())
@@ -201,7 +206,13 @@ public class SubmissionAnalysisService {
                 .submittedAt(submission.getSubmittedAt())
                 .analysisStatus(resolveAnalysisStatus(analysis))
                 .analysis(analysis)
-                .testCaseResults(toPublicResults(caseResults))
+                .testCaseResults(publicResults)
+                .passedTestCases(passedTestCases)
+                .totalTestCases(publicResults.size())
+                .firstFailedCase(publicResults.stream()
+                        .filter(result -> !result.isPassed())
+                        .findFirst()
+                        .orElse(null))
                 .build();
     }
 

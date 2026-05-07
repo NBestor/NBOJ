@@ -26,6 +26,9 @@ public class SubmissionResponse {
     private String analysisStatus;
     private SubmissionAnalysisResponse analysis;
     private List<TestCaseResult> testCaseResults;
+    private Integer passedTestCases;
+    private Integer totalTestCases;
+    private TestCaseResult firstFailedCase;
 
     @Data
     @Builder
