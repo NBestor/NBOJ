@@ -1,0 +1,13 @@
+target/
+frontend/node_modules/
+frontend/*.tsbuildinfo
+data/
+logs/
+output/
+*.log
+.git/
+.idea/
+.vscode/
+tmp-*.md
+tmp-*.pdf
+tmp-*.txt

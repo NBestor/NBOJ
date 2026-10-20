@@ -1,0 +1,35 @@
+{
+  "name": "wenzhong-ai-learning-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173 --config vite.config.mjs --configLoader native",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -b && node scripts/clean-build.mjs && vite build --config vite.config.mjs --configLoader native",
+    "preview": "vite preview --host 0.0.0.0 --port 4173 --config vite.config.mjs --configLoader native",
+    "test:feedback-workbench": "node --experimental-strip-types --test scripts/feedback-workbench.test.mjs",
+    "smoke:visual": "node scripts/visual-smoke.mjs",
+    "smoke:browser": "node scripts/browser-smoke.mjs"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.29.2",
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/lang-python": "^6.2.1",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@uiw/react-codemirror": "^4.25.2",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.2",
+    "recharts": "^3.9.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "playwright": "^1.60.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
+  }
+}

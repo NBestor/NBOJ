@@ -1,0 +1,367 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "信息学数据库学科质量精修报告",
+    "description": "Flyway V2 发布前后的生产数据质量对照、精确知识点导航验收，以及下一批学科精修优先级。",
+    "generatedAt": "2026-07-16T07:20:08Z",
+    "sources": [
+      { "id": "quality-audit", "label": "生产备份迁移前后学科质量审计", "path": "scripts/check-discipline-data-quality.sh" },
+      { "id": "coverage-audit", "label": "六领域规范能力点覆盖审计", "path": "scripts/check-discipline-data-quality.sh" },
+      { "id": "migration-v2", "label": "Flyway V2 学科质量迁移", "path": "src/main/resources/db/migration/V2__refine_discipline_data_quality.sql" },
+      { "id": "moe-2020", "label": "教育部普通高中课程方案和课程标准 2020 年修订通知", "href": "https://www.moe.gov.cn/srcsite/A26/s8001/202006/t20200603_462199.html" },
+      { "id": "ccf-noi-2025", "label": "CCF NOI 大纲 2025 年修订版发布页", "href": "https://www.noi.cn/xw/2025-04-18/841584.shtml" }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# 信息学数据库学科质量精修报告"
+      },
+      {
+        "id": "executive-summary",
+        "type": "markdown",
+        "body": "## Executive Summary\n\n本轮已经把数据库建设重心从继续扩量切换到学科语义质量。Flyway V2 不拆分高中库与竞赛库，而是在统一知识树上建立本地、教育部高中信息技术课程和 CCF NOI 三套范围映射，并先清除会误导 AI 导航和教师治理的确定性错误。隔离恢复库验证显示：失效关系端点、父目录伪前置、自指别名、失效兼容映射、同锚点重复启用错因和分类实现词泄漏均已归零；首批 24 个高引用知识点完成定义、学习目标、典型任务、别名和真实前置知识精修。生产导航实测还修复了一个细粒度闭环：易错点挂在比能力点更精确的知识节点时，诊断层现在会解析其引用的启用能力点，同时保留易错点的精确学科归属。\n\n当前不应马上恢复扩量。剩余 562 个模板化知识点描述和 65 个缺少提升点的能力点，才是下一批应持续清偿的质量债务。"
+      },
+      {
+        "id": "headline-metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "relation-endpoints",
+          "parent-prerequisites",
+          "curated-points",
+          "scope-mappings",
+          "template-debt"
+        ]
+      },
+      {
+        "id": "what-changed-heading",
+        "type": "markdown",
+        "body": "## 已完成的确定性修正\n\n发布门禁只阻断结构错误、错误挂接和不可追溯关系；尚未人工精修完的内容被保留为可量化债务，不用批量生成文案伪装完成。"
+      },
+      {
+        "id": "before-after-table-block",
+        "type": "table",
+        "tableId": "before-after-table"
+      },
+      {
+        "id": "discipline-framework-heading",
+        "type": "markdown",
+        "body": "## 学科口径：一棵知识树，多套范围映射\n\n本地知识树继续作为唯一运行时主结构，高中课程与竞赛大纲只提供外部范围锚点和来源依据。高中术语作为主名，竞赛或通用术语进入别名、深层内容或范围映射，避免出现相互漂移的平行数据库。"
+      },
+      {
+        "id": "framework-table-block",
+        "type": "table",
+        "tableId": "framework-table"
+      },
+      {
+        "id": "coverage-heading",
+        "type": "markdown",
+        "body": "## 下一批先补数学与工程，再补数量\n\n规范能力点对知识点的覆盖目前并不均衡。数学与建模、调试与工程习惯的覆盖率最低，应优先把高频知识点补成“知识点 → 能力点 → 易错点 → 提升点”的完整教学闭环。"
+      },
+      {
+        "id": "coverage-chart-block",
+        "type": "chart",
+        "chartId": "domain-coverage-chart"
+      },
+      {
+        "id": "remaining-debt-heading",
+        "type": "markdown",
+        "body": "## 剩余质量债务与执行顺序\n\n这些债务不会阻断本次发布，但会直接影响 AI 的术语稳定性、教学粒度和提升建议质量。后续每一批都必须在生产备份的隔离恢复库验证，通过后才允许发布。"
+      },
+      {
+        "id": "remaining-debt-table-block",
+        "type": "table",
+        "tableId": "remaining-debt-table"
+      },
+      {
+        "id": "decision-heading",
+        "type": "markdown",
+        "body": "## 决策与验收边界\n\n1. **继续质量优先**：下一批不追求新增节点总数，先精修 BASIC、ENG、MATH 中高频模板节点。\n2. **补齐教学闭环**：优先为 65 个缺少提升点的能力点建立可验证的提升路径。\n3. **保持统一主库**：不新增高中库、竞赛库或 AI 专用平行树；外部框架通过可追溯映射接入。\n4. **区分门禁与债务**：断链、挂错、重复启用、失效映射必须为零；模板债务按批次下降，并在报告中公开。\n5. **真实验证**：本轮已在生产环境共同通过 Flyway 历史、数据库质量门禁、内容 readiness、精确知识点导航 API 和核心业务表计数验证。"
+      },
+      {
+        "id": "sources-heading",
+        "type": "markdown",
+        "body": "## 来源与复核方式\n\n学科范围参考教育部《普通高中课程方案和语文等学科课程标准（2017年版2020年修订）》发布通知，以及 CCF 发布的 NOI 大纲 2025 年修订版。数据库指标来自同一套审计 SQL 在迁移前生产备份与迁移后隔离恢复库的对照执行；发布后再次运行同一门禁，并以教师鉴权后的诊断层 API 实测精确知识点、能力点和易错点的嵌套关系。HTML 中每张指标卡、图表和表格均可打开对应来源。"
+      }
+    ],
+    "cards": [
+      {
+        "id": "relation-endpoints",
+        "description": "启用关系中找不到规范化源或目标端点的计数，发布后必须为零。",
+        "dataset": "headline",
+        "sourceId": "quality-audit",
+        "metrics": [
+          { "label": "失效关系端点", "field": "relation_after", "format": "number" },
+          { "label": "迁移前", "field": "relation_before", "format": "number" }
+        ]
+      },
+      {
+        "id": "parent-prerequisites",
+        "description": "把父目录代码误写成知识前置关系的节点数。",
+        "dataset": "headline",
+        "sourceId": "quality-audit",
+        "metrics": [
+          { "label": "父目录伪前置", "field": "parent_prereq_after", "format": "number" },
+          { "label": "迁移前", "field": "parent_prereq_before", "format": "number" }
+        ]
+      },
+      {
+        "id": "curated-points",
+        "description": "完成学科定义、目标、典型任务、别名和真实前置知识精修的高引用知识点。",
+        "dataset": "headline",
+        "sourceId": "quality-audit",
+        "metrics": [
+          { "label": "首批精修知识点", "field": "curated_after", "format": "number" },
+          { "label": "迁移前", "field": "curated_before", "format": "number" }
+        ]
+      },
+      {
+        "id": "scope-mappings",
+        "description": "统一知识树连接本地、高中课程与 NOI 大纲的直接范围锚点。",
+        "dataset": "headline",
+        "sourceId": "migration-v2",
+        "metrics": [
+          { "label": "学科范围锚点", "field": "mapping_rows", "format": "number" },
+          { "label": "接入框架", "field": "framework_count", "format": "number" }
+        ]
+      },
+      {
+        "id": "template-debt",
+        "description": "仍使用统一占位文案的启用知识点，属于后续分批清偿的内容债务。",
+        "dataset": "headline",
+        "sourceId": "quality-audit",
+        "metrics": [
+          { "label": "剩余模板描述", "field": "template_after", "format": "number" },
+          { "label": "迁移前", "field": "template_before", "format": "number" }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "domain-coverage-chart",
+        "title": "各领域规范能力点覆盖率",
+        "subtitle": "数学与建模、调试与工程习惯是下一批补强的首要缺口。",
+        "type": "bar",
+        "dataset": "domain_coverage",
+        "sourceId": "coverage-audit",
+        "encodings": {
+          "x": { "field": "domain_name", "type": "nominal", "label": "学科领域" },
+          "y": { "field": "coverage_rate", "type": "quantitative", "format": "percent", "label": "能力点覆盖率" },
+          "tooltip": [
+            { "field": "total_points", "type": "quantitative", "label": "知识点总数" },
+            { "field": "covered_points", "type": "quantitative", "label": "已覆盖知识点" },
+            { "field": "gap_points", "type": "quantitative", "label": "待覆盖知识点" }
+          ]
+        },
+        "valueFormat": "percent",
+        "maxRows": 10
+      }
+    ],
+    "tables": [
+      {
+        "id": "before-after-table",
+        "title": "迁移前后质量指标",
+        "subtitle": "结构门禁归零，内容债务显式保留。",
+        "dataset": "before_after",
+        "sourceId": "quality-audit",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "compact",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "metric", "label": "质量指标", "type": "text" },
+          { "field": "before", "label": "迁移前", "format": "number" },
+          { "field": "after", "label": "迁移后", "format": "number" },
+          { "field": "status", "label": "性质", "type": "text" },
+          { "field": "impact", "label": "教学或系统影响", "type": "text" }
+        ]
+      },
+      {
+        "id": "framework-table",
+        "title": "学科范围映射框架",
+        "subtitle": "13 个直接锚点向下覆盖统一知识树的 737 个启用节点。",
+        "dataset": "framework_summary",
+        "sourceId": "migration-v2",
+        "defaultSort": { "field": "sort_order", "direction": "asc" },
+        "density": "spacious",
+        "columns": [
+          { "field": "sort_order", "label": "顺序", "format": "number" },
+          { "field": "framework", "label": "框架", "type": "text" },
+          { "field": "direct_anchors", "label": "直接锚点", "format": "number" },
+          { "field": "role", "label": "在统一知识树中的作用", "type": "text" },
+          { "field": "source", "label": "来源", "type": "text" }
+        ]
+      },
+      {
+        "id": "remaining-debt-table",
+        "title": "下一批质量债务",
+        "subtitle": "按教学影响和可验证性排序，不按新增条目数排序。",
+        "dataset": "remaining_debt",
+        "sourceId": "quality-audit",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "spacious",
+        "columns": [
+          { "field": "priority", "label": "优先级", "format": "number" },
+          { "field": "debt", "label": "质量债务", "type": "text" },
+          { "field": "remaining", "label": "当前数量", "format": "number" },
+          { "field": "next_action", "label": "下一步动作", "type": "text" },
+          { "field": "acceptance", "label": "批次验收", "type": "text" }
+        ]
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-07-16T07:20:08Z",
+    "status": "ready",
+    "datasets": {
+      "headline": [
+        {
+          "relation_after": 0,
+          "relation_before": 2312,
+          "parent_prereq_after": 0,
+          "parent_prereq_before": 731,
+          "curated_after": 24,
+          "curated_before": 0,
+          "mapping_rows": 13,
+          "framework_count": 3,
+          "template_after": 562,
+          "template_before": 586
+        }
+      ],
+      "before_after": [
+        { "priority": 1, "metric": "失效关系端点", "before": 2312, "after": 0, "status": "发布门禁", "impact": "避免 AI 读取不存在的能力点或错因" },
+        { "priority": 2, "metric": "父目录伪前置", "before": 731, "after": 0, "status": "发布门禁", "impact": "把目录归属与真实知识依赖分开" },
+        { "priority": 3, "metric": "自指别名", "before": 683, "after": 0, "status": "发布门禁", "impact": "减少无意义检索召回和重复术语" },
+        { "priority": 4, "metric": "映射到停用目标", "before": 1156, "after": 0, "status": "发布门禁", "impact": "兼容映射不再把流量导向失效条目" },
+        { "priority": 5, "metric": "同锚点同名重复启用错因", "before": 3, "after": 0, "status": "发布门禁", "impact": "教师治理和 AI 选择只保留一个规范条目" },
+        { "priority": 6, "metric": "规范分类中的版本或兜底实现词", "before": 307, "after": 0, "status": "发布门禁", "impact": "学生和教师看到学科分类而非实现批次" },
+        { "priority": 7, "metric": "教师已批准但路径失效的错因", "before": 1, "after": 0, "status": "发布门禁", "impact": "保留教师证据，同时恢复正确知识路径" },
+        { "priority": 8, "metric": "人工精修知识点", "before": 0, "after": 24, "status": "质量增量", "impact": "提供可教学、可诊断、可验证的学科语义" },
+        { "priority": 9, "metric": "直接学科范围锚点", "before": 0, "after": 13, "status": "质量增量", "impact": "统一知识树具备可追溯的课程与竞赛范围" },
+        { "priority": 10, "metric": "模板化知识点描述", "before": 586, "after": 562, "status": "剩余债务", "impact": "仍需按学科批次人工精修，不能自动宣称完成" }
+      ],
+      "framework_summary": [
+        { "sort_order": 1, "framework": "本地统一信息学框架", "direct_anchors": 6, "role": "唯一运行时主结构，覆盖六个领域", "source": "项目统一知识树" },
+        { "sort_order": 2, "framework": "普通高中信息技术课程", "direct_anchors": 3, "role": "约束高中教学术语与基础、算法、工程主线", "source": "教育部 2020 年修订课程标准" },
+        { "sort_order": 3, "framework": "CCF NOI 大纲 2025", "direct_anchors": 4, "role": "补充竞赛基础、数据结构、算法与数学范围", "source": "CCF NOI 2025 年修订版" }
+      ],
+      "domain_coverage": [
+        { "rank": 1, "domain_code": "MATH", "domain_name": "数学与建模", "total_points": 65, "covered_points": 6, "gap_points": 59, "coverage_rate": 0.092 },
+        { "rank": 2, "domain_code": "ENG", "domain_name": "调试与工程习惯", "total_points": 74, "covered_points": 7, "gap_points": 67, "coverage_rate": 0.095 },
+        { "rank": 3, "domain_code": "CONTEST", "domain_name": "竞赛策略与题型识别", "total_points": 42, "covered_points": 6, "gap_points": 36, "coverage_rate": 0.143 },
+        { "rank": 4, "domain_code": "DS", "domain_name": "数据结构基础", "total_points": 68, "covered_points": 12, "gap_points": 56, "coverage_rate": 0.176 },
+        { "rank": 5, "domain_code": "BASIC", "domain_name": "程序设计基础", "total_points": 179, "covered_points": 34, "gap_points": 145, "coverage_rate": 0.19 },
+        { "rank": 6, "domain_code": "ALGO", "domain_name": "算法思想", "total_points": 158, "covered_points": 33, "gap_points": 125, "coverage_rate": 0.209 }
+      ],
+      "remaining_debt": [
+        { "priority": 1, "debt": "模板化知识点描述", "remaining": 562, "next_action": "先精修 BASIC、ENG、MATH 的高频教学节点", "acceptance": "每批描述、目标、任务、别名和前置均通过人工审阅" },
+        { "priority": 2, "debt": "缺少提升点的能力点", "remaining": 65, "next_action": "补齐能力点到提升点的可执行关系", "acceptance": "提升点必须有适用边界、验证动作和关联错因" },
+        { "priority": 3, "debt": "低覆盖领域中的待覆盖知识点", "remaining": 126, "next_action": "优先补 MATH 59 个与 ENG 67 个覆盖缺口", "acceptance": "不追求全量铺底，先覆盖真实提交高频路径" }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "quality-audit",
+      "label": "生产备份迁移前后学科质量审计",
+      "path": "scripts/check-discipline-data-quality.sh",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL",
+        "id": "discipline-quality-gate-v2",
+        "executed_at": "2026-07-16T07:19:21Z",
+        "description": "底层指标由 path 所示审计脚本在生产备份和应用 V2 后的隔离恢复库分别计算；本查询将两次已复核输出整理为报告对照数据。",
+        "sql": "SELECT * FROM (VALUES (1, '失效关系端点', 2312, 0, '发布门禁'), (2, '父目录伪前置', 731, 0, '发布门禁'), (3, '自指别名', 683, 0, '发布门禁'), (4, '映射到停用目标', 1156, 0, '发布门禁'), (5, '同锚点同名重复启用错因', 3, 0, '发布门禁'), (6, '规范分类中的版本或兜底实现词', 307, 0, '发布门禁'), (7, '教师已批准但路径失效的错因', 1, 0, '发布门禁'), (8, '人工精修知识点', 0, 24, '质量增量'), (9, '直接学科范围锚点', 0, 13, '质量增量'), (10, '模板化知识点描述', 586, 562, '剩余债务')) AS reviewed_quality_comparison(priority, metric, before_value, after_value, status) ORDER BY priority;",
+        "tables_used": [
+          "informatics_knowledge_nodes",
+          "informatics_discipline_scope_mappings",
+          "ai_standard_skill_units",
+          "ai_standard_mistake_points",
+          "ai_standard_improvement_points",
+          "ai_standard_library_relations",
+          "ai_standard_library_legacy_mappings",
+          "ai_standard_library_items"
+        ],
+        "filters": [
+          "只统计 enabled = true 的正式知识节点与规范化条目",
+          "迁移前后使用同一份生产备份数据",
+          "重复项按同一 primary_knowledge_node_code 与规范化名称聚合"
+        ],
+        "metric_definitions": [
+          "失效关系端点 = 启用关系中找不到启用规范化源或目标的端点次数",
+          "父目录伪前置 = prerequisites 恰好等于 parent_code 的启用节点数",
+          "模板描述 = description 以统一细颗粒占位前缀开头的启用知识点数",
+          "人工精修知识点 = library_version 标记为 informatics-knowledge-discipline-v1 且不再使用模板描述的启用知识点"
+        ]
+      }
+    },
+    {
+      "id": "coverage-audit",
+      "label": "六领域规范能力点覆盖审计",
+      "path": "scripts/check-discipline-data-quality.sh",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL",
+        "id": "domain-skill-coverage-20260716",
+        "executed_at": "2026-07-16T06:56:00Z",
+        "description": "将每个启用知识点沿父链归属到领域，再计算至少有一个启用规范能力点直接挂接的知识点占比。",
+        "sql": "WITH RECURSIVE ancestry AS (SELECT code AS node_code, code AS ancestor_code, parent_code FROM informatics_knowledge_nodes WHERE enabled = true UNION ALL SELECT a.node_code, p.code, p.parent_code FROM ancestry a JOIN informatics_knowledge_nodes p ON p.code = a.parent_code AND p.enabled = true), node_domain AS (SELECT a.node_code, a.ancestor_code AS domain_code FROM ancestry a JOIN informatics_knowledge_nodes d ON d.code = a.ancestor_code AND d.type = 'DOMAIN'), point_totals AS (SELECT nd.domain_code, count(*) AS total_points FROM informatics_knowledge_nodes n JOIN node_domain nd ON nd.node_code = n.code WHERE n.enabled = true AND n.type = 'KNOWLEDGE_POINT' GROUP BY nd.domain_code), skill_points AS (SELECT nd.domain_code, count(DISTINCT s.primary_knowledge_node_code) AS covered_points FROM ai_standard_skill_units s JOIN informatics_knowledge_nodes n ON n.code = s.primary_knowledge_node_code AND n.enabled = true AND n.type = 'KNOWLEDGE_POINT' JOIN node_domain nd ON nd.node_code = n.code WHERE s.enabled = true GROUP BY nd.domain_code) SELECT d.code AS domain_code, d.name AS domain_name, p.total_points, coalesce(s.covered_points, 0) AS covered_points, p.total_points - coalesce(s.covered_points, 0) AS gap_points, coalesce(s.covered_points, 0)::numeric / p.total_points AS coverage_rate FROM point_totals p JOIN informatics_knowledge_nodes d ON d.code = p.domain_code LEFT JOIN skill_points s ON s.domain_code = p.domain_code ORDER BY coverage_rate, d.sort_order, d.code;",
+        "tables_used": [
+          "informatics_knowledge_nodes",
+          "ai_standard_skill_units"
+        ],
+        "filters": [
+          "知识点与能力点均为 enabled = true",
+          "能力点必须直接挂接到 KNOWLEDGE_POINT",
+          "每个知识点只计一次覆盖"
+        ],
+        "metric_definitions": [
+          "能力点覆盖率 = 至少有一个启用规范能力点直接挂接的知识点数 / 该领域启用知识点总数",
+          "待覆盖知识点 = 启用知识点总数 - 已覆盖知识点数"
+        ]
+      }
+    },
+    {
+      "id": "migration-v2",
+      "label": "Flyway V2 学科质量迁移",
+      "path": "src/main/resources/db/migration/V2__refine_discipline_data_quality.sql",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL",
+        "id": "flyway-v2-refine-discipline-data-quality",
+        "executed_at": "2026-07-16T07:18:18Z",
+        "description": "创建学科范围映射、执行确定性修正并精修首批高引用知识点。",
+        "sql": "SELECT framework_code, count(*) AS direct_anchors FROM informatics_discipline_scope_mappings WHERE enabled = true GROUP BY framework_code ORDER BY framework_code;",
+        "tables_used": [
+          "informatics_discipline_scope_mappings",
+          "informatics_knowledge_nodes",
+          "ai_standard_skill_units",
+          "ai_standard_mistake_points",
+          "ai_standard_improvement_points",
+          "ai_standard_library_relations",
+          "ai_standard_library_legacy_mappings"
+        ],
+        "filters": [
+          "学科范围映射必须 enabled = true 且具有 source_reference",
+          "首批精修知识点必须来自六个领域的高引用路径"
+        ],
+        "metric_definitions": [
+          "直接学科范围锚点 = 在统一知识树节点上显式记录框架、范围代码、来源和置信度的启用映射",
+          "范围覆盖节点 = 自身或最近祖先拥有启用学科范围映射的启用节点"
+        ]
+      }
+    },
+    {
+      "id": "moe-2020",
+      "label": "教育部普通高中课程方案和课程标准 2020 年修订通知",
+      "href": "https://www.moe.gov.cn/srcsite/A26/s8001/202006/t20200603_462199.html"
+    },
+    {
+      "id": "ccf-noi-2025",
+      "label": "CCF NOI 大纲 2025 年修订版发布页",
+      "href": "https://www.noi.cn/xw/2025-04-18/841584.shtml"
+    }
+  ]
+}

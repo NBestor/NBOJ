@@ -1,0 +1,2632 @@
+[
+  {
+    "name": "accepted-input-parsing-01",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 1,
+    "problem": {
+      "id": 80001,
+      "title": "Accepted input parser 1",
+      "description": "Read n and n integers, then output their sum.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\na = list(map(int, input().split()))\nprint(sum(a))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "IO_FORMAT"
+      ],
+      "forbiddenFineTags": [
+        "INPUT_PARSING"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-input-parsing",
+      "misconception": "The analyzer may confuse ordinary input parsing with an input-format bug.",
+      "expectedStudentMove": "Treat normal parsing code as background evidence only."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-input-parsing-02",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 2,
+    "problem": {
+      "id": 80002,
+      "title": "Accepted input parser 2",
+      "description": "Read n and n integers, then output their sum.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\na = list(map(int, input().split()))\nprint(sum(a))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "IO_FORMAT"
+      ],
+      "forbiddenFineTags": [
+        "INPUT_PARSING"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-input-parsing",
+      "misconception": "The analyzer may confuse ordinary input parsing with an input-format bug.",
+      "expectedStudentMove": "Treat normal parsing code as background evidence only."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-input-parsing-03",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 3,
+    "problem": {
+      "id": 80003,
+      "title": "Accepted input parser 3",
+      "description": "Read n and n integers, then output their sum.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\na = list(map(int, input().split()))\nprint(sum(a))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "IO_FORMAT"
+      ],
+      "forbiddenFineTags": [
+        "INPUT_PARSING"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-input-parsing",
+      "misconception": "The analyzer may confuse ordinary input parsing with an input-format bug.",
+      "expectedStudentMove": "Treat normal parsing code as background evidence only."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-input-parsing-04",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 4,
+    "problem": {
+      "id": 80004,
+      "title": "Accepted input parser 4",
+      "description": "Read n and n integers, then output their sum.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\na = list(map(int, input().split()))\nprint(sum(a))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "IO_FORMAT"
+      ],
+      "forbiddenFineTags": [
+        "INPUT_PARSING"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-input-parsing",
+      "misconception": "The analyzer may confuse ordinary input parsing with an input-format bug.",
+      "expectedStudentMove": "Treat normal parsing code as background evidence only."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-input-parsing-05",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 5,
+    "problem": {
+      "id": 80005,
+      "title": "Accepted input parser 5",
+      "description": "Read n and n integers, then output their sum.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\na = list(map(int, input().split()))\nprint(sum(a))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "IO_FORMAT"
+      ],
+      "forbiddenFineTags": [
+        "INPUT_PARSING"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-input-parsing",
+      "misconception": "The analyzer may confuse ordinary input parsing with an input-format bug.",
+      "expectedStudentMove": "Treat normal parsing code as background evidence only."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dp-previous-01",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 6,
+    "problem": {
+      "id": 80006,
+      "title": "Accepted DP previous state 1",
+      "description": "Count ways to climb n steps using one or two steps each time.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\ndp = [0] * (n + 1)\ndp[0] = 1\nfor i in range(1, n + 1):\n    dp[i] += dp[i - 1]\n    if i >= 2:\n        dp[i] += dp[i - 2]\nprint(dp[n])\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "LOOP_BOUNDARY"
+      ],
+      "forbiddenFineTags": [
+        "OFF_BY_ONE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dp-previous",
+      "misconception": "The analyzer may treat normal dp[i - 1] transitions as off-by-one.",
+      "expectedStudentMove": "Recognize previous-state references as normal DP evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dp-previous-02",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 7,
+    "problem": {
+      "id": 80007,
+      "title": "Accepted DP previous state 2",
+      "description": "Count ways to climb n steps using one or two steps each time.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\ndp = [0] * (n + 1)\ndp[0] = 1\nfor i in range(1, n + 1):\n    dp[i] += dp[i - 1]\n    if i >= 2:\n        dp[i] += dp[i - 2]\nprint(dp[n])\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "LOOP_BOUNDARY"
+      ],
+      "forbiddenFineTags": [
+        "OFF_BY_ONE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dp-previous",
+      "misconception": "The analyzer may treat normal dp[i - 1] transitions as off-by-one.",
+      "expectedStudentMove": "Recognize previous-state references as normal DP evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dp-previous-03",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 8,
+    "problem": {
+      "id": 80008,
+      "title": "Accepted DP previous state 3",
+      "description": "Count ways to climb n steps using one or two steps each time.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\ndp = [0] * (n + 1)\ndp[0] = 1\nfor i in range(1, n + 1):\n    dp[i] += dp[i - 1]\n    if i >= 2:\n        dp[i] += dp[i - 2]\nprint(dp[n])\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "LOOP_BOUNDARY"
+      ],
+      "forbiddenFineTags": [
+        "OFF_BY_ONE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dp-previous",
+      "misconception": "The analyzer may treat normal dp[i - 1] transitions as off-by-one.",
+      "expectedStudentMove": "Recognize previous-state references as normal DP evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dp-previous-04",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 9,
+    "problem": {
+      "id": 80009,
+      "title": "Accepted DP previous state 4",
+      "description": "Count ways to climb n steps using one or two steps each time.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\ndp = [0] * (n + 1)\ndp[0] = 1\nfor i in range(1, n + 1):\n    dp[i] += dp[i - 1]\n    if i >= 2:\n        dp[i] += dp[i - 2]\nprint(dp[n])\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "LOOP_BOUNDARY"
+      ],
+      "forbiddenFineTags": [
+        "OFF_BY_ONE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dp-previous",
+      "misconception": "The analyzer may treat normal dp[i - 1] transitions as off-by-one.",
+      "expectedStudentMove": "Recognize previous-state references as normal DP evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dp-previous-05",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 10,
+    "problem": {
+      "id": 80010,
+      "title": "Accepted DP previous state 5",
+      "description": "Count ways to climb n steps using one or two steps each time.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\ndp = [0] * (n + 1)\ndp[0] = 1\nfor i in range(1, n + 1):\n    dp[i] += dp[i - 1]\n    if i >= 2:\n        dp[i] += dp[i - 2]\nprint(dp[n])\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "LOOP_BOUNDARY"
+      ],
+      "forbiddenFineTags": [
+        "OFF_BY_ONE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dp-previous",
+      "misconception": "The analyzer may treat normal dp[i - 1] transitions as off-by-one.",
+      "expectedStudentMove": "Recognize previous-state references as normal DP evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-accumulator-01",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 11,
+    "problem": {
+      "id": 80011,
+      "title": "Accepted accumulator 1",
+      "description": "Read n and output the sum from 0 to n - 1.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nanswer = 0\nfor i in range(n):\n    answer += i\nprint(answer)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "VARIABLE_INITIALIZATION"
+      ],
+      "forbiddenFineTags": [
+        "INITIAL_STATE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-accumulator",
+      "misconception": "The analyzer may treat a normal zero accumulator as a bad initial state.",
+      "expectedStudentMove": "Only promote initial-state labels when the variable role makes zero suspicious."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-accumulator-02",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 12,
+    "problem": {
+      "id": 80012,
+      "title": "Accepted accumulator 2",
+      "description": "Read n and output the sum from 0 to n - 1.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nanswer = 0\nfor i in range(n):\n    answer += i\nprint(answer)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "VARIABLE_INITIALIZATION"
+      ],
+      "forbiddenFineTags": [
+        "INITIAL_STATE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-accumulator",
+      "misconception": "The analyzer may treat a normal zero accumulator as a bad initial state.",
+      "expectedStudentMove": "Only promote initial-state labels when the variable role makes zero suspicious."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-accumulator-03",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 13,
+    "problem": {
+      "id": 80013,
+      "title": "Accepted accumulator 3",
+      "description": "Read n and output the sum from 0 to n - 1.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nanswer = 0\nfor i in range(n):\n    answer += i\nprint(answer)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "VARIABLE_INITIALIZATION"
+      ],
+      "forbiddenFineTags": [
+        "INITIAL_STATE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-accumulator",
+      "misconception": "The analyzer may treat a normal zero accumulator as a bad initial state.",
+      "expectedStudentMove": "Only promote initial-state labels when the variable role makes zero suspicious."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-accumulator-04",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 14,
+    "problem": {
+      "id": 80014,
+      "title": "Accepted accumulator 4",
+      "description": "Read n and output the sum from 0 to n - 1.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nanswer = 0\nfor i in range(n):\n    answer += i\nprint(answer)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "VARIABLE_INITIALIZATION"
+      ],
+      "forbiddenFineTags": [
+        "INITIAL_STATE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-accumulator",
+      "misconception": "The analyzer may treat a normal zero accumulator as a bad initial state.",
+      "expectedStudentMove": "Only promote initial-state labels when the variable role makes zero suspicious."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-accumulator-05",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 15,
+    "problem": {
+      "id": 80015,
+      "title": "Accepted accumulator 5",
+      "description": "Read n and output the sum from 0 to n - 1.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nanswer = 0\nfor i in range(n):\n    answer += i\nprint(answer)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "VARIABLE_INITIALIZATION"
+      ],
+      "forbiddenFineTags": [
+        "INITIAL_STATE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-accumulator",
+      "misconception": "The analyzer may treat a normal zero accumulator as a bad initial state.",
+      "expectedStudentMove": "Only promote initial-state labels when the variable role makes zero suspicious."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-hidden-pass-01",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 16,
+    "problem": {
+      "id": 80016,
+      "title": "Accepted hidden pass 1",
+      "description": "Accepted code with visible and hidden cases all passing.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nx = int(input())\nprint(\"YES\" if x % 2 == 0 else \"NO\")\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY",
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-hidden-pass",
+      "misconception": "The analyzer may confuse hidden-case presence with hidden-case failure.",
+      "expectedStudentMove": "Only failed hidden cases should support sample-overfit concerns."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-hidden-pass-02",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 17,
+    "problem": {
+      "id": 80017,
+      "title": "Accepted hidden pass 2",
+      "description": "Accepted code with visible and hidden cases all passing.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nx = int(input())\nprint(\"YES\" if x % 2 == 0 else \"NO\")\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY",
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-hidden-pass",
+      "misconception": "The analyzer may confuse hidden-case presence with hidden-case failure.",
+      "expectedStudentMove": "Only failed hidden cases should support sample-overfit concerns."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-hidden-pass-03",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 18,
+    "problem": {
+      "id": 80018,
+      "title": "Accepted hidden pass 3",
+      "description": "Accepted code with visible and hidden cases all passing.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nx = int(input())\nprint(\"YES\" if x % 2 == 0 else \"NO\")\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY",
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-hidden-pass",
+      "misconception": "The analyzer may confuse hidden-case presence with hidden-case failure.",
+      "expectedStudentMove": "Only failed hidden cases should support sample-overfit concerns."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-hidden-pass-04",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 19,
+    "problem": {
+      "id": 80019,
+      "title": "Accepted hidden pass 4",
+      "description": "Accepted code with visible and hidden cases all passing.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nx = int(input())\nprint(\"YES\" if x % 2 == 0 else \"NO\")\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY",
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-hidden-pass",
+      "misconception": "The analyzer may confuse hidden-case presence with hidden-case failure.",
+      "expectedStudentMove": "Only failed hidden cases should support sample-overfit concerns."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-hidden-pass-05",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 20,
+    "problem": {
+      "id": 80020,
+      "title": "Accepted hidden pass 5",
+      "description": "Accepted code with visible and hidden cases all passing.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nx = int(input())\nprint(\"YES\" if x % 2 == 0 else \"NO\")\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY",
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-hidden-pass",
+      "misconception": "The analyzer may confuse hidden-case presence with hidden-case failure.",
+      "expectedStudentMove": "Only failed hidden cases should support sample-overfit concerns."
+    },
+    "history": null
+  },
+  {
+    "name": "tle-not-sample-overfit-01",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 21,
+    "problem": {
+      "id": 80021,
+      "title": "TLE is not sample overfit 1",
+      "description": "A slow but general simulation reaches the time limit on large input.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "\nn = int(input())\ntotal = 0\nfor i in range(n):\n    total += i\nprint(total)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "",
+        "actualOutput": "",
+        "expectedOutput": "",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TIME_LIMIT_EXCEEDED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT",
+        "BRUTE_FORCE_LIMIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "tle-not-sample-overfit",
+      "misconception": "The analyzer may label every hidden failure as sample overfit, even for TLE.",
+      "expectedStudentMove": "Keep TLE diagnosis at complexity level unless code shape gives stronger fine evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "tle-not-sample-overfit-02",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 22,
+    "problem": {
+      "id": 80022,
+      "title": "TLE is not sample overfit 2",
+      "description": "A slow but general simulation reaches the time limit on large input.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "\nn = int(input())\ntotal = 0\nfor i in range(n):\n    total += i\nprint(total)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "",
+        "actualOutput": "",
+        "expectedOutput": "",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TIME_LIMIT_EXCEEDED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT",
+        "BRUTE_FORCE_LIMIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "tle-not-sample-overfit",
+      "misconception": "The analyzer may label every hidden failure as sample overfit, even for TLE.",
+      "expectedStudentMove": "Keep TLE diagnosis at complexity level unless code shape gives stronger fine evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "tle-not-sample-overfit-03",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 23,
+    "problem": {
+      "id": 80023,
+      "title": "TLE is not sample overfit 3",
+      "description": "A slow but general simulation reaches the time limit on large input.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "\nn = int(input())\ntotal = 0\nfor i in range(n):\n    total += i\nprint(total)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "",
+        "actualOutput": "",
+        "expectedOutput": "",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TIME_LIMIT_EXCEEDED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT",
+        "BRUTE_FORCE_LIMIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "tle-not-sample-overfit",
+      "misconception": "The analyzer may label every hidden failure as sample overfit, even for TLE.",
+      "expectedStudentMove": "Keep TLE diagnosis at complexity level unless code shape gives stronger fine evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "tle-not-sample-overfit-04",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 24,
+    "problem": {
+      "id": 80024,
+      "title": "TLE is not sample overfit 4",
+      "description": "A slow but general simulation reaches the time limit on large input.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "\nn = int(input())\ntotal = 0\nfor i in range(n):\n    total += i\nprint(total)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "",
+        "actualOutput": "",
+        "expectedOutput": "",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TIME_LIMIT_EXCEEDED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT",
+        "BRUTE_FORCE_LIMIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "tle-not-sample-overfit",
+      "misconception": "The analyzer may label every hidden failure as sample overfit, even for TLE.",
+      "expectedStudentMove": "Keep TLE diagnosis at complexity level unless code shape gives stronger fine evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "tle-not-sample-overfit-05",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 25,
+    "problem": {
+      "id": 80025,
+      "title": "TLE is not sample overfit 5",
+      "description": "A slow but general simulation reaches the time limit on large input.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "\nn = int(input())\ntotal = 0\nfor i in range(n):\n    total += i\nprint(total)\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "",
+        "actualOutput": "",
+        "expectedOutput": "",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TIME_LIMIT_EXCEEDED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [
+        "SAMPLE_ONLY"
+      ],
+      "forbiddenFineTags": [
+        "SAMPLE_OVERFIT",
+        "BRUTE_FORCE_LIMIT"
+      ]
+    },
+    "quality": {
+      "bugPattern": "tle-not-sample-overfit",
+      "misconception": "The analyzer may label every hidden failure as sample overfit, even for TLE.",
+      "expectedStudentMove": "Keep TLE diagnosis at complexity level unless code shape gives stronger fine evidence."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dedupe-intended-01",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 26,
+    "problem": {
+      "id": 80026,
+      "title": "Accepted dedupe intended 1",
+      "description": "Read n ids and output the number of distinct ids.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nids = list(map(int, input().split()))\nprint(len(set(ids)))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "DUPLICATE_CASE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dedupe-intended",
+      "misconception": "The analyzer may assume every set() use destroys required duplicates.",
+      "expectedStudentMove": "Use the problem statement before promoting dedupe to a duplicate-case bug."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dedupe-intended-02",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 27,
+    "problem": {
+      "id": 80027,
+      "title": "Accepted dedupe intended 2",
+      "description": "Read n ids and output the number of distinct ids.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nids = list(map(int, input().split()))\nprint(len(set(ids)))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "DUPLICATE_CASE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dedupe-intended",
+      "misconception": "The analyzer may assume every set() use destroys required duplicates.",
+      "expectedStudentMove": "Use the problem statement before promoting dedupe to a duplicate-case bug."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dedupe-intended-03",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 28,
+    "problem": {
+      "id": 80028,
+      "title": "Accepted dedupe intended 3",
+      "description": "Read n ids and output the number of distinct ids.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nids = list(map(int, input().split()))\nprint(len(set(ids)))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "DUPLICATE_CASE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dedupe-intended",
+      "misconception": "The analyzer may assume every set() use destroys required duplicates.",
+      "expectedStudentMove": "Use the problem statement before promoting dedupe to a duplicate-case bug."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dedupe-intended-04",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 29,
+    "problem": {
+      "id": 80029,
+      "title": "Accepted dedupe intended 4",
+      "description": "Read n ids and output the number of distinct ids.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nids = list(map(int, input().split()))\nprint(len(set(ids)))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "DUPLICATE_CASE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dedupe-intended",
+      "misconception": "The analyzer may assume every set() use destroys required duplicates.",
+      "expectedStudentMove": "Use the problem statement before promoting dedupe to a duplicate-case bug."
+    },
+    "history": null
+  },
+  {
+    "name": "accepted-dedupe-intended-05",
+    "source": "synthetic-student-hint-negative-v1",
+    "caseId": 30,
+    "problem": {
+      "id": 80030,
+      "title": "Accepted dedupe intended 5",
+      "description": "Read n ids and output the number of distinct ids.",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": [
+        "negative-control"
+      ],
+      "algorithmStrategies": [
+        "avoid-over-tagging"
+      ],
+      "commonMistakes": [
+        "This fixture checks that similar code is not over-diagnosed."
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "ACCEPTED",
+      "sourceCode": "\nn = int(input())\nids = list(map(int, input().split()))\nprint(len(set(ids)))\n",
+      "compileOutput": "",
+      "errorMessage": ""
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "sample",
+        "actualOutput": "ok",
+        "expectedOutput": "ok",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "ACCEPTED",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "negative control",
+      "studentHint": "Keep the diagnosis conservative and review why this code should not receive the forbidden label."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY",
+        "COLLECT_EVIDENCE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "review"
+      ],
+      "mustNotMention": [
+        "瀹屾暣浠ｇ爜",
+        "鍙傝€冪瓟妗?",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "forbiddenFineTags": [
+        "DUPLICATE_CASE"
+      ]
+    },
+    "quality": {
+      "bugPattern": "accepted-dedupe-intended",
+      "misconception": "The analyzer may assume every set() use destroys required duplicates.",
+      "expectedStudentMove": "Use the problem statement before promoting dedupe to a duplicate-case bug."
+    },
+    "history": null
+  }
+]

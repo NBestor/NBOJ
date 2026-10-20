@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习任务 - 温中 AI 编程学习平台</title>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+        params.delete("id");
+        const query = params.toString();
+        window.location.replace(id ? "/app/problem/" + id + (query ? "?" + query : "") + window.location.hash : "/app/student");
+    </script>
+</head>
+<body>
+    正在进入学习任务...
+</body>
+</html>

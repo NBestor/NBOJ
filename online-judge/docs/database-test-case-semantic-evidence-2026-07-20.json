@@ -1,0 +1,229 @@
+{
+  "generatedAt": "2026-07-20T12:51:11Z",
+  "change": "add-pedagogical-test-case-intents",
+  "growthPoint": {
+    "name": "测试点语义层",
+    "reason": "现有 16 道题和 45 个测试点只有输入、期望输出、公开性与顺序，判题能确认成败，但数据库与 AI 无法区分样例、定义边界、结构陷阱、状态空间和复杂度压力。继续平铺知识点不能补上这条证据断层。",
+    "mainChain": "判题事实 -> AI 自由诊断 -> 标准库挂接 -> 基础/提高建议 -> 数据库存储",
+    "boundary": "测试点语义只作为中性判题事实进入自由诊断，不输出标准库 ID，不替代代码证据；隐藏测试点只暴露泛化意图，绝不暴露原始输入、答案或可反推数值。"
+  },
+  "externalBasis": [
+    {
+      "source": "ACM/IEEE-CS CS2023",
+      "url": "https://csed.acm.org/wp-content/uploads/2025/11/CS2023-Report.htm",
+      "appliedRule": "把测试计划、测试数据、边界与角落情况作为独立工程能力，而不是只保存程序最终是否通过。"
+    },
+    {
+      "source": "ICPC/Kattis Problem Package Format",
+      "url": "https://www.kattis.com/problem-package-format/spec/2023-07-draft.html",
+      "appliedRule": "区分 sample 与 secret test data，使用稳定、可说明意图的测试数据组织方式，并为分组与评分角色保留结构。"
+    },
+    {
+      "source": "Education Endowment Foundation Feedback Guidance",
+      "url": "https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/feedback/",
+      "appliedRule": "反馈应围绕学习目标与实际证据之间的缺口，因此每个测试点同时保存 learningObjective 与可观察的 intentSummary。"
+    }
+  ],
+  "baseline": {
+    "database": "production PostgreSQL 16 V7 snapshot",
+    "snapshotCreatedAt": "2026-07-20T12:42:53Z",
+    "snapshotSha256": "197c46d1f42f3ff68e152888fde2832111ffb52e9f6c8f60329a2992a9abb8ca",
+    "flywayVersion": "7",
+    "problems": 16,
+    "testCases": 45,
+    "testCaseSemanticColumns": "ABSENT",
+    "testCaseSemanticProfiles": 0,
+    "submissionCaseResults": 60,
+    "submissionCaseTestIdentityColumn": "ABSENT",
+    "submissionCaseSemanticSnapshotColumns": "ABSENT",
+    "businessCounts": {
+      "submissions": 53,
+      "submissionAnalyses": 34,
+      "submissionDiagnosisFacts": 85,
+      "studentAiFeedbacks": 53,
+      "applicationScenarios": 34,
+      "enabledKnowledgeNodes": 737,
+      "enabledSkillUnits": 140,
+      "enabledMistakePoints": 381,
+      "enabledImprovementPoints": 138
+    }
+  },
+  "migration": {
+    "file": "V8__add_test_case_semantic_evidence.sql",
+    "flywayTarget": "8",
+    "tablesAdded": 0,
+    "testCaseColumnsAdded": [
+      "semantic_code",
+      "intent_type",
+      "intent_title",
+      "intent_summary",
+      "learning_objective",
+      "contest_role",
+      "reveal_policy",
+      "knowledge_node_code",
+      "skill_unit_code",
+      "review_status",
+      "source_reference",
+      "library_version",
+      "reviewed_at"
+    ],
+    "submissionCaseResultColumnsAdded": [
+      "test_case_id",
+      "test_semantic_code",
+      "test_intent_type",
+      "test_intent_title",
+      "test_intent_summary",
+      "test_learning_objective",
+      "test_contest_role",
+      "test_reveal_policy"
+    ],
+    "contentPolicy": "人工逐测试点审校，不运行时 seed，不以同义节点或模板复制换数量。",
+    "historyBackfill": "按同题测试点顺序确定性绑定 60 条历史判题结果，并保存当时语义快照。"
+  },
+  "isolatedProductionSnapshotResult": {
+    "flywayVersion": "8",
+    "hibernateSchemaValidation": "PASS",
+    "problems": 16,
+    "testCases": 45,
+    "semanticProfiles": 45,
+    "reviewedSemanticCoverage": "45/45",
+    "submissionCaseResults": 60,
+    "mappedCaseResults": "60/60",
+    "semanticSnapshots": "60/60",
+    "intentTypes": 7,
+    "knowledgeNodesDirectlyCovered": 29,
+    "skillUnitsDirectlyCovered": 26,
+    "revealDistribution": {
+      "PUBLIC_EXAMPLE": 23,
+      "AI_GENERALIZED": 22
+    },
+    "intentDistribution": {
+      "REPRESENTATIVE": 17,
+      "BOUNDARY": 10,
+      "EDGE_CASE": 8,
+      "STRUCTURAL": 7,
+      "STATE_SPACE": 1,
+      "SCALE": 1,
+      "PERFORMANCE": 1
+    },
+    "contestRoleDistribution": {
+      "SAMPLE_EXPLANATION": 23,
+      "CORRECTNESS_GUARD": 14,
+      "SUBTASK_GATE": 7,
+      "COMPLEXITY_STRESS": 1
+    },
+    "qualityBlockers": {
+      "missingSemanticProfile": 0,
+      "duplicateSemanticCode": 0,
+      "invalidEnumValue": 0,
+      "invalidRevealPolicy": 0,
+      "thinSemanticContent": 0,
+      "hiddenRawInputLeak": 0,
+      "invalidKnowledgeSkillPath": 0,
+      "problemsWithoutIntentDiversity": 0,
+      "mappedResultWithoutSemanticSnapshot": 0
+    },
+    "businessCountsUnchanged": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 53,
+      "submissionAnalyses": 34,
+      "submissionDiagnosisFacts": 85,
+      "studentAiFeedbacks": 53,
+      "applicationScenarios": 34,
+      "enabledKnowledgeNodes": 737,
+      "enabledSkillUnits": 140,
+      "enabledMistakePoints": 381,
+      "enabledImprovementPoints": 138
+    }
+  },
+  "branchExample": {
+    "problem": "质数判断",
+    "before": {
+      "hiddenCase": "999983 -> YES",
+      "databaseMeaning": "只能知道这是第 4 个隐藏测试点；AI 不能看到数值，也不知道它为什么存在。"
+    },
+    "after": {
+      "semanticCode": "TCI_PRIME_LARGE",
+      "intentType": "PERFORMANCE",
+      "intentTitle": "大质数复杂度",
+      "learningObjective": "能从因子成对性质推出平方根试除上界，并估算判定复杂度。",
+      "contestRole": "COMPLEXITY_STRESS",
+      "revealPolicy": "AI_GENERALIZED",
+      "aiVisibleMeaning": "只告诉 AI 此隐藏点用于检查接近规模上界时的不必要操作量，不提供 999983、YES 或任何可反推答案的值。"
+    }
+  },
+  "aiIntegration": {
+    "freeDiagnosisPrompt": "free-diagnosis-v2",
+    "finalReportPrompt": "diagnosis-report-v4",
+    "neutralEvidenceReference": "judge:test-intent:<semanticCode>",
+    "formalLibraryIdentifiersInFreeDiagnosisContext": false,
+    "hiddenRawValuesInAiContext": false,
+    "testIntentCanProveStudentErrorByItself": false,
+    "newJudgingSnapshotPersistence": true
+  },
+  "verification": {
+    "targetedBackendTests": "44 run, 0 failures, 0 errors",
+    "fullBackendTests": "663 run, 0 failures, 0 errors, 9 skipped",
+    "postgresFlywayIntegration": "V1-V8 empty database, idempotent restart, explicit baseline and schema drift blocking PASS",
+    "productionSnapshotMigration": "V7 snapshot migrated to V8 and Hibernate validate PASS",
+    "semanticQualityGate": "PASS",
+    "openSpecStrictValidation": "PASS",
+    "staticChecks": "git diff --check and shell syntax PASS"
+  },
+  "evidenceBoundary": {
+    "realStudentDataAvailable": false,
+    "engineeringClaim": "迁移、语义覆盖、隐藏边界、历史快照和 AI 消费链已由生产快照与开发者回归验证。",
+    "teachingOutcomeClaim": "NOT_CLAIMED",
+    "nextEvidenceNeeded": "后续需要真实新提交、教师校正和同题再提交行为，才能评价哪些测试意图真正提高了诊断与学习质量。"
+  },
+  "productionResult": {
+    "status": "DEPLOYED_VERIFIED",
+    "deployedAt": "2026-07-20T13:02:54Z",
+    "commit": "5be632c8f624835e2fcf2470fc5128d5b22ceb51",
+    "flywayVersion": "8",
+    "databaseBackup": {
+      "path": "backups/onlinejudge-20260720-205359.dump",
+      "createdAt": "2026-07-20T12:54:00Z",
+      "sha256": "7dee07930aea985e77d5bb08b07a7f1dc9ee301a364e89cceffbad5c50027cbf"
+    },
+    "isolatedRestoreRehearsal": {
+      "status": "PASS",
+      "businessTablesRead": 34,
+      "productionDatabaseOrVolumeMounted": false
+    },
+    "applicationImageId": "sha256:30c4594d6dc82a591822004f1af9c809c422703e46fcbff9f4c8306d742503f3",
+    "semanticProfiles": 45,
+    "mappedCaseResults": "60/60",
+    "semanticSnapshots": "60/60",
+    "intentTypes": 7,
+    "knowledgeNodesDirectlyCovered": 29,
+    "skillUnitsDirectlyCovered": 26,
+    "schemaReadiness": "PASS",
+    "disciplineQualityGate": "PASS",
+    "testCaseSemanticQualityGate": "PASS",
+    "canonicalPublicUrl": "https://tuotuzju.com/code/",
+    "canonicalPageHttp": 200,
+    "canonicalAssetHttp": 200,
+    "canonicalApiHttp": 200,
+    "canonicalSpaRouteHttp": 200,
+    "readinessStatus": "DEGRADED",
+    "readinessBlockingFailures": 0,
+    "readinessNonBlockingWarnings": [
+      "ai-smoke",
+      "ai-standard-library-growth"
+    ],
+    "businessCountsUnchanged": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 53,
+      "submissionAnalyses": 34,
+      "submissionDiagnosisFacts": 85,
+      "studentAiFeedbacks": 53
+    },
+    "deploymentHardening": [
+      "恢复演练脚本改为把校验 SQL 真实传入隔离容器，防止只恢复不验表的假通过。",
+      "部署脚本改为先等待应用页面可用和 Flyway 完成，再执行数据库门禁，消除启动竞态。"
+    ]
+  }
+}

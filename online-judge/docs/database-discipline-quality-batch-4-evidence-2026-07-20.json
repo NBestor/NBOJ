@@ -1,0 +1,157 @@
+{
+  "generatedAt": "2026-07-20T07:55:00Z",
+  "change": "expand-discipline-library-batch-4",
+  "baseline": {
+    "database": "production PostgreSQL 16 snapshot",
+    "flywayVersion": "5",
+    "informaticsKnowledgeNodes": 737,
+    "informaticsKnowledgePoints": 586,
+    "enabledSkillUnits": 140,
+    "enabledMistakePoints": 359,
+    "enabledImprovementPoints": 99,
+    "enabledScopeMappings": 13,
+    "curatedKnowledgePointsCumulative": 84,
+    "templateKnowledgeDescriptions": 502,
+    "skillsWithoutImprovement": 41,
+    "problems": 16,
+    "testCases": 45,
+    "submissions": 52,
+    "submissionAnalyses": 33,
+    "submissionDiagnosisFacts": 81,
+    "studentAiFeedbacks": 52
+  },
+  "selectionPolicy": {
+    "mode": "standards-and-structure-driven",
+    "reason": "当前真实学生行为样本不足以代表错误频率，因此不按行为次数扩库",
+    "knowledgeRule": "只精修现有启用叶子知识点，不新增平行知识树或同义能力点",
+    "mappingRule": "官方标准只映射到可核验章节；本地教学推导显式标记 INFERRED",
+    "qualityRule": "每个新增易错点必须描述可观察错误行为，每个提升点必须给出练习、学生收益、教师验收和同能力错因引用"
+  },
+  "batch": {
+    "migration": "V6__expand_discipline_library_batch_4.sql",
+    "chapterScopeMappingsAdded": 26,
+    "knowledgePointsRefined": 48,
+    "knowledgePointsByDomain": {
+      "BASIC": 12,
+      "MATH": 12,
+      "ENG": 12,
+      "CONTEST": 12
+    },
+    "mistakePointsAdded": 22,
+    "improvementPointsAdded": 22,
+    "firstImprovementPathsClosed": 14,
+    "additionalTrainingPathsAdded": 8,
+    "knowledgeNodesAdded": 0,
+    "skillUnitsAdded": 0
+  },
+  "isolatedResult": {
+    "flywayTarget": "6",
+    "enabledKnowledgeNodes": 737,
+    "enabledSkillUnits": 140,
+    "enabledMistakePoints": 381,
+    "enabledImprovementPoints": 121,
+    "enabledScopeMappings": 39,
+    "curatedKnowledgePointsCumulative": 132,
+    "templateKnowledgeDescriptions": 454,
+    "skillsWithoutImprovement": 27,
+    "structuralBlockers": 0,
+    "businessCounts": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 52,
+      "submissionAnalyses": 33,
+      "submissionDiagnosisFacts": 81,
+      "studentAiFeedbacks": 52
+    }
+  },
+  "productionResult": {
+    "deployedAt": "2026-07-20T08:46:20Z",
+    "commit": "583ce48c2c1c6734cf2fbf01e079b9d2ba4f7a94",
+    "flywayVersion": "6",
+    "flywaySuccess": true,
+    "applicationImage": "sha256:c6d9a8390b219ffd07bfb809e35bdabb4d2767806770944b72640dafa8c3bf4f",
+    "preDeployBackup": "backups/onlinejudge-20260720-161256.dump",
+    "preDeployBackupSha256": "c75c788f8a0e29794e177157cd3af7a0a0b89d13fc6193c1a6363e0fa0b04d2a",
+    "rollbackImage": "wenzhong-oj-app:rollback-pre-v6-20260720-161256",
+    "businessCountsBeforeAndAfter": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 53,
+      "submissionAnalyses": 34,
+      "submissionDiagnosisFacts": 85,
+      "studentAiFeedbacks": 53
+    },
+    "enabledScopeMappings": 39,
+    "enabledKnowledgeNodes": 737,
+    "enabledSkillUnits": 140,
+    "enabledMistakePoints": 381,
+    "enabledImprovementPoints": 121,
+    "curatedBatchFourKnowledgePoints": 48,
+    "representativeNavigationChainsPassed": 4,
+    "schemaReadiness": "PASS",
+    "qualityGate": "PASS",
+    "applicationPage": "200",
+    "nginxPage": "200",
+    "publicHttpPage": "200"
+  },
+  "representativeChains": [
+    {
+      "domain": "BASIC",
+      "knowledgePoint": "BASIC.ARRAY.MATRIX.边界检查",
+      "skill": "SK_MATRIX_COORDINATE_MAPPING",
+      "mistake": "MP_DQ4_GRID_ACCESS_BEFORE_BOUNDARY_CHECK",
+      "improvement": "IP_DQ4_GRID_NEIGHBOR_GUARD_SEQUENCE"
+    },
+    {
+      "domain": "MATH",
+      "knowledgePoint": "MATH.BIT.MASK.枚举子集",
+      "skill": "SK_V13_BITMASK_STATE_TRANSITION_CONTRACT",
+      "mistake": "MP_DQ4_SUBMASK_LOOP_STUCK_AT_ZERO",
+      "improvement": "IP_DQ4_SUBMASK_TERMINATION_TRACE"
+    },
+    {
+      "domain": "ENG",
+      "knowledgePoint": "ENG.DEBUG.BOUNDARY.最大输入",
+      "skill": "SK_V10_COMPLEXITY_SPACE_CONTRACT",
+      "mistake": "MP_DQ4_COMPLEXITY_ESTIMATES_AVERAGE_NOT_MAXIMUM_SCALE",
+      "improvement": "IP_DQ4_MAX_SCALE_RESOURCE_LEDGER"
+    },
+    {
+      "domain": "CONTEST",
+      "knowledgePoint": "CONTEST.READING.CONSTRAINT.隐藏特殊条件",
+      "skill": "SK_READING_SAMPLE_CONSTRAINT_CROSSCHECK",
+      "mistake": "MP_DQ4_SAMPLE_ASSUMPTION_NOT_IN_STATEMENT",
+      "improvement": "IP_DQ4_STATEMENT_SAMPLE_EVIDENCE_MATRIX"
+    }
+  ],
+  "sources": [
+    {
+      "name": "普通高中信息技术课程标准（2017年版2020年修订）",
+      "url": "https://jyj.changdu.gov.cn/cdsjyj/c101476/202205/764ee1914e3c45aaba8e372f1b628a34/files/f97a4fa12a6c4acf94d34755a16a9d22.pdf"
+    },
+    {
+      "name": "NOI 大纲（2025年修订版）",
+      "url": "https://www.noi.cn/upload/resources/file/2025/04/18/NOI_Syllabus_Edition_2025.pdf"
+    },
+    {
+      "name": "生产 V5 结构引用与质量债务只读基线",
+      "snapshotSha256": "a500c9a434d99447f622826f4ebaab552e1368ab2905edc71a138d1d4f57619c"
+    }
+  ],
+  "verification": {
+    "rawSqlRunsOnRestoredSnapshot": 2,
+    "idempotentCountsStable": true,
+    "qualityGate": "PASS",
+    "targetedNavigationAndMigrationTests": "PASS",
+    "fullBackendTests": "659 run, 0 failures, 0 errors, 9 skipped",
+    "flywayIntegration": "V1-V6 empty database, idempotent restart, explicit baseline and schema drift blocking PASS",
+    "productionDeployment": "PASS"
+  },
+  "limitations": [
+    "本批证明的是标准覆盖、内容颗粒度、结构一致性和工程可发布性，不证明学生学习效果",
+    "剩余 454 个模板知识点和 27 个缺少提升路径的能力点仍是后续质量债务",
+    "真实新 cohort 足够后，应按重复临时候选、教师校正和正式命中重新排序剩余债务",
+    "生产 readiness 的阻断项全部通过，但仍保留 AI smoke 未执行和成长 Agent 已开启两个非阻断提醒",
+    "生产根分区发布后剩余约 3.1 GiB，后续发布前应先治理镜像与构建缓存占用"
+  ]
+}

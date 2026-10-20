@@ -1,0 +1,179 @@
+{
+  "generatedAt": "2026-07-16T15:12:00Z",
+  "database": "production PostgreSQL 16",
+  "release": {
+    "commit": "b7052eb39f99b8f662d2d9b10e43ab9a011bed24",
+    "flywayVersion": "5",
+    "flywayInstalledAt": "2026-07-16T15:10:59.063377Z",
+    "applicationImage": "wenzhong-oj-app:diagnosis-evidence-v5-b7052eb3",
+    "rollbackImage": "wenzhong-oj-app:pre-diagnosis-evidence-v5-20260716",
+    "backupPath": "/opt/Code/online-judge/backups/onlinejudge-20260716-225107.dump",
+    "backupSha256": "bf4e154321d0d4b1ed54dcccc7747fc79a6a59bce6d258f7f306fa5b648ec61a",
+    "backupRestoreVerified": true,
+    "applicationHttpStatus": 200,
+    "nginxHttpStatus": 200
+  },
+  "assessment": {
+    "disciplineContentQuality": "PASS",
+    "diagnosisEvidenceEngineering": "PASS",
+    "postV4OutcomeEvidence": "INSUFFICIENT_SAMPLE",
+    "decision": "KEEP_V4_CONTENT_AND_SWITCH_TO_OBSERVATION_BEFORE_BATCH_4"
+  },
+  "disciplineContentGate": {
+    "curatedKnowledgePoints": 84,
+    "batch2KnowledgePoints": 30,
+    "batch3KnowledgePoints": 30,
+    "learningFrameworks": 3,
+    "scopeMappings": 13,
+    "enabledKnowledgeScopeCoveredNodes": 737,
+    "blockers": 0,
+    "status": "PASS"
+  },
+  "v4Baseline": {
+    "submissionAnalyses": 33,
+    "analysesWithAdvice": 21,
+    "analysesWithoutAdvice": 12,
+    "analysesWithProjectedFacts": 14,
+    "analysesWithAdviceMissingProjection": 7,
+    "missingFactRowsFromAdvice": 26,
+    "diagnosisFacts": 55,
+    "formalFacts": 2,
+    "provisionalFacts": 33,
+    "unclassifiedFacts": 20,
+    "stableIdentityFacts": 2,
+    "factsWithUnknownLibraryFit": 55,
+    "feedbackRevisions": 18,
+    "feedbacksWithoutRevision": 36,
+    "linkedFeedbackEvents": 29,
+    "unlinkedFeedbackEvents": 51,
+    "issueTransitions": 23
+  },
+  "productionBackfill": {
+    "preview": {
+      "processed": 52,
+      "missingAnalyses": 19,
+      "unclassified": 34,
+      "missingFeedbackRevisions": 36,
+      "failures": 0
+    },
+    "apply": {
+      "success": 46,
+      "skipped": 6,
+      "failed": 0,
+      "factsAdded": 26,
+      "feedbackRevisionsAdded": 36,
+      "feedbackEventsLinked": 51
+    },
+    "repeat": {
+      "success": 0,
+      "skipped": 52,
+      "failed": 0,
+      "factsAdded": 0,
+      "feedbackRevisionsAdded": 0,
+      "feedbackEventsLinked": 0
+    }
+  },
+  "v5After": {
+    "submissionAnalyses": 33,
+    "analysesWithAdvice": 21,
+    "analysesWithoutAdvice": 12,
+    "analysesWithAdviceMissingProjection": 0,
+    "missingFactRowsFromAdvice": 0,
+    "diagnosisFacts": 81,
+    "formalFacts": 4,
+    "provisionalFacts": 43,
+    "unclassifiedFacts": 34,
+    "stableIdentityFacts": 47,
+    "formalIdentityFacts": 4,
+    "provisionalIdentityFacts": 43,
+    "textFingerprintFacts": 34,
+    "libraryFitHit": 4,
+    "libraryFitPartial": 43,
+    "libraryFitMiss": 34,
+    "factsWithUnknownLibraryFit": 0,
+    "feedbackRevisions": 54,
+    "feedbacksWithoutRevision": 0,
+    "linkedFeedbackEvents": 80,
+    "unlinkedFeedbackEvents": 0,
+    "issueTransitions": 21
+  },
+  "qualityGate": {
+    "blockerMetrics": 12,
+    "blockerMetricsPassed": 12,
+    "projectionMismatch": 0,
+    "missingFactRows": 0,
+    "provisionalIdentityMismatch": 0,
+    "provisionalFactsWithoutStableCode": 0,
+    "provisionalFactsWithInvalidParent": 0,
+    "formalFactsWithInvalidEntry": 0,
+    "formalCrossAnchorMismatch": 0,
+    "factsWithUnknownLibraryFit": 0,
+    "invalidLatestRevisionLinks": 0,
+    "invalidEventRevisionLinks": 0,
+    "duplicateIssueTransitionGroups": 0,
+    "emptyIssueTransitionKeys": 0,
+    "status": "PASS"
+  },
+  "rehearsalCorrection": {
+    "finding": "One formal diagnosis fact referenced a skill unit that did not own its canonical mistake point.",
+    "before": 1,
+    "after": 0,
+    "correction": "Canonical formal-library ownership now determines the skill anchor during migration and projection."
+  },
+  "lifecycle": {
+    "before": {
+      "NEW": 20,
+      "NOT_OBSERVED": 3,
+      "PERSISTED": 0,
+      "rows": 23
+    },
+    "after": {
+      "NEW": 18,
+      "NOT_OBSERVED": 2,
+      "PERSISTED": 1,
+      "rows": 21,
+      "distinctKeys": 21,
+      "duplicateGroups": 0,
+      "emptyKeys": 0,
+      "missingSubmissionLinks": 0
+    },
+    "interpretation": "Stable identity merged duplicate derived histories; no source submission, analysis, feedback, or diagnosis fact was deleted."
+  },
+  "coreBusinessCounts": {
+    "problems": { "before": 16, "after": 16 },
+    "testCases": { "before": 45, "after": 45 },
+    "submissions": { "before": 52, "after": 52 },
+    "submissionAnalyses": { "before": 33, "after": 33 },
+    "studentAiFeedbacks": { "before": 52, "after": 52 },
+    "growthCandidates": { "before": 40, "after": 40 }
+  },
+  "outcomeEvidence": {
+    "v4InstalledAt": "2026-07-16T12:57:01.485302Z",
+    "latestSubmissionAt": "2026-07-15T07:48:19.117054Z",
+    "latestAnalysisAt": "2026-07-15T07:49:00.251220Z",
+    "submissionsAfterV4": 0,
+    "analysesAfterV4": 0,
+    "conclusion": "No post-V4 cohort exists, so the release cannot yet be credited with higher formal-hit, diagnosis, or learning outcomes."
+  },
+  "verification": {
+    "backendTests": 657,
+    "backendFailures": 0,
+    "backendErrors": 0,
+    "backendSkipped": 9,
+    "flywayEmptyDatabaseV1ToV5": "PASS",
+    "flywayIdempotency": "PASS",
+    "flywayBaselineGuard": "PASS",
+    "flywayDriftBlock": "PASS",
+    "openSpecStrictValidation": "PASS",
+    "contentReadiness": "PASS",
+    "disciplineQualityGate": "PASS",
+    "diagnosisEvidenceQualityGate": "PASS"
+  },
+  "limitations": [
+    "The 26 additional diagnosis facts are deterministic projections of historical advice, not new model diagnoses or student outcomes.",
+    "The 12 analyses without advice remain outside the projection denominator because generating facts for them would invent evidence.",
+    "The formal path remains only 4 of 81 facts; V5 makes this measurable but does not by itself improve the model's formal navigation hit rate.",
+    "The issue-transition reduction from 23 to 21 reflects a rebuild under stable identities, not loss of source evidence.",
+    "This artifact is a production snapshot captured after the V5 release, not a live dashboard."
+  ]
+}

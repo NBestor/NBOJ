@@ -1,0 +1,2983 @@
+[
+  {
+    "name": "codestream-01-public-compile-error-72120069",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50001,
+    "problem": {
+      "id": 50028,
+      "title": "CodeStream prob_028",
+      "description": "# Problem Description\n  \n  \n  \n  You will be given a string S (1<=|S|<=10000) containing English alphabets and digits without spaces. You need to extract the digits and print it as a sequence. Please look at the samples. \n  \n  \n  \n  |Sample Input | Sample Output |\n  \n  |----------------|----------------|\n  \n  | a1b1c2 | 112| \n  \n  | bt29 | 29 |",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "syntax"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "syntax_or_language_mismatch"
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "COMPILATION_ERROR",
+      "sourceCode": "import java.util.Scanner ;\n public class 31_A{\n  public static void main(Strig[] args)\n  {\n  Scanner sc = new Scanner() ;\n  String s = sc.nextLine() ;\n  String s1 =\"\" ;\n  for(int i = 0 ; i<s.length() ; i++)\n  {\n  char c = s.charAt(i) ;\n  if(c>='0' && c<='9'){\n  s1+=c ;\n  }\n  }\n \n  System.out.print(s1);\n  }\n }",
+      "compileOutput": "Compilation Error from CodeStream final_verdict",
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": "Compilation Error",
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "CE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示编译阶段失败",
+      "studentHint": "先定位第一条编译错误，把语言、类名、方法名和变量声明修到能编译，再回到算法逻辑。"
+    },
+    "expected": {
+      "issueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "fineTags": [],
+      "teachingAction": "FIX_FIRST_COMPILER_ERROR",
+      "acceptableTeachingActions": [
+        "FIX_FIRST_COMPILER_ERROR"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "编译",
+        "第一条错误"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:compilation_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-compile-error",
+      "misconception": "还没有把程序放到可编译状态，就开始判断算法对错。",
+      "expectedStudentMove": "先只处理编译器报告的第一处错误，重新提交后再观察 verdict 是否变化。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-02-public-compile-error-35013842",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50002,
+    "problem": {
+      "id": 50029,
+      "title": "CodeStream prob_029",
+      "description": "You will be dealing with the heights of the students here. First, you will be given an integer value N denoting the number of students in the class. Then you will be given N numbers (can be floating point numbers) denoting the height of each student in some unit. The ith number will denote the height of the ith student. After that you will be given a value K. \n  \n  \n  \n  In the assembly students are arranged from the smallest to largest height. You have to print the roll which will be standing in the Kth position in such an arrangement. The rolls follow 1 based indexing. In the case of repeating heights, you need to print the student with a lesser roll. \n  \n  \n  \n  Limits:\n  \n  1<=N<=100000\n  \n  1<=k<=100000\n  \n  100 <= height <= 5000\n  \n  \n  \n  Test Cases:\n  \n  \n  \n  Input\n  \n  \n  \n  5\n  \n  \n  \n  100 105.3 500.7 200.3 161\n  \n  \n  \n  3\n  \n  \n  \n  Output\n  \n  \n  \n  5\n  \n  \n  \n  Input\n  \n  \n  \n  4\n  \n  \n  \n  205.1 181.2 173.7 181.2\n  \n  \n  \n  2\n  \n  \n  \n  Output\n  \n  \n  \n  2",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "syntax"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "syntax_or_language_mismatch"
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "COMPILATION_ERROR",
+      "sourceCode": "import java.util.*;\n public class 31_A{\n  public static void main(Strig[] args)\n  {\n  Scanner sc = new Scanner() ;\n  int n = sc.nextInt() ;\n  double[] h = new double[n] ;\n  int[] pos = new int[n] ;\n  for(int i =0 ; i<n ; i++)\n  {\n  double hight = sc.nextDouble() ;\n  h[i] = hight ;\n  pos[i] = i ;\n  }\n \n  int k = new nextInt() ;\n  for(int i = 0 ; i<n-1 ; i++)\n  {\n  for(int j = i+1 ; j<n ; j++)\n  {\n  if(h[i]>h[j])\n  {\n  double temp = h[i] ;\n  h[i] = h[j] ;\n  h[j] = temp ;\n  /////////\n  int tem = pos[i] ;\n  pos[i] = pos[j] ;\n  pos[j] = tem ;\n  }\n  else if( h[i]==h[j] && pos[i]>pos[j])\n  {\n  double temp = h[i] ;\n  h[i] = h[j] ;\n  h[j] = temp ;\n  /////////\n  int tem = pos[i] ;\n  pos[i] = pos[j] ;\n  pos[j] = tem ;\n  }\n  }\n  }\n  int positio = pos[k-1] +1 ;\n  System.out.print(positio) ;\n  }\n }",
+      "compileOutput": "Compilation Error from CodeStream final_verdict",
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": "Compilation Error",
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "CE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示编译阶段失败",
+      "studentHint": "先定位第一条编译错误，把语言、类名、方法名和变量声明修到能编译，再回到算法逻辑。"
+    },
+    "expected": {
+      "issueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "fineTags": [],
+      "teachingAction": "FIX_FIRST_COMPILER_ERROR",
+      "acceptableTeachingActions": [
+        "FIX_FIRST_COMPILER_ERROR"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "编译",
+        "第一条错误"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:compilation_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-compile-error",
+      "misconception": "还没有把程序放到可编译状态，就开始判断算法对错。",
+      "expectedStudentMove": "先只处理编译器报告的第一处错误，重新提交后再观察 verdict 是否变化。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-03-public-compile-error-81079708",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50003,
+    "problem": {
+      "id": 50039,
+      "title": "CodeStream prob_039",
+      "description": "# Problem Statement\n  \n  \n  \n  In this problem, you will be given a directed unweighted graph **G** with **N** nodes (1 <= N <= 1000) and **E** edges (1 <= E <= 8000). \n  \n  \n  \n  \n  \n  ## Input Format\n  \n  - The first line of input will contain two integers **N** and **E**.\n  \n  - The next **E** lines will each contain two integers **A** and **B**, representing a directed edge from node **A** to node **B**.\n  \n  - After that, there will be a single integer **X** (1 <=X <= N), denoting a node from the given graph.\n  \n  \n  \n  \n  \n  ## Output Format\n  \n  - In the first line, print a single integer denoting the number of adjacent nodes of the given node **X**.\n  \n  - In the second line, print **N** values, separated by a single space, where the **i-th** value denotes the minimum number of edges required to reach the **i-th** node. If a node is not reachable from **X**, the corresponding value should be -1. There should not be any leading or trailing spaces. \n  \n  \n  \n  ## Constraints\n  \n  - (1 <= N <= 1000)\n  \n  - (1 <= E <= 5000)\n  \n  - (1 \\<=X <= N)\n  \n  \n  \n  ## Example\n  \n  \n  \n  ### **Input**\n  \n  5 7\n  \n  \n  \n  1 2\n  \n  \n  \n  1 4\n  \n  \n  \n  2 3\n  \n  \n  \n  2 4\n  \n  \n  \n  3 4\n  \n  \n  \n  3 5\n  \n  \n  \n  4 5\n  \n  \n  \n  1\n  \n  \n  \n  ### **Output**\n  \n  2\n  \n  \n  \n  0 1 2 1 2",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "syntax"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "syntax_or_language_mismatch"
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "COMPILATION_ERROR",
+      "sourceCode": "public class Main\n {\n public static void main(String[] args) {\n \n Scanner sc = new Scanner(System.in);\n int v , e ;\n v= sc.nextInt();\n e=sc.nextInt() ;\n int mat[v+1][v+1] ;\n \n \n int a,b ;\n \n for(int i=1 ; i<=e ; i++)\n {\n  a=sc.nextInt();\n  b=sc.nextInt() ;\n  \n  mat[a][b]=1 ;\n  mat[b][a]=1 ;\n }\n \n \n \n \n \n \n \n }\n }",
+      "compileOutput": "Compilation Error from CodeStream final_verdict",
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": "Compilation Error",
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "CE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示编译阶段失败",
+      "studentHint": "先定位第一条编译错误，把语言、类名、方法名和变量声明修到能编译，再回到算法逻辑。"
+    },
+    "expected": {
+      "issueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "fineTags": [],
+      "teachingAction": "FIX_FIRST_COMPILER_ERROR",
+      "acceptableTeachingActions": [
+        "FIX_FIRST_COMPILER_ERROR"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "编译",
+        "第一条错误"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:compilation_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-compile-error",
+      "misconception": "还没有把程序放到可编译状态，就开始判断算法对错。",
+      "expectedStudentMove": "先只处理编译器报告的第一处错误，重新提交后再观察 verdict 是否变化。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-04-public-compile-error-79508711",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50004,
+    "problem": {
+      "id": 50014,
+      "title": "CodeStream prob_014",
+      "description": "A palindrome is a string that reads the same backward as forward (e.g., madam, racecar, noon).\n  \n  \n  \n  You are required to check whether a given string is a palindrome using a stack implemented with a linked list.\n  \n  \n  \n  Input:\n  \n  \n  \n  For each test case:\n  \n  \n  \n  A string S (1 ≤ |S| ≤ 1000), consisting of lowercase English letters.\n  \n  \n  \n  Output:\n  \n  \n  \n  For each test case, print:\n  \n  \n  \n  \"YES\" if the string is a palindrome.\n  \n  \n  \n  \"NO\" otherwise.",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "syntax"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "syntax_or_language_mismatch"
+      ],
+      "boundaryTypes": []
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "COMPILATION_ERROR",
+      "sourceCode": "#include<bits/stdc++.h>\n using namespace std;\n struct node{\n  char data;\n  node*next;\n \n };\n \n class stack{\n  private:\n  node *topnode;\n \n  public:\n  stack(){\n  topnode=NULL;\n  }\n \n  void push(char c){\n  node*newnode=new node();\n  newnode->data=c;\n  newnode->next=topnode;\n  topnode=newnode;\n  }\n  char pop(){\n  if(topnode==NULL)return'\\0';\n  char c =topnode->data;\n  node* temp=topnode;\n  topnode=topnode->next;\n  delete temp;\n  return c;\n  }\n  bool isempty(){\n  return topnode==NULL;\n  }\n };\n  bool palindrome(string s){\n  stack st;\n  for(char c:s){\n  st.push(c);\n  }\n  for(char c:s){\n  if(c!=st.pop())return false;\n  }\n  return true;\n  }\n \n int main(){\n  string s;\n  cin>>s;\n  if(palindrome(s)){\n  cout<<\"YES\"<<endl;\n  }\n  else \n  cout<<\"NO\"<<endl;\n  return 0;\n }",
+      "compileOutput": "Compilation Error from CodeStream final_verdict",
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": "Compilation Error",
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "CE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示编译阶段失败",
+      "studentHint": "先定位第一条编译错误，把语言、类名、方法名和变量声明修到能编译，再回到算法逻辑。"
+    },
+    "expected": {
+      "issueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "fineTags": [],
+      "teachingAction": "FIX_FIRST_COMPILER_ERROR",
+      "acceptableTeachingActions": [
+        "FIX_FIRST_COMPILER_ERROR"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "编译",
+        "第一条错误"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:compilation_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-compile-error",
+      "misconception": "还没有把程序放到可编译状态，就开始判断算法对错。",
+      "expectedStudentMove": "先只处理编译器报告的第一处错误，重新提交后再观察 verdict 是否变化。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-05-public-runtime-error-66004265",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50005,
+    "problem": {
+      "id": 50047,
+      "title": "CodeStream prob_047",
+      "description": "In the year 3034, the apes have conquered the earth and established their realm ApeGuard. The humans, led by Sergeant John Conor, aim to disrupt the apes' unity by bombing key cities. The goal is to find the minimum number of cities that need to be destroyed to disconnect the ApeGuard realm.\n  \n  \n  \n  ## Input Format\n  \n  \n  \n  1. The first line contains two integers: `N` (number of nodes/cities) and `E` (number of edges).\n  \n  2. The following `E` lines contain `A` and `B` integers, representing the edges between nodes.\n  \n  \n  \n  ## Output Format\n  \n  \n  \n  The output is a single integer representing the minimum number of nodes/cities that need to be destroyed to disconnect the ApeGuard realm. Do not print extra spaces.\n  \n  \n  \n  ## Constraints\n  \n  $\n  \n  1<=N<=1000,\\newline\n  \n  1<=E<=1000\n  \n  $\n  \n  \n  \n  ## Sample Cases\n  \n  \n  \n  * Sample Input 1:\n  \n  ```markdown\n  \n  6 5\n  \n  3 4\n  \n  4 2\n  \n  2 1\n  \n  2 5\n  \n  5 6\n  \n  ```\n  \n  Output: `3`\n  \n  * Sample Input 2:\n  \n  ```markdown\n  \n  4 4\n  \n  1 3\n  \n  1 4\n  \n  3 4\n  \n  2 3\n  \n  ```\n  \n  Output: `1`",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "runtime guards"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "missing_runtime_guard"
+      ],
+      "boundaryTypes": [
+        "empty_or_index_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "RUNTIME_ERROR",
+      "sourceCode": "import java.util.*;\n \n public class StronglyConnectedRoads {\n \n  static int v,e;\n  static List<List<Integer>> graph;\n  static List<List<Integer>> reverseGraph;\n  static boolean[] visited;\n  static Stack<Integer> stack;\n  static int[] component;\n \n  public static void main(String[] args) {\n  Scanner sc = new Scanner(System.in);\n  v = sc.nextInt(); \n  e = sc.nextInt();\n  graph = new ArrayList<>() ;\n  reverseGraph = new ArrayList<>();\n  visited = new boolean[v+1] ;\n  for (int i = 0; i < v; i++) {\n  graph.add(new ArrayList<>());\n  reverseGraph.add(new ArrayList<>());\n  visited[i] = false ;\n  }\n \n  for (int i = 0; i < e; i++) {\n  int a = sc.nextInt() ;\n  int b = sc.nextInt() ;\n  \n \n  graph.get(a).add(b);\n  reverseGraph.get(b).add(a);\n  }\n  stack = new Stack<>();\n \n  for (int i = 0; i < v ; i++) {\n  if (!visited[i])\n  dfs1(i);\n  }\n \n  Arrays.fill(visited, false);\n  component = new int[v];\n  \n  int scc = 0 ;\n  while (!stack.isEmpty()) {\n  int v = stack.pop();\n  if (!visited[v]) {\n  dfs2(v);\n  scc++ ;\n  }\n  }\n \n  System.out.println(scc);\n  System.out.println(\"0 1\") ;\n  System.out.println(\"1 2\") ;\n  }\n ////////////////////////////\n  static void dfs1(int u) {\n  visited[u] = true;\n  for (int v : graph.get(u)) {\n  if (!visited[v])\n  dfs1(v);\n  }\n  stack.push(u);\n  }\n \n  static void dfs2(int u) {\n  visited[u] = true;\n  \n  for (int v : reverseGraph.get(u)) {\n  if (!visited[v])\n  dfs2(v);\n  }\n  }\n }",
+      "compileOutput": null,
+      "errorMessage": "Runtime Error from CodeStream final_verdict"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "6 5\n3 4\n4 2\n2 1\n2 5\n5 6",
+        "actualOutput": "Runtime Error",
+        "expectedOutput": "3",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "RE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示运行时失败",
+      "studentHint": "先找最可能越界、空结构或非法访问的位置，用最小输入手推这些变量的范围。"
+    },
+    "expected": {
+      "issueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "CHECK_RUNTIME_GUARDS",
+      "acceptableTeachingActions": [
+        "CHECK_RUNTIME_GUARDS",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "运行",
+        "越界"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:runtime_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-runtime-error",
+      "misconception": "默认输入或下标总是处在正常范围内，没有给极端情况留保护。",
+      "expectedStudentMove": "列出数组下标、栈顶读取、除法或递归出口这些危险点，并构造最小触发样例。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-06-public-runtime-error-47984207",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50006,
+    "problem": {
+      "id": 50042,
+      "title": "CodeStream prob_042",
+      "description": "In this problem, you will be given 15 integers. Except one unique integer, all other numbers will occur in pairs. You need to find the unique integers. \n  \n  \n  \n  **Input**\n  \n  \n  \n  A line consists of 15 integers. All the input values are valid 32-bit signed integers.\n  \n  \n  \n  **Output**\n  \n  \n  \n  Print the unique integer. See sample for formatting.\n  \n  \n  \n  \n  \n  | Sample Input | Sample Output |\n  \n  |-------------------|--------------------- |\n  \n  |1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 | 8|\n  \n  |1 1 10 2 3 3 4 4 5 5 6 6 7 7 10 |2 |",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "runtime guards"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "missing_runtime_guard"
+      ],
+      "boundaryTypes": [
+        "empty_or_index_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "RUNTIME_ERROR",
+      "sourceCode": "#include<bits/stdc++.h>\n using namespace std;\n int b[10000];\n int main()\n {\n  int a[15];\n  for(int i=0;i<15;i++){\n  cin>>a[i];\n  b[a[i]]+=1;\n  }\n  for(int i=0;i<15;i++){\n  if(b[a[i]]==1){\n  cout<<a[i]<<endl;\n  break;\n  }\n  }\n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": "Runtime Error from CodeStream final_verdict"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "5902798 5251626 6834124 6834124 9101849 5840067 9101849 4143419 9961821 5840067 5251626 9298446 5902798 9298446 4143419 \n",
+        "actualOutput": "Runtime Error",
+        "expectedOutput": "9961821\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "RE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示运行时失败",
+      "studentHint": "先找最可能越界、空结构或非法访问的位置，用最小输入手推这些变量的范围。"
+    },
+    "expected": {
+      "issueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "CHECK_RUNTIME_GUARDS",
+      "acceptableTeachingActions": [
+        "CHECK_RUNTIME_GUARDS",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "运行",
+        "越界"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:runtime_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-runtime-error",
+      "misconception": "默认输入或下标总是处在正常范围内，没有给极端情况留保护。",
+      "expectedStudentMove": "列出数组下标、栈顶读取、除法或递归出口这些危险点，并构造最小触发样例。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-07-public-runtime-error-93172439",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50007,
+    "problem": {
+      "id": 50013,
+      "title": "CodeStream prob_013",
+      "description": "In this problem, you will be given a postfix expression where each operand is a digit. Evaluate it. In addition to the usual arithmetic operators, such as +, -, *, and /, there will be two new unary operators as described below. In mathematics, a unary operation is an operation with only one operand.\n  \n  \n  \n  #, where A# = A + 1\\\n  \n  \\$, where A$ = A - 1\n  \n  \n  \n  In case of division by zero, increase the divisor by two.",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "runtime guards"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "missing_runtime_guard"
+      ],
+      "boundaryTypes": [
+        "empty_or_index_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "RUNTIME_ERROR",
+      "sourceCode": "#include <iostream>\n #include <stack>\n #include <string>\n using namespace std;\n \n int evaluatePostfix(string expression) {\n  stack<int> st;\n  \n  for (char c : expression) {\n  if (isdigit(c)) {\n  // If it's a digit, push it to stack\n  st.push(c - '0');\n  } else {\n  // It's an operator\n  if (c == '#') {\n  // Unary operator: A# = A + 1\n  int a = st.top();\n  st.pop();\n  st.push(a + 1);\n  } else if (c == '$') {\n  // Unary operator: A$ = A - 1\n  int a = st.top();\n  st.pop();\n  st.push(a - 1);\n  } else {\n  // Binary operators: +, -, *, /\n  int b = st.top(); st.pop();\n  int a = st.top(); st.pop();\n  \n  switch (c) {\n  case '+':\n  st.push(a + b);\n  break;\n  case '-':\n  st.push(a - b);\n  break;\n  case '*':\n  st.push(a * b);\n  break;\n  case '/':\n  if (b == 0) {\n  // Division by zero: increase divisor by 2\n  st.push(a / (b + 2));\n  } else {\n  st.push(a / b);\n  }\n  break;\n  }\n  }\n  }\n  }\n  \n  return st.top();\n }\n \n int main() {\n  string expression;\n  cin >> expression;\n  \n  cout << evaluatePostfix(expression) << endl;\n  \n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": "Runtime Error from CodeStream final_verdict"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "60/",
+        "actualOutput": "Runtime Error",
+        "expectedOutput": "3\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "RE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示运行时失败",
+      "studentHint": "先找最可能越界、空结构或非法访问的位置，用最小输入手推这些变量的范围。"
+    },
+    "expected": {
+      "issueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "CHECK_RUNTIME_GUARDS",
+      "acceptableTeachingActions": [
+        "CHECK_RUNTIME_GUARDS",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "运行",
+        "越界"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:runtime_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-runtime-error",
+      "misconception": "默认输入或下标总是处在正常范围内，没有给极端情况留保护。",
+      "expectedStudentMove": "列出数组下标、栈顶读取、除法或递归出口这些危险点，并构造最小触发样例。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-08-public-runtime-error-38362834",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50008,
+    "problem": {
+      "id": 50040,
+      "title": "CodeStream prob_040",
+      "description": "**Strongly Connected Components Problem**\n  \n  \n  \n  Given a directed graph, find all strongly connected components. A strongly connected component is a subgraph where there is a path from every vertex to every other vertex in the subgraph.\n  \n  \n  \n  **Example:**\n  \n  \n  \n  Consider the following directed graph:\n  \n  \n  \n  ```\n  \n  A -> B\n  \n  B -> C\n  \n  C -> A\n  \n  \n  \n  D -> E\n  \n  E -> F\n  \n  F -> D\n  \n  \n  \n  A->F\n  \n  \n  \n  E->G\n  \n  \n  \n  ```\n  \n  \n  \n  In this graph, the strongly connected components are:\n  \n  \n  \n  - A -> B-> C->A (a SCC)\n  \n  - D -> E -> F -> D (a SCC)\n  \n  \n  \n  However, G is a single node SCC. \n  \n  \n  \n  **Input**\n  \n  \n  \n  In the first line, you will be given two integers denoting N and E, number of nodes (1<=N<=500) and number of edges (1<=E<=5000) respectively. In the following E lines, each having two integers A and B denotes a directed edge from node A to node B of the graph. \n  \n  \n  \n  **Output**\n  \n  You have to print the string ``# of strongly Connected Components: `` and then a single integer denoting the number of SCCs in the graph. Please look at the sample test cases. \n  \n  \n  \n  **Sample Input # 1**\n  \n  \n  \n  5 4\n  \n  \n  \n  1 2\n  \n  \n  \n  2 3\n  \n  \n  \n  3 4\n  \n  \n  \n  4 1\n  \n  \n  \n  **Sample Output # 1**\n  \n  \n  \n  \\# of strongly Connected Components: 2\n  \n  \n  \n  **Sample Input # 2**\n  \n  \n  \n  5 4\n  \n  \n  \n  4 1\n  \n  \n  \n  4 3\n  \n  \n  \n  4 2\n  \n  \n  \n  5 4\n  \n  \n  \n  \n  \n  **Sample Output # 2**\n  \n  \n  \n  \\# of strongly Connected Components: 5",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "runtime guards"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "missing_runtime_guard"
+      ],
+      "boundaryTypes": [
+        "empty_or_index_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "RUNTIME_ERROR",
+      "sourceCode": "import java.util.*;\n \n class Graph {\n  int v;\n  List<List<Integer>> Adj;\n  Stack<Integer> st;\n \n  Graph(int v) {\n  this.v = v;\n  Adj = new ArrayList<>(v);\n  for (int i = 0; i < v; i++) {\n  Adj.add(new LinkedList<>());\n  }\n  st = new Stack<>();\n  }\n \n  void addEdge(int u, int v) {\n  Adj.get(u).add(v);\n  }\n \n  void sortDFS(int src, boolean[] vis) {\n  vis[src] = true;\n  for (int i : Adj.get(src)) {\n  if (!vis[i]) {\n  sortDFS(i, vis);\n  }\n  }\n  st.push(src);\n  }\n \n  void DFS(int src, boolean[] vis) {\n  vis[src] = true;\n  for (int i : Adj.get(src)) {\n  if (!vis[i]) {\n  DFS(i, vis);\n  }\n  }\n  }\n \n  void topoSort() {\n  boolean[] vis = new boolean[v];\n  for (int i = 0; i < v; i++) {\n  if (!vis[i]) {\n  sortDFS(i, vis);\n  }\n  }\n  }\n \n  Graph trans() {\n  Graph g = new Graph(v);\n  for (int i = 0; i < v; i++) {\n  for (int j : Adj.get(i)) {\n  g.Adj.get(j).add(i);\n  }\n  }\n  return g;\n  }\n \n  int countSCC() {\n  topoSort();\n \n  Graph g = trans();\n \n  int cnt = 0;\n  boolean[] vis = new boolean[v];\n  for (int i = 0; i < v; i++) {\n  vis[i] = false;\n  }\n \n  while (!st.empty()) {\n  int node = st.pop();\n  if (!vis[node]) {\n  DFS(node, vis);\n  cnt++;\n  }\n \n  }\n  return cnt;\n \n  }\n \n  void print() {\n  while (!st.empty()) {\n  int a = st.pop();\n  System.out.println(a);\n  }\n  }\n }\n \n public class SCC {\n  public static void main(String[] args) {\n  Scanner sc = new Scanner(System.in);\n  int v = sc.nextInt();\n  int e = sc.nextInt();\n \n  Graph g = new Graph(v);\n \n  for (int i = 0; i < e; i++) {\n  int a = sc.nextInt();\n  int b = sc.nextInt();\n  g.addEdge(a, b);\n  }\n \n  // g.topoSort();\n  int cnt = g.countSCC();\n  System.out.println(cnt);\n  // g.print();\n  }\n }",
+      "compileOutput": null,
+      "errorMessage": "Runtime Error from CodeStream final_verdict"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "400 462\n1 164\n2 73\n3 153\n4 234\n5 96\n5 199\n5 63\n6 129\n7 139\n8 13\n9 244\n10 51\n11 172\n12 119\n13 80\n14 127\n15 66\n16 179\n17 211\n18 78\n18 49\n19 40\n20 27\n21 227\n21 249\n22 18\n23 90\n24 59\n25 180\n26 236\n27 229\n28 116\n29 154\n30 214\n30 1\n30 120\n31 45\n32 137\n33 171\n34 238\n35 220\n36 100\n36 269\n37 62\n38 221\n39 104\n40 109\n41 32\n42 86\n43 4\n44 208\n45 110\n46 160\n47 167\n48 187\n49 186\n50 98\n51 46\n52 107\n53 103\n54 42\n55 175\n55 23\n56 82\n57 232\n57 81\n57 6\n58 124\n58 130\n59 245\n60 58\n61 149\n62 141\n63 248\n64 148\n65 192\n66 76\n67 118\n68 26\n69 217\n70 212\n71 3\n72 55\n73 81\n74 121\n75 235\n76 71\n77 37\n78 206\n79 239\n80 209\n81 237\n82 17\n83 231\n84 191\n84 172\n85 138\n86 87\n86 151\n87 250\n88 120\n89 155\n90 89\n91 145\n92 166\n93 39\n94 136\n95 113\n96 210\n97 183\n98 114\n98 33\n99 36\n100 201\n101 57\n102 61\n103 6\n104 128\n105 44\n106 125\n107 157\n108 95\n109 182\n110 101\n111 226\n112 241\n113 131\n113 7\n114 88\n115 93\n116 126\n117 43\n118 147\n119 112\n120 117\n121 178\n122 144\n123 52\n124 146\n125 246\n126 54\n127 70\n128 133\n129 8\n130 15\n131 97\n132 184\n133 161\n134 207\n135 168\n136 21\n137 176\n138 213\n139 188\n140 198\n141 159\n142 197\n143 29\n144 53\n145 223\n146 151\n146 15\n147 185\n148 216\n149 60\n150 215\n151 99\n152 63\n153 156\n154 24\n154 73\n155 165\n156 194\n157 122\n158 12\n159 243\n160 22\n160 36\n161 85\n162 83\n163 173\n164 72\n165 200\n166 64\n167 34\n168 74\n169 181\n170 67\n171 142\n172 35\n173 130\n173 198\n174 249\n175 169\n176 140\n176 88\n177 143\n178 38\n178 102\n179 47\n179 61\n180 106\n181 190\n182 69\n183 92\n184 20\n184 73\n185 7\n185 113\n185 228\n186 1\n187 75\n188 199\n189 152\n190 177\n191 9\n192 189\n193 41\n194 195\n195 77\n196 233\n197 48\n198 25\n199 23\n200 33\n201 202\n202 242\n202 165\n203 111\n204 230\n205 218\n206 204\n207 203\n208 16\n209 205\n209 67\n210 102\n211 123\n212 84\n213 49\n214 105\n215 31\n216 50\n217 94\n218 162\n219 11\n220 247\n221 170\n222 158\n223 115\n224 193\n225 10\n226 174\n227 219\n228 19\n229 56\n230 135\n231 225\n232 68\n233 79\n234 91\n235 134\n235 15\n236 224\n237 132\n238 222\n239 30\n240 196\n240 29\n240 147\n241 5\n242 14\n243 28\n244 108\n244 124\n245 150\n246 228\n247 65\n248 2\n249 163\n250 240\n252 322\n253 273\n253 258\n254 329\n254 309\n255 276\n256 326\n257 327\n259 271\n259 323\n260 365\n261 254\n261 307\n261 283\n261 340\n261 304\n263 255\n263 269\n264 277\n266 348\n267 312\n267 289\n267 333\n268 266\n268 346\n271 261\n273 341\n275 293\n275 297\n278 295\n278 256\n278 302\n278 258\n279 313\n281 300\n283 331\n284 259\n285 291\n285 300\n285 269\n287 337\n288 268\n288 315\n292 275\n292 339\n293 342\n294 253\n297 319\n298 303\n299 265\n301 292\n301 267\n301 324\n301 321\n302 287\n302 347\n303 288\n303 270\n303 316\n305 263\n306 299\n307 320\n308 317\n308 282\n310 294\n310 286\n311 281\n312 290\n312 321\n312 311\n313 262\n313 269\n314 333\n316 318\n319 332\n319 344\n320 323\n321 264\n322 310\n322 251\n323 305\n324 330\n324 345\n324 280\n324 306\n325 343\n325 308\n326 325\n326 257\n326 305\n327 350\n327 279\n328 285\n329 278\n330 334\n333 298\n334 329\n334 353\n335 336\n335 272\n336 328\n337 349\n339 260\n339 296\n341 314\n341 301\n341 338\n344 252\n345 284\n349 274\n350 335\n351 393\n352 369\n353 379\n354 387\n354 390\n355 394\n355 390\n355 367\n356 376\n357 384\n358 392\n359 360\n360 399\n361 389\n362 390\n362 368\n363 352\n364 383\n364 367\n365 398\n365 382\n366 359\n366 377\n367 380\n367 362\n368 356\n369 382\n370 358\n371 381\n372 366\n373 364\n374 396\n375 354\n375 365\n376 400\n376 384\n376 372\n377 351\n378 377\n378 363\n379 388\n379 362\n380 362\n380 396\n381 378\n382 353\n383 395\n383 392\n384 365\n385 371\n385 372\n386 363\n387 368\n388 357\n388 382\n389 385\n390 391\n390 368\n391 361\n391 369\n392 397\n393 373\n394 374\n395 370\n396 372\n396 392\n397 386\n398 375\n399 367\n400 355\n",
+        "actualOutput": "Runtime Error",
+        "expectedOutput": "# of strongly Connected Components: 90\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "RE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示运行时失败",
+      "studentHint": "先找最可能越界、空结构或非法访问的位置，用最小输入手推这些变量的范围。"
+    },
+    "expected": {
+      "issueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "CHECK_RUNTIME_GUARDS",
+      "acceptableTeachingActions": [
+        "CHECK_RUNTIME_GUARDS",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "运行",
+        "越界"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:runtime_error"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-runtime-error",
+      "misconception": "默认输入或下标总是处在正常范围内，没有给极端情况留保护。",
+      "expectedStudentMove": "列出数组下标、栈顶读取、除法或递归出口这些危险点，并构造最小触发样例。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-09-public-time-complexity-loop-56025156",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50009,
+    "problem": {
+      "id": 50043,
+      "title": "CodeStream prob_043",
+      "description": "In this problem, you will be given some integers and you need to find the mid value when those are sorted. You can assume that at any time your list will contain odd number of values.\n  \n  \n  \n  **Input**\n  \n  \n  \n  First line consists of two integers n (3 <= n <= 100000) and m (1 <= m <= 50000). \n  \n  \n  \n  Second line consists of the list of n integers in the range of [-100, 100].\n  \n  \n  \n  Each of the next m lines will contain two integers in the range of [-100, 100].\n  \n  \n  \n  **Output**\n  \n  \n  \n  For each pair of input (starting from the third line of the inputs), print the mid value at that time after taking the input. See the sample I/O for clarification. \n  \n  \n  \n  **Sample Case 1:**\n  \n  \n  \n  |Sample Input| Sample Output|\n  \n  |-----------------|---------------------|\n  \n  |9 3 | 5|\n  \n  |1 2 3 4 5 6 7 8 9 | 5 |\n  \n  |-10 7 | 6 |\n  \n  |3 9| |\n  \n  |6 6| |\n  \n  \n  \n  \n  \n  **Sample Case 2:**\n  \n  \n  \n  | Sample Input | Sample Output |\n  \n  |-------------------| --------------------- |\n  \n  |5 6 | 15\n  \n  |9 15 18 34 100 | 15\n  \n  |7 11 | 11\n  \n  |15 -6 | 11\n  \n  |9 -3 | 11\n  \n  |-11 45 | 11\n  \n  |5 100| |\n  \n  |7 100 | |",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "complexity"
+      ],
+      "algorithmStrategies": [
+        "complexity estimation"
+      ],
+      "commonMistakes": [
+        "brute_force_on_large_input"
+      ],
+      "boundaryTypes": [
+        "max_input_size"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "#include<bits/stdc++.h>\n using namespace std;\n vector<int> v;\n /*void insert(int a)\n {\n  int pos = binary_search(a);\n }*/\n int main()\n {\n  int n,m;\n  cin>>n>>m;\n  for(int i=0;i<n;i++){\n  int t;\n  cin>>t;\n  v.push_back(t);\n  }\n  //sort(v.begin(), v.end());\n  while(m--){\n  int x,y;\n  cin>>x>>y;\n  v.push_back(x);\n  v.push_back(y);\n  sort(v.begin(), v.end());\n  cout<<v[(v.size()/2)]<<endl;\n  }\n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "73 58\n-23 11 -65 -52 -87 -2 62 -24 56 -64 -30 -8 -90 38 11 14 -37 -88 -30 29 -78 -19 68 -60 77 -84 -51 33 -57 -58 97 21 53 -69 19 66 -20 -19 -58 -65 -33 -38 27 -73 51 88 42 64 -100 62 -8 -78 -58 -90 -38 -82 77 12 2 -80 4 -52 41 -43 -20 -91 73 10 -10 65 -5 8 78\n72 35\n28 60\n-74 -9\n60 88\n34 32\n80 -6\n45 49\n-30 -94\n-50 -10\n10 -2\n81 17\n28 41\n-60 88\n81 -96\n-68 -12\n32 -96\n74 -41\n14 100\n1 -77\n38 -66\n55 17\n28 -51\n-85 48\n-45 -35\n89 66\n14 19\n-18 92\n-41 22\n80 -60\n-23 62\n28 -92\n16 1\n-82 -71\n-49 19\n-98 39\n53 8\n-95 -70\n57 -79\n28 -88\n-64 16\n28 0\n86 -91\n-8 -56\n-18 -79\n-16 9\n83 63\n17 -51\n-87 -15\n-22 -36\n-97 -69\n53 6\n39 59\n36 -55\n80 -86\n-43 66\n-20 85\n-34 -35\n45 58\n",
+        "actualOutput": "Time Limit Exceeded",
+        "expectedOutput": "-10\n-8\n-9\n-8\n-8\n-6\n-5\n-6\n-8\n-6\n-5\n-2\n-2\n-2\n-5\n-5\n-5\n-2\n-2\n-2\n-2\n-2\n-2\n-2\n-2\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n0\n-2\n-2\n0\n0\n-2\n-2\n-5\n-2\n-2\n-2\n-2\n-2\n-2\n-2\n-2\n",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TLE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示最大规模下超时",
+      "studentHint": "先把题目最大 n、m 代入核心循环次数，判断当前做法是不是在重复扫描或重复排序。"
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [
+        "BRUTE_FORCE_LIMIT"
+      ],
+      "teachingAction": "COUNT_COMPLEXITY",
+      "acceptableTeachingActions": [
+        "COUNT_COMPLEXITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "复杂度",
+        "最大规模"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-time-complexity-loop",
+      "misconception": "样例或前几个测试点能过，就误以为最大规模下同样能跑完。",
+      "expectedStudentMove": "写出核心操作的次数估算，并标记哪一层循环或哪次排序随输入规模增长。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-10-public-time-complexity-loop-98252215",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50010,
+    "problem": {
+      "id": 50002,
+      "title": "CodeStream prob_002",
+      "description": "Suppose, you are locked in an iron cell without doing any crime. But you can make yourself free if you can decode the key of the cell. The key of the cell is a string consisting of alphabets and spaces. The lock is open if the key string is rearranged in a sequence such that the sequence is a palindrome. As the string could be rearranged as a palindrome sequence in different ways and you are already exhausted being in the cell without being guilty, I am not asking you to make the sequence. In this problem, you need to answer whether the lock could be open or not.\n  \n  \n  \n  **Input**\n  \n  \n  \n  There will be a single line of string consisting of only alphabets and spaces. Note that the length of the string will not exceed 10000000.\n  \n  \n  \n  \n  \n  **Output**\n  \n  \n  \n  For each line of input, print “I am finally free!” if the lock could be opened or “I am doomed!” otherwise. See the sample I/O for clarification. \n  \n  \n  \n  | Sample Input | Sample Output |\n  \n  |--------------|-----------------|\n  \n  |Go Go Free yourself| I am doomed!|\n  \n  |Free Free AA| I am finally free!|",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "complexity"
+      ],
+      "algorithmStrategies": [
+        "complexity estimation"
+      ],
+      "commonMistakes": [
+        "brute_force_on_large_input"
+      ],
+      "boundaryTypes": [
+        "max_input_size"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "#include<iostream>\n \n using namespace std;\n \n int main(){\n  string str;\n  \n  while(getline(cin, str)){\n  for(int i=0;i<str.size()-1;++i){\n  for(int j=i+1;j<str.size();++j){\n  if(str[i]>str[j]){\n  char temp=str[i];\n  str[i]=str[j];\n  str[j]=temp;\n  }\n  }\n  }\n  \n  int odd=0;\n  \n  if(str.size()%2==0){\n  int flag=0;\n  int count=1;\n  for(int i=0;i<str.size()-1;++i){\n  if(str[i]==str[i+1]){\n  ++count;\n  }\n  else{\n  if(count%2==1){\n  flag=1;\n  break;\n  }\n  else{\n  count=1;\n  }\n  }\n  if(flag==1){\n  break;\n  }\n  }\n  if(flag==1){\n  cout<<\"I am doomed!\"<<endl;\n  }\n  else{\n  cout<<\"I am finally free!\"<<endl;\n  }\n  }\n  else{\n  int flag=0;\n  int count=1;\n  for(int i=0;i<str.size()-1;++i){\n  if(str[i]==str[i+1]){\n  ++count;\n  }\n  else{\n  if(count%2==1 && odd<2){\n  ++odd;\n  }\n  else if(odd>1){\n  flag=1;\n  break;\n  }\n  }\n  if(flag==1){\n  break;\n  }\n  }\n  if(flag==1){\n  cout<<\"I am doomed!\"<<endl;\n  }\n  else{\n  cout<<\"I am finally free!\"<<endl;\n  }\n  }\n  }\n  \n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "xCntzMfdMWURNsVUggAfwWDqngNrZQmj wJUBvGvm BLuTwAYVmRnOAcgxSPZgIdaGyefCkrlBLJxWWT\n",
+        "actualOutput": "Time Limit Exceeded",
+        "expectedOutput": "I am doomed!\n",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TLE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示最大规模下超时",
+      "studentHint": "先把题目最大 n、m 代入核心循环次数，判断当前做法是不是在重复扫描或重复排序。"
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [
+        "BRUTE_FORCE_LIMIT"
+      ],
+      "teachingAction": "COUNT_COMPLEXITY",
+      "acceptableTeachingActions": [
+        "COUNT_COMPLEXITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "复杂度",
+        "最大规模"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-time-complexity-loop",
+      "misconception": "样例或前几个测试点能过，就误以为最大规模下同样能跑完。",
+      "expectedStudentMove": "写出核心操作的次数估算，并标记哪一层循环或哪次排序随输入规模增长。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-11-public-time-complexity-loop-87865122",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50011,
+    "problem": {
+      "id": 50003,
+      "title": "CodeStream prob_003",
+      "description": "Do you know about the string beast?\n  \n  \n  \n  In programming, \"String Beast\" often refers to the challenges and complexities associated with handling strings, especially in languages like C or C++ where strings are not a built-in data type but are managed through character arrays and pointers. The \"beast\" aspect arises from the need to carefully manage memory allocation, string literals, and the potential for errors when manipulating strings, according to an article on Beej's Guide to C Programming. \n  \n  \n  \n  In essence, \"string beast\" is a metaphor for the challenges of working with strings in programming, particularly in languages that don't have built-in string types, where careful memory management and awareness of string literals are crucial for avoiding errors. \n  \n  \n  \n  Once Gollum found a precious string *TtippleMirror* in the Misty Mountains. After observing a century of life time, he found that the string has the following characteristics:\n  \n  - Core part of the string is “abc”.\n  \n  - In first step it has become “abccba” after mirroring itself.\n  \n  - Next step, it becomes “abccbaabccba” after mirroring itself again.\n  \n  - After mirroring an infinite number of times, the string *TrippleMirror* has become too precious to Gollum that he has become obsessed with it.\n  \n  \n  \n  To protect this precious, Gollum has invented a technique. Whoever wants to get this precious from him has only one way that is to answer his question. The question is simple, he will pick a random position from which you need to find a substring of length m. Note that Gollum follows...",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "complexity"
+      ],
+      "algorithmStrategies": [
+        "complexity estimation"
+      ],
+      "commonMistakes": [
+        "brute_force_on_large_input"
+      ],
+      "boundaryTypes": [
+        "max_input_size"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "#include<bits/stdc++.h>\n using namespace std;\n int main()\n {\n  int n,m;\n  cin>>n>>m;\n  string core= \"abc\";\n  string temp=core;\n  while(core.size()<m+n-1)\n  {\n  reverse(temp.begin(),temp.end());\n  core+=temp;\n  }\n  string add= core.substr(n-1,m);\n  cout<<add<<endl;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": " Zh4ppGdTYG82YZu5CkgbpqgiIPvnAoP hzvC7 N3IQbb1kuK2JyVSvCBU24kdpnVVrtBHq78UxOU\nYczfcpuryG\n",
+        "actualOutput": "Time Limit Exceeded",
+        "expectedOutput": " Zh4ppGdTYG82YZu5CkgbpqgiIPvnAoP hzvC7 N3IQbb1kuK2JyVSvCBU24kdpnVVrtBHq78UxOU\n",
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 2.5,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TLE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示最大规模下超时",
+      "studentHint": "先把题目最大 n、m 代入核心循环次数，判断当前做法是不是在重复扫描或重复排序。"
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [
+        "BRUTE_FORCE_LIMIT"
+      ],
+      "teachingAction": "COUNT_COMPLEXITY",
+      "acceptableTeachingActions": [
+        "COUNT_COMPLEXITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "复杂度",
+        "最大规模"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-time-complexity-loop",
+      "misconception": "样例或前几个测试点能过，就误以为最大规模下同样能跑完。",
+      "expectedStudentMove": "写出核心操作的次数估算，并标记哪一层循环或哪次排序随输入规模增长。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-12-public-time-complexity-loop-88649231",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50012,
+    "problem": {
+      "id": 50019,
+      "title": "CodeStream prob_019",
+      "description": "In this problem, you are given a sorted list of n integers. You need to search whether a required integer is in it.\n  \n  \n  \n  **Input**\n  \n  \n  \n  First line consists of two integers n (3 <= n <= 100000) and m (1 <= m <= 100000). \n  \n  \n  \n  Second line consists of the list of n integers in the range of [-1000000000, 1000000000].\n  \n  \n  \n  Each of the next m lines will contain an integer which is the required value.\n  \n  \n  \n  **Output**\n  \n  \n  \n  For each required value print a line consisting of either “Found” or “Not Found”. See the sample I/O for clarification. \n  \n  \n  \n  **Sample Case 1:**\n  \n  \n  \n  |Sample Input| Sample Output|\n  \n  |------------------|--------------------|\n  \n  |10 3 | Found |\n  \n  |1 2 3 4 5 6 7 8 9 10 | Not Found |\n  \n  | 6 | Found |\n  \n  | -3 | |\n  \n  | 1 | |\n  \n  \n  \n  \n  \n  \n  \n  **Sample Case 2:**\n  \n  \n  \n  | Sample Input | Sample Output |\n  \n  |-------------------|----------------------|\n  \n  |5 6 | Not Found|\n  \n  |9 15 18 34 100 | Found |\n  \n  |7 | Found |\n  \n  |15 | Not Found |\n  \n  |9 | Found |\n  \n  |45 | Found |\n  \n  |100 | |\n  \n  |100 | |",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "complexity"
+      ],
+      "algorithmStrategies": [
+        "complexity estimation"
+      ],
+      "commonMistakes": [
+        "brute_force_on_large_input"
+      ],
+      "boundaryTypes": [
+        "max_input_size"
+      ]
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "#include<stdio.h>\n int main(){\n  int n,m;\n  scanf(\"%d %d\",&n,&m);\n  int l[n];\n  for (int i=0;i<n;i++){\n  scanf(\"%d\",&l[i]);\n  }\n  for(int j=0;j<m;j++){\n  int k,ck=0;\n  scanf(\"%d\",&k);\n  for(int c=0;c<n;c++){\n  if(l[c]==k){\n  printf(\"Found\\n\");\n  ck=1;\n  break;\n  }\n  }\n  if (ck==0){\n  printf(\"Not Found\\n\");\n  }\n  \n \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "TLE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示最大规模下超时",
+      "studentHint": "先把题目最大 n、m 代入核心循环次数，判断当前做法是不是在重复扫描或重复排序。"
+    },
+    "expected": {
+      "issueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "fineTags": [
+        "BRUTE_FORCE_LIMIT"
+      ],
+      "teachingAction": "COUNT_COMPLEXITY",
+      "acceptableTeachingActions": [
+        "COUNT_COMPLEXITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "复杂度",
+        "最大规模"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:tle"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-time-complexity-loop",
+      "misconception": "样例或前几个测试点能过，就误以为最大规模下同样能跑完。",
+      "expectedStudentMove": "写出核心操作的次数估算，并标记哪一层循环或哪次排序随输入规模增长。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-13-public-space-complexity-15311316",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50013,
+    "problem": {
+      "id": 50007,
+      "title": "CodeStream prob_007",
+      "description": "A robot in a warehouse must deliver items from one storage unit to another. The warehouse floor is represented as a 2D grid of size n × m. Each cell in the grid has a time cost associated with entering that cell.\n  \n  \n  \n  The robot can move in four directions — up, down, left, and right (no diagonal movement). Your task is to compute the minimum total time required for the robot to reach the destination cell from the starting cell. Also, find the shortest path from the source to the destination.\n  \n  \n  \n  For the input,\\\n  \n  First line: n rows, m columns\\\n  \n  Next n lines: Each line has m integers (time to enter that cell)\\\n  \n  Start: (sx, sy)\\\n  \n  End: (ex, ey)\n  \n  \n  \n  You need to print the minimum total time and the shortest path.",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "space complexity"
+      ],
+      "algorithmStrategies": [
+        "storage estimation"
+      ],
+      "commonMistakes": [
+        "oversized_allocation"
+      ],
+      "boundaryTypes": [
+        "max_input_size"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "MEMORY_LIMIT_EXCEEDED",
+      "sourceCode": "import java.util.*;\n class Node{\n  int x;\n  int y;\n  Node(int x, int y){\n  this.x = x;\n  this.y = y;\n  }\n }\n public class Solution{\n  public static void main(String args[]){\n  Scanner sc = new Scanner(System.in);\n  int N,M;\n  N = sc.nextInt();\n  M = sc.nextInt();\n  int mat[][] = new int[N][M];\n  for(int i=0;i<N;i++){\n  for(int j=0;j<M;j++){\n  mat[i][j] = sc.nextInt();\n  }\n  }\n  int stx = sc.nextInt();\n  int sty = sc.nextInt();\n  int enx = sc.nextInt();\n  int eny = sc.nextInt();\n  int px= stx; \n  int py = sty;\n  int cost = 0;\n  cost += mat[stx][sty];\n  ArrayList<Node>Path = new ArrayList<>();\n  while(px!=enx && py!=eny){\n  ArrayList<Node>pq = new ArrayList<>();\n  int l1 = px;\n  int l2 = py - 1;\n  if(l2>= 0){\n  pq.add(new Node(l1,l2)); \n  }\n  int r1 = px;\n  int r2 = py+1;\n  if(r2 < M){\n  pq.add(new Node(r1,r2));\n  }\n  int u1 = px - 1;\n  int u2 = py;\n  if(u1 >= 0){\n  pq.add(new Node(u1,u2));\n  }\n  int d1 = px+1;\n  int d2 = py;\n  if(d1 <= N){\n  pq.add(new Node(d1,d2));\n  }\n  Collections.sort(pq, (a,b)-> Integer.compare(mat[a.x][a.y], mat[b.x][b.y]));\n  Node take = pq.get(0);\n  cost += mat[take.x][ take.y];\n  Path.add(new Node(take.x, take.y));\n  px = take.x;\n  py = take.y;\n  }\n  System.out.println(\"Minimum Cost: \");\n  System.out.println(cost);\n  System.out.println(\"Path: \");\n  for(int i=0;i<Path.size();i++){\n  \n  System.out.print(Path.get(i).x+\" \");\n  System.out.print(Path.get(i).y);\n  \n  }\n  System.out.println();\n \n \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "4 4\n1 3 1 2\n2 8 2 1\n3 1 1 3\n2 1 4 1\n0 0\n3 3",
+        "actualOutput": "Memory Limit Exceeded",
+        "expectedOutput": "Minimum cost: 12\nPath: (0,0) (1,0) (2,0) (2,1) (2,2) (2,3) (3,3)\n",
+        "executionTime": 0.05,
+        "memoryUsed": 300000
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 300000
+      }
+    ],
+    "baseline": {
+      "scenario": "MLE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示内存超限",
+      "studentHint": "先估算当前数组、矩阵或图结构会占多少空间，再判断是否真的需要保存所有状态。"
+    },
+    "expected": {
+      "issueTags": [
+        "SPACE_COMPLEXITY"
+      ],
+      "fineTags": [],
+      "teachingAction": "COMPARE_STRUCTURES",
+      "acceptableTeachingActions": [
+        "COMPARE_STRUCTURES"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "内存",
+        "空间"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:mle"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-space-complexity",
+      "misconception": "把题目中的概念对象直接完整存下来，没有先估算空间成本。",
+      "expectedStudentMove": "按最大 n、m 估算主要容器的元素数量和内存，再寻找可压缩或按需处理的状态。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-14-public-wrong-answer-boundary-28078363",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50014,
+    "problem": {
+      "id": 50006,
+      "title": "CodeStream prob_006",
+      "description": "A city named *Flower* on the western front, has been very quiet since some time after the deadly aftermath of war. But flowers are booming and things have started to move. \n  \n  \n  \n  The new mayor, *Tris*, has decided to repair the country's damaged roads, which are currently in very bad condition. Tris has old maps, which have information about the previous road network. Each road of the Flower is bidirectional by default, and in the map, Tris saw an additional piece of information for each road regarding the number of vehicles that can move simultaneously through that road. \n  \n  \n  \n  The budget is quite limited and Tris wants to maximize the total number of vehicles passing simultaneously all throughout the country. If there are **N** cities she wants to build exactly **(N-1)** roads so that all the country stays connected maximizing the total number of vehicles passing simultaneously. As there are a lot of cities and roads and Tris has been very busy managing the country, she has been looking for a programmer to help her solve this problem. \n  \n  \n  \n  *Can you come forward to help her by designing a solution?*",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "correctness debugging"
+      ],
+      "algorithmStrategies": [
+        "counterexample"
+      ],
+      "commonMistakes": [
+        "hidden_case_generalization"
+      ],
+      "boundaryTypes": [
+        "hidden_case"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import java.util.ArrayList;\n import java.util.List;\n import java.util.Scanner;\n \n public class one {\n  static int[] p = new int[2222222];\n  static int cost = 0;\n \n  static class Edge {\n  int u, v, w;\n \n  Edge(int u, int v, int w) {\n  this.u = u;\n  this.v = v;\n  this.w = w;\n  }\n  }\n \n  ///////\n  static void union(int u, int v) {\n  int pu = find(u);\n  int pv = find(v);\n  if (pu != pv) {\n  p[pu] = pv;\n  }\n  }\n \n  ////////\n  static int find(int u) {\n  if (u == p[u])\n  return u;\n  return find(p[u]);\n  }\n \n  static void disjoint(List<Edge> graph) {\n \n  for (Edge node : graph) {\n  if (find(node.u) != find(node.v)) {\n \n  union(node.u, node.v);\n  cost += node.w;\n  }\n  }\n \n  }\n \n  public static void main(String[] args) {\n  List<Edge> graph = new ArrayList<>();\n  Scanner sc = new Scanner(System.in);\n  int edge, vertext;\n  edge = sc.nextInt();\n  vertext = sc.nextInt();\n  int u, v, w;\n  for (int i = 0; i < edge; i++) {\n  u = sc.nextInt();\n  v = sc.nextInt();\n  w = sc.nextInt();\n  p[u] = u;\n  p[v] = v;\n  graph.add(new Edge(u, v, w));\n  }\n \n  // graph.sort(Comparator.comparingInt(e -> e.w));\n  graph.sort((e1, e2) -> Integer.compare(e2.w, e1.w));\n \n  \n  disjoint(graph);\n  //\n  System.out.println(cost);\n \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "6 9\n1 4 10\n1 3 1\n1 2 4\n2 6 2\n2 5 1\n3 5 4\n3 6 2\n4 6 5\n5 4 6",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "29\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示部分测试点答案错误",
+      "studentHint": "先不要急着改整段代码，挑一个最小反例手推关键变量，看哪一步开始偏离题意。"
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "SAMPLE_OVERFIT"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "ASK_MIN_CASE",
+        "BUILD_COUNTEREXAMPLE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "反例",
+        "手推"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:wrong_answer"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-wrong-answer-boundary",
+      "misconception": "能通过部分测试点后，忽略了隐藏边界或题意细节。",
+      "expectedStudentMove": "根据题目约束构造一个样例外的小输入，逐步比较人工结果和程序状态。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-15-public-output-format-or-boundary-56047553",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50015,
+    "problem": {
+      "id": 50010,
+      "title": "CodeStream prob_010",
+      "description": "You are an adventurer exploring an ancient dungeon filled with treasures. There are N treasures in a chamber, each having a weight and a value. You can carry at most W units of weight in your magical backpack. You must choose a subset of treasures such that:\n  \n  - You do not exceed the total weight limit W\n  \n  - You maximize the total value of the treasures you carry\n  \n  - You may either take or skip each treasure -- no fractional taking\n  \n  \n  \n  Your Task:\n  \n  1. Compute the maximum total value you can carry.\n  \n  2. Output the indices (1-based) of the treasures that must be taken to achieve this.\n  \n  \n  \n  Input Format:\\\n  \n  First line: Two integers N and W\\\n  \n  (1 ≤ N ≤ 1000, 1 ≤ W ≤ 10^5)\n  \n  \n  \n  Next N lines: Each line contains two integers weight[i] and value[i]\\\n  \n  (1 ≤ weight[i] ≤ W, 0 ≤ value[i] ≤ 10^9)",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "output format"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "format_detail_mismatch"
+      ],
+      "boundaryTypes": [
+        "format_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import java.util.*;\n \n public class main{\n  static int[] v ;\n  static int [] w ;\n  static int dp[][] ;\n  static int ar[] ;\n /////////\n \n static void knap (int n , int W){\n \n \n  for(int i = 0 ; i<=n ; i++){\n \n  for(int j = 0 ; j<= W; j++){\n \n  if(i== 0 || j== 0 ){\n  dp[i][j] = 0 ;\n  }\n  \n  else if(w[i-1] <= j ){\n \n  int in = v[i-1] + dp[i-1][ j - w[i-1] ] ;\n  int out = dp[i-1][j] ;\n \n  if(in > out)\n  {\n  ar[i] = 1 ;\n  }\n \n  dp[i][j] = Math.max(in , out ) ;\n  \n  }\n  else {\n  dp[i][j] = dp[i-1][j];\n  }\n  }\n  }\n \n \n }\n \n  public static void main(String args[]){\n \n  Scanner sc = new Scanner(System.in);\n  int n , We ;\n  n = sc.nextInt() ;\n  We= sc.nextInt() ;\n \n  ar = new int[n+1] ;\n  dp = new int[n+10][We+10] ;\n \n \n  v = new int[n+10] ;\n  w = new int[n+10] ;\n \n  for(int i =0 ; i< n ;i++)\n  {\n  w[i] = sc.nextInt() ;\n  v[i]= sc.nextInt() ;\n  ar[i] = 0 ;\n  \n  }\n \n  knap(n,We) ;\n  System.out.println(dp[n-1][We] ) ;\n \n  for(int i = 0 ; i<n ; i++)\n  {\n  if(ar[i]!=0 ) System.out.print(i+\" \") ;\n  }\n \n \n \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "5 9\n2 20\n3 15\n4 20\n5 30\n3 24",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "64\n1 3 5\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示输出或细节与评测不一致",
+      "studentHint": "先逐字符核对题目的输出要求、换行和空格，再看失败测试前后的实际输出差异。"
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "OUTPUT_FORMAT_DETAIL"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "COMPARE_OUTPUT",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "输出",
+        "格式"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:wrong_answer"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-output-format-or-boundary",
+      "misconception": "认为空格、换行或输出顺序这类细节不会影响评测。",
+      "expectedStudentMove": "用一个最小样例手动写出期望输出，并和程序输出逐字符对齐。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-16-public-output-format-or-boundary-90685297",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50016,
+    "problem": {
+      "id": 50029,
+      "title": "CodeStream prob_029",
+      "description": "You will be dealing with the heights of the students here. First, you will be given an integer value N denoting the number of students in the class. Then you will be given N numbers (can be floating point numbers) denoting the height of each student in some unit. The ith number will denote the height of the ith student. After that you will be given a value K. \n  \n  \n  \n  In the assembly students are arranged from the smallest to largest height. You have to print the roll which will be standing in the Kth position in such an arrangement. The rolls follow 1 based indexing. In the case of repeating heights, you need to print the student with a lesser roll. \n  \n  \n  \n  Limits:\n  \n  1<=N<=100000\n  \n  1<=k<=100000\n  \n  100 <= height <= 5000\n  \n  \n  \n  Test Cases:\n  \n  \n  \n  Input\n  \n  \n  \n  5\n  \n  \n  \n  100 105.3 500.7 200.3 161\n  \n  \n  \n  3\n  \n  \n  \n  Output\n  \n  \n  \n  5\n  \n  \n  \n  Input\n  \n  \n  \n  4\n  \n  \n  \n  205.1 181.2 173.7 181.2\n  \n  \n  \n  2\n  \n  \n  \n  Output\n  \n  \n  \n  2",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "output format"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "format_detail_mismatch"
+      ],
+      "boundaryTypes": [
+        "format_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "#include<iostream>\n using namespace std;\n void bubblesort(double arr[],int n){\n  for(int i=0;i<n;i++){\n  for(int j=0;j<n-i-1;j++){\n  if(arr[j]>arr[j+1]){\n  double temp=arr[j];\n  arr[j]=arr[j+1];\n  arr[j+1]=temp;\n  }\n  }\n  }\n }\n  int main(){\n  int n;\n  cin>>n;\n  double arr[n];\n  double brr[n];\n  for(int i=0;i<n;i++){\n  cin>>arr[i];\n  }\n  int x;\n  cin>>x;\n  for(int i=0;i<n;i++){\n  brr[i]=arr[i];\n \n  }\n  bubblesort(arr,n);\n  int b=0;\n  for(b=0;b<n;b++){\n  if(arr[x-1]==brr[b]) break;\n  }\n  cout<<b+1<<endl;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "500\n540 3372 296 4188 3900 837 1250 1099 4851 4842 330 1438 2130 1414 5019 2201 321 239 917 1500 1373 928 1233 2088 4025 2114 927 581 328 1644 2003 1522 2537 313 3910 1567 2437 1689 1809 2024 1717 3066 3727 3259 1727 536 1651 884 674 4106 3760 3934 3743 511 1064 3269 4212 3649 3503 385 5035 2706 2073 2662 3824 4772 3728 1906 4059 5061 2786 3927 2258 2586 4043 4217 2699 1475 624 3098 4936 2736 172 4949 1435 1922 789 1943 3781 1533 2473 2452 1378 1980 2158 4785 3527 950 1415 2246 4767 2840 5014 271 433 3643 2054 1787 4126 3487 2360 4068 2858 600 3233 4568 3193 4975 3081 1055 932 2661 3111 3086 3100 804 907 140 1486 822 396 1131 2120 1074 3003 2409 3147 2019 832 2176 577 524 3732 4138 1601 2714 551 2625 4856 1952 2594 3133 738 3937 4055 3399 3898 2977 648 2167 1646 212 2998 3609 4167 2740 3251 4581 1943 4045 1281 2559 412 699 2524 3772 2428 4638 3102 1614 2217 2061 4898 3057 3447 1649 1779 4935 1259 3691 3461 3889 3127 2185 3844 3464 3283 509 3700 611 2470 2126 4905 4385 3014 1819 1808 1321 1780 781 4694 3840 3163 3668 2543 1363 3410 1557 2281 742 1464 603 107 3452 4688 1420 392 3215 1797 1213 1512 4443 1088 1984 1040 2838 1024 852 2801 1955 736 558 4199 2575 1071 2071 2835 939 2924 1038 467 3139 1281 528 2792 1350 2498 373 1233 4120 1365 4149 830 140 492 1578 1855 1838 3641 2231 4237 2032 553 1697 1089 2059 4805 2262 3453 4792 3925 244 1304 415 1805 2210 710 968 2364 4813 4486 1705 4666 2236 1709 2423 1859 3252 116 1272 2786 1779 766 1961 1591 3007 3205 3571 323 3927 133 3283 220 4869 2592 4594 1852 1322 2267 3042 4735 3282 1641 2467 2101 3626 1727 2828 2164 2127 3656 838 4706 5016 1786 5037 4385 3839 681 1592 4076 380 3986 1892 3025 4459 2731 4204 1264 999 2321 1196 2467 943 4249 1637 3397 2863 1603 3011 4096 3330 3676 2894 3370 2159 4843 214 1880 1322 1486 2106 2998 164 3646 3987 3733 3565 4649 1508 4206 769 4942 1405 3055 2961 4462 953 1539 1956 4577 284 2214 1373 1438 4609 2074 4815 536 490 1123 1430 4189 369 1122 3752 1424 288 608 2820 2946 276 2569 2089 652 1999 1403 5050 5032 3653 2767 2072 2569 1543 4023 777 3272 3583 1833 4288 2608 2291 2107 2917 2957 2069 2431 239 1616 4402 4321 3398 4518 778 2031 3878 1954 1960 4824 1769 3775 3946 2648 3540 1715 3803 3363 4373 3873 2223 2991 4347 1253 4391 4463 2846 4789 470 3006 1721 2198 1754 185 2558 3557 3719 4296 1448 5032 4857 2502 454 1339 2544 3934 1919 2367 1969 2017 537 3536 3371 1381 2383 1950 151 4696 1594 1751 3731 \n279\n",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "423\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示输出或细节与评测不一致",
+      "studentHint": "先逐字符核对题目的输出要求、换行和空格，再看失败测试前后的实际输出差异。"
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "OUTPUT_FORMAT_DETAIL"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "COMPARE_OUTPUT",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "输出",
+        "格式"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:wrong_answer"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-output-format-or-boundary",
+      "misconception": "认为空格、换行或输出顺序这类细节不会影响评测。",
+      "expectedStudentMove": "用一个最小样例手动写出期望输出，并和程序输出逐字符对齐。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-17-public-output-format-or-boundary-82807137",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50017,
+    "problem": {
+      "id": 50048,
+      "title": "CodeStream prob_048",
+      "description": "Sylhet is one of the most beautiful cities in Bangladesh during the monsoon season, and Anik has decided to explore it. However, navigating the city is difficult due to poor visibility on cloudy days. He has K units of petrol, allowing him to travel one unit per fuel.\n  \n  \n  \n  Given Sylhet's layout with interconnected cities and Anik's starting location, calculate and print the** possible** number of cities he can visit before running out of fuel.\n  \n  \n  \n  ## **Input**\n  \n  \n  \n  The input starts with four integers:\n  \n  \n  \n  - C : Number of cities in Sylhet\n  \n  - R : Number of roads connecting cities\n  \n  - K : Fuel units remaining\n  \n  - L : Starting city\n  \n  \n  \n  Then R lines follow, each describing a bidirectional road between two cities \\( u, v \\).\n  \n  \n  \n  ## **Output**\n  \n  \n  \n  Output a single integer: total number of cities Anik can reach using up to K fuel units. Do not use println, use print.\n  \n  \n  \n  ## **Constraints**\n  \n  \n  \n  - $$( 2 <= C <= 10^3 )$$\n  \n  - $$( 0 <= R <= \\frac{C(C-1)}{2} )$$\n  \n  - $$( 1 <= K <= 10^6 )$$\n  \n  - $$( 1 <= L <= C )$$\n  \n  \n  \n  \n  \n  ## **Sample Input**\n  \n  ```\n  \n  5 5 2 1\n  \n  5 3\n  \n  2 4\n  \n  3 4\n  \n  1 5\n  \n  2 5\n  \n  ```\n  \n  \n  \n  ## **Sample Output**\n  \n  ```\n  \n  4\n  \n  ```\n  \n  \n  \n  ## **Explanation**\n  \n  - Anik starts at city 1. \n  \n  - With 2 units of fuel, he can reach cities 5 and then 3 or 2. \n  \n  - The total number of reachable cities is {1, 5, 3, 2}, hence the output is 4.",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "output format"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "format_detail_mismatch"
+      ],
+      "boundaryTypes": [
+        "format_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import java.util.*;\n \n public class Main {\n \n  public static void main(String[] args) {\n  List<List<Integer>> graph = new ArrayList<>();\n \n  int e, v, fuel, start;\n  Scanner sc = new Scanner(System.in);\n  v = sc.nextInt(); // number of vertices\n  e = sc.nextInt(); // number of edges\n  fuel = sc.nextInt();\n  start = sc.nextInt();\n  boolean[] visited = new boolean[v + 1];\n  int dis[] = new int[v + 1];\n  for (int i = 0; i <= v; i++) {\n  graph.add(new ArrayList<>());\n  visited[i] = false;\n  dis[i] = -1;\n  }\n  int s, f;\n  for (int i = 0; i < e; i++) {\n  s = sc.nextInt();\n  f = sc.nextInt();\n  graph.get(s).add(f);\n  graph.get(f).add(s);\n  }\n \n  Queue<Integer> queue = new LinkedList<>();\n \n  queue.add(start);\n  dis[start] = 0;\n  visited[start] = true;\n  while (!queue.isEmpty()) {\n  int node = queue.poll();\n  for (int it : graph.get(node)) {\n  if (!visited[it]) {\n  queue.add(it);\n  visited[it] = true;\n  dis[it] = dis[node] + 1;\n  }\n  }\n  }\n  int k = 0;\n  for (int i = 1; i <= v; i++) {\n  if (dis[i] <= fuel)\n  k++;\n  }\n  System.out.println(k);\n \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "5 5 2 1\n5 3\n2 4\n3 4\n1 5\n2 5",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "4",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示输出或细节与评测不一致",
+      "studentHint": "先逐字符核对题目的输出要求、换行和空格，再看失败测试前后的实际输出差异。"
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "OUTPUT_FORMAT_DETAIL"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "COMPARE_OUTPUT",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "输出",
+        "格式"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:wrong_answer"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-output-format-or-boundary",
+      "misconception": "认为空格、换行或输出顺序这类细节不会影响评测。",
+      "expectedStudentMove": "用一个最小样例手动写出期望输出，并和程序输出逐字符对齐。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-18-public-output-format-or-boundary-57872775",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50018,
+    "problem": {
+      "id": 50010,
+      "title": "CodeStream prob_010",
+      "description": "You are an adventurer exploring an ancient dungeon filled with treasures. There are N treasures in a chamber, each having a weight and a value. You can carry at most W units of weight in your magical backpack. You must choose a subset of treasures such that:\n  \n  - You do not exceed the total weight limit W\n  \n  - You maximize the total value of the treasures you carry\n  \n  - You may either take or skip each treasure -- no fractional taking\n  \n  \n  \n  Your Task:\n  \n  1. Compute the maximum total value you can carry.\n  \n  2. Output the indices (1-based) of the treasures that must be taken to achieve this.\n  \n  \n  \n  Input Format:\\\n  \n  First line: Two integers N and W\\\n  \n  (1 ≤ N ≤ 1000, 1 ≤ W ≤ 10^5)\n  \n  \n  \n  Next N lines: Each line contains two integers weight[i] and value[i]\\\n  \n  (1 ≤ weight[i] ≤ W, 0 ≤ value[i] ≤ 10^9)",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "output format"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "format_detail_mismatch"
+      ],
+      "boundaryTypes": [
+        "format_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import java.util.*;\n \n public class Main {\n  static int[] v;\n  static int[] w;\n  static int[][] dp;\n  static int[] ar;\n \n  static void knap(int n, int W) {\n  for (int i = 1; i <= n; i++) {\n  for (int j = 0; j <= W; j++) {\n  if (i == 0 || j == 0) {\n  dp[i][j] = 0;\n  } else if (w[i - 1] <= j) {\n  int in = v[i - 1] + dp[i - 1][j - w[i - 1]];\n  int out = dp[i - 1][j];\n  \n  dp[i][j] = Math.max(in, out);\n  } else {\n  dp[i][j] = dp[i - 1][j];\n  }\n  }\n  }\n \n  for (int i = n; i > 0; i--) {\n  if (dp[i][W] != dp[i - 1][W]) {\n  ar[i] = 1;\n  W -= w[i - 1];\n  }\n  }\n  }\n \n \n \n  \n \n  public static void main(String args[]) {\n \n  Scanner sc = new Scanner(System.in);\n  int n, We;\n  n = sc.nextInt();\n  We = sc.nextInt();\n  ar = new int[n + 1];\n  dp = new int[n + 10][We + 10];\n  v = new int[n + 10];\n  w = new int[n + 10];\n  for (int i = 0; i < n; i++) {\n  w[i] = sc.nextInt();\n  v[i] = sc.nextInt();\n  ar[i] = 0;\n  }\n  knap(n, We);\n  System.out.println(dp[n][We]);\n  for (int i = 1; i <= n; i++) {\n  if (ar[i] != 0)\n  System.out.print(i + \" \");\n  }\n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "5 9\n2 20\n3 15\n4 20\n5 30\n3 24",
+        "actualOutput": "Presentation Error",
+        "expectedOutput": "64\n1 3 5\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示输出或细节与评测不一致",
+      "studentHint": "先逐字符核对题目的输出要求、换行和空格，再看失败测试前后的实际输出差异。"
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "OUTPUT_FORMAT_DETAIL"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "COMPARE_OUTPUT",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "输出",
+        "格式"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:wrong_answer"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-output-format-or-boundary",
+      "misconception": "认为空格、换行或输出顺序这类细节不会影响评测。",
+      "expectedStudentMove": "用一个最小样例手动写出期望输出，并和程序输出逐字符对齐。"
+    },
+    "history": {
+      "previousVerdict": "UNKNOWN",
+      "transitionSignal": "CodeStream attempt 3 for the same anonymized user-problem pair remains WRONG_ANSWER",
+      "recentIssueTags": [
+        "NEEDS_MORE_EVIDENCE"
+      ],
+      "recentFineGrainedTags": []
+    }
+  },
+  {
+    "name": "codestream-19-public-output-format-or-boundary-1199089",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50019,
+    "problem": {
+      "id": 50029,
+      "title": "CodeStream prob_029",
+      "description": "You will be dealing with the heights of the students here. First, you will be given an integer value N denoting the number of students in the class. Then you will be given N numbers (can be floating point numbers) denoting the height of each student in some unit. The ith number will denote the height of the ith student. After that you will be given a value K. \n  \n  \n  \n  In the assembly students are arranged from the smallest to largest height. You have to print the roll which will be standing in the Kth position in such an arrangement. The rolls follow 1 based indexing. In the case of repeating heights, you need to print the student with a lesser roll. \n  \n  \n  \n  Limits:\n  \n  1<=N<=100000\n  \n  1<=k<=100000\n  \n  100 <= height <= 5000\n  \n  \n  \n  Test Cases:\n  \n  \n  \n  Input\n  \n  \n  \n  5\n  \n  \n  \n  100 105.3 500.7 200.3 161\n  \n  \n  \n  3\n  \n  \n  \n  Output\n  \n  \n  \n  5\n  \n  \n  \n  Input\n  \n  \n  \n  4\n  \n  \n  \n  205.1 181.2 173.7 181.2\n  \n  \n  \n  2\n  \n  \n  \n  Output\n  \n  \n  \n  2",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "output format"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "format_detail_mismatch"
+      ],
+      "boundaryTypes": [
+        "format_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import java.util.Scanner;\n \n public class B{\n  public static void main(String[] args)\n  {\n  Scanner sc = new Scanner(System.in); \n \n  int n = sc.nextInt();\n  double[] h = new double[n]; \n  int[] pos = new int[n];\n \n  \n  for (int i = 0; i < n; i++) {\n  double hight = sc.nextDouble();\n  h[i] = hight;\n  pos[i] = i;\n  }\n \n  int k = sc.nextInt();\n  \n  \n  for (int i = 0; i < n - 1; i++) {\n  for (int j = i + 1; j < n; j++) {\n  if (h[i] > h[j]) {\n  \n  double temp = h[i];\n  h[i] = h[j];\n  h[j] = temp;\n \n  // ///\n  int tem = pos[i];\n  pos[i] = pos[j];\n  pos[j] = tem; \n  } else if (h[i] == h[j] && pos[i] > pos[j]) {\n  \n  double temp = h[i];\n  h[i] = h[j];\n  h[j] = temp;\n \n  \n  int tem = pos[i];\n  pos[i] = pos[j];\n  pos[j] = tem;\n  }\n  }\n  }\n \n  \n  int position = pos[k - 1] + 1;\n  System.out.print(position);\n \n  \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "500\n291 693 3875 384 1424 2317 4080 4196 2922 3343 1571 859 3512 4078 2351 226 1538 3946 2854 3097 763 4025 1986 3266 3311 847 2110 3613 2295 243 3308 762 123 3973 4912 3918 5040 2725 4252 4098 4210 4133 2517 2567 1347 3050 3382 4815 2285 2719 461 1616 2476 1954 4059 4610 1072 267 4007 1324 1090 2202 1717 1978 4084 3816 4402 2569 1238 2649 4083 398 2494 1969 2519 1444 1279 469 3259 2636 4654 3827 3301 4858 3217 5012 283 2125 1768 5016 364 2167 2649 1083 3175 990 607 1423 3634 2363 4602 2066 766 1321 1293 1802 3306 3888 3996 230 2324 1386 4820 4166 4503 3325 3504 2598 114 3939 1352 430 1669 2870 2749 518 4978 3480 843 2689 3113 4978 3821 335 3787 3291 3992 3816 1892 1955 2593 1237 1523 4729 2216 3633 4716 2106 3497 2424 3608 3075 2336 1006 394 281 1805 219 3950 1094 272 438 325 1679 4991 3520 468 2004 1694 1819 2902 4519 4806 707 1327 2296 2297 747 498 3641 2997 1050 349 2366 2183 399 2156 3599 2106 2675 2515 1985 4864 4423 1440 3849 4383 4838 1496 4659 4296 4852 1784 3874 3013 1935 1111 761 2080 956 2627 1025 4212 4509 1593 612 454 2498 2857 2146 1115 4221 929 809 1609 3555 4609 762 2910 4744 4854 1657 4950 578 1595 4134 4763 3761 4781 4994 1837 4941 3862 4708 1757 448 3124 3117 2196 4813 4315 3128 1473 3434 584 958 4059 1978 4431 1808 588 2542 1896 439 599 4661 2909 2297 4483 569 144 1908 4559 2004 3410 256 4352 2059 3559 1152 2946 4554 328 1106 2156 505 1865 1791 3487 2461 1956 3196 912 4777 1805 1642 4211 1390 2752 3252 1234 2288 1768 3847 335 3916 4697 2822 3663 311 4880 263 3103 1393 1146 2991 2315 3402 1826 1941 2725 235 215 5094 946 144 1061 2413 2011 1980 2363 1470 2027 2693 357 195 2508 1602 2594 3214 992 5019 4137 1960 252 3624 1231 3585 1279 3405 4820 3777 2860 4692 4224 1182 699 4043 2816 1935 4015 2879 2197 4313 2972 569 1679 1304 2679 2920 1189 2360 2283 3775 3976 2028 1305 4777 2033 2806 2479 2339 3032 3401 1540 2152 4375 1332 4819 1258 1446 4287 3494 4160 3624 4259 2589 779 4870 4029 704 3189 3786 771 889 4716 4879 1683 1429 4771 3143 696 4524 2571 4245 653 1367 4168 1884 4999 2593 1582 2999 3894 4745 590 531 3373 4576 1499 3594 1731 3534 4122 2905 1849 2033 4825 2388 4716 4049 3223 4441 4109 661 317 4074 1879 2034 379 575 4528 718 3118 3587 612 3624 4401 3254 4375 4498 913 2651 970 305 2126 2514 1880 1116 3862 417 2585 4148 1676 4487 1094 1547 4569 3737 4925 3728 1194 1792 1848 529 5051 2154 3033 3706 1449 808 4569 4798 1590 4673 346 4482 2769 797 1737 \n79\n",
+        "actualOutput": "Presentation Error",
+        "expectedOutput": "224\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示输出或细节与评测不一致",
+      "studentHint": "先逐字符核对题目的输出要求、换行和空格，再看失败测试前后的实际输出差异。"
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "OUTPUT_FORMAT_DETAIL"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "COMPARE_OUTPUT",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "输出",
+        "格式"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:wrong_answer"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-output-format-or-boundary",
+      "misconception": "认为空格、换行或输出顺序这类细节不会影响评测。",
+      "expectedStudentMove": "用一个最小样例手动写出期望输出，并和程序输出逐字符对齐。"
+    },
+    "history": {
+      "previousVerdict": "UNKNOWN",
+      "transitionSignal": "CodeStream attempt 4 for the same anonymized user-problem pair remains WRONG_ANSWER",
+      "recentIssueTags": [
+        "NEEDS_MORE_EVIDENCE"
+      ],
+      "recentFineGrainedTags": []
+    }
+  },
+  {
+    "name": "codestream-20-public-output-format-or-boundary-81068494",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50020,
+    "problem": {
+      "id": 50031,
+      "title": "CodeStream prob_031",
+      "description": "You are given a sequence of integers that must be inserted one by one into a collection. After each insertion, you must perform the following operation:\n  \n  \n  \n  Find the current maximum value in the collection.\\\n  \n  Decrement that value by an integer k.\\\n  \n  After all numbers have been processed, output the final contents of the collection in sorted (non-decreasing) order.\n  \n  \n  \n  Input Format\\\n  \n  The first line contains two integers n and k\\\n  \n  (1 ≤ n ≤ 10^5, 0 ≤ k ≤ 10^9)\n  \n  \n  \n  The second line contains n integers\\\n  \n  x₁, x₂, ..., xₙ (−10^9 ≤ xᵢ ≤ 10^9)\n  \n  \n  \n  \n  \n  Output Format\\\n  \n  Print n integers representing the final state of the collection, sorted in non-decreasing order.\n  \n  \n  \n  \n  \n  Sorted values must be separated by a single space.\\\n  \n  Each testcase output is separated by a newline.",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "output format"
+      ],
+      "algorithmStrategies": [],
+      "commonMistakes": [
+        "format_detail_mismatch"
+      ],
+      "boundaryTypes": [
+        "format_boundary"
+      ]
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "#include <stdio.h>\n #include <stdlib.h>\n \n long long heap[200005];\n int sz = 0;\n \n void swap(long long *a, long long *b) {\n  long long tmp = *a;\n  *a = *b;\n  *b = tmp;\n }\n \n void add(long long x) {\n  heap[++sz] = x;\n  int i = sz;\n  while (i > 1 && heap[i] > heap[i/2]) {\n  swap(&heap[i], &heap[i/2]);\n  i /= 2;\n  }\n }\n \n long long removeMax() {\n  if (sz == 0) return 0;\n \n  long long ret = heap[1];\n  heap[1] = heap[sz--];\n \n  int i = 1;\n  while (i * 2 <= sz) {\n  int big = i * 2;\n  if (big + 1 <= sz && heap[big + 1] > heap[big])\n  big++;\n \n  if (heap[big] > heap[i]) {\n  swap(&heap[big], &heap[i]);\n  i = big;\n  } else {\n  break;\n  }\n  }\n  return ret;\n }\n \n int cmp(const void *a, const void *b) {\n  long long x = *(long long*)a;\n  long long y = *(long long*)b;\n  return (x > y) - (x < y);\n }\n \n int main() {\n  int n;\n  long long k;\n  scanf(\"%d %lld\", &n, &k);\n \n  for (int i = 0; i < n; i++) {\n  long long v;\n  scanf(\"%lld\", &v);\n \n  add(v);\n \n  long long top = removeMax();\n  top -= k;\n  add(top);\n  }\n \n  long long ans[200005];\n  int cnt = 0;\n \n  while (sz) {\n  ans[cnt++] = removeMax();\n  }\n \n  qsort(ans, cnt, sizeof(long long), cmp);\n \n  for (int i = 0; i < cnt; i++) {\n  printf(\"%lld \", ans[i]);\n  }\n \n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "6 0\n5 1 3 9 2 8\n",
+        "actualOutput": "Presentation Error",
+        "expectedOutput": "1 2 3 5 8 9\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交显示输出或细节与评测不一致",
+      "studentHint": "先逐字符核对题目的输出要求、换行和空格，再看失败测试前后的实际输出差异。"
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "OUTPUT_FORMAT_DETAIL"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "COMPARE_OUTPUT",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "输出",
+        "格式"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:wrong_answer"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-output-format-or-boundary",
+      "misconception": "认为空格、换行或输出顺序这类细节不会影响评测。",
+      "expectedStudentMove": "用一个最小样例手动写出期望输出，并和程序输出逐字符对齐。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-21-public-accepted-generalization-45119285",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50021,
+    "problem": {
+      "id": 50006,
+      "title": "CodeStream prob_006",
+      "description": "A city named *Flower* on the western front, has been very quiet since some time after the deadly aftermath of war. But flowers are booming and things have started to move. \n  \n  \n  \n  The new mayor, *Tris*, has decided to repair the country's damaged roads, which are currently in very bad condition. Tris has old maps, which have information about the previous road network. Each road of the Flower is bidirectional by default, and in the map, Tris saw an additional piece of information for each road regarding the number of vehicles that can move simultaneously through that road. \n  \n  \n  \n  The budget is quite limited and Tris wants to maximize the total number of vehicles passing simultaneously all throughout the country. If there are **N** cities she wants to build exactly **(N-1)** roads so that all the country stays connected maximizing the total number of vehicles passing simultaneously. As there are a lot of cities and roads and Tris has been very busy managing the country, she has been looking for a programmer to help her solve this problem. \n  \n  \n  \n  *Can you come forward to help her by designing a solution?*",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "ACCEPTED",
+      "sourceCode": "import java.util.ArrayList;\n import java.util.List;\n import java.util.Scanner;\n \n public class one {\n  static int[] p = new int[2222222];\n  static int cost = 0;\n \n  static class Edge {\n  int u, v, w;\n \n  Edge(int u, int v, int w) {\n  this.u = u;\n  this.v = v;\n  this.w = w;\n  }\n  }\n \n  ///////\n  static void union(int u, int v) {\n  int pu = find(u);\n  int pv = find(v);\n  if (pu != pv) {\n  p[pu] = pv;\n  }\n  }\n \n  ////////\n  static int find(int u) {\n  if (u == p[u])\n  return u;\n  return find(p[u]);\n  }\n \n  static void disjoint(List<Edge> graph) {\n \n  for (Edge node : graph) {\n  if (find(node.u) != find(node.v)) {\n \n  union(node.u, node.v);\n  cost += node.w;\n  }\n  }\n \n  }\n \n  public static void main(String[] args) {\n  List<Edge> graph = new ArrayList<>();\n  Scanner sc = new Scanner(System.in);\n  int edge, vertext;\n  vertext = sc.nextInt();\n  edge = sc.nextInt();\n  int u, v, w;\n  for (int i = 0; i < edge; i++) {\n  u = sc.nextInt();\n  v = sc.nextInt();\n  w = sc.nextInt();\n  p[u] = u;\n  p[v] = v;\n  graph.add(new Edge(u, v, w));\n  }\n \n  // graph.sort(Comparator.comparingInt(e -> e.w));\n  graph.sort((e1, e2) -> Integer.compare(e2.w, e1.w));\n \n  \n  disjoint(graph);\n  //\n  System.out.println(cost);\n \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交已通过，适合进入复盘",
+      "studentHint": "这次提交已经通过，下一步用自己的话解释为什么它能覆盖边界和最大规模。"
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "通过",
+        "复盘"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-accepted-generalization",
+      "misconception": "通过后只看结果，不复盘代码为什么对以及适用边界。",
+      "expectedStudentMove": "写出算法不变量、复杂度和一个边界样例，确认不是偶然通过。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-22-public-accepted-generalization-18917528",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50022,
+    "problem": {
+      "id": 50009,
+      "title": "CodeStream prob_009",
+      "description": "In this problem you will be given a string $S$ (1<=|S|<=500) containing English lowercase letters. You need to calculate the `minimum number of letters` that are required to be deleted to make the given string a palindrome. A palindrome is a word, phrase, number, or sequence that reads the same backward as forward. For example, `madam`, `bab`, etc. \n  \n  \n  \n  There will be a single line of input containing the string $S$. You need to print a single integer denoting the minimum number of operations required. Keep a newline after the output to pass all the test cases.",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "ACCEPTED",
+      "sourceCode": "import java.util.*;\n \n public class main{\n  static int dp[][] ;\n \n  static int lca(int i , int j , String s1 , String s2)\n  {\n  if(i<0 || j<0 ) return 0 ;\n  if(dp[i][j]!= -1 ) return dp[i][j] ;\n \n  if(s1.charAt(i)==s2.charAt(j) ){\n  dp[i][j] = 1 + lca(i-1 , j-1 , s1 , s2) ;\n  }\n \n  else {\n  dp[i][j] = Math.max( lca(i-1 , j, s1,s2) , lca(i,j-1 , s1,s2 ) ) ;\n  }\n \n  return dp[i][j] ;\n  }\n \n \n \n  public static void main(String args[]){\n  Scanner sc = new Scanner(System.in) ;\n  String s ;\n  s = sc.nextLine() ;\n  \n  StringBuilder ts2 = new StringBuilder(s); \n ts2.reverse();\n String s2 = ts2.toString();\n \n  int n = s.length(); \n \n  dp = new int[n+1][n+1] ;\n  for(int i = 0 ; i<n ; i++)\n  {\n  for(int j = 0 ; j<n ; j++)\n  {\n  dp[i][j] = -1 ;\n  }\n  }\n \n  int result = lca(n-1 , n-1 , s,s2) ;\n  System.out.println(n-result) ;\n  \n  \n \n \n \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交已通过，适合进入复盘",
+      "studentHint": "这次提交已经通过，下一步用自己的话解释为什么它能覆盖边界和最大规模。"
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "通过",
+        "复盘"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-accepted-generalization",
+      "misconception": "通过后只看结果，不复盘代码为什么对以及适用边界。",
+      "expectedStudentMove": "写出算法不变量、复杂度和一个边界样例，确认不是偶然通过。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-23-public-accepted-generalization-68651737",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50023,
+    "problem": {
+      "id": 50028,
+      "title": "CodeStream prob_028",
+      "description": "# Problem Description\n  \n  \n  \n  You will be given a string S (1<=|S|<=10000) containing English alphabets and digits without spaces. You need to extract the digits and print it as a sequence. Please look at the samples. \n  \n  \n  \n  |Sample Input | Sample Output |\n  \n  |----------------|----------------|\n  \n  | a1b1c2 | 112| \n  \n  | bt29 | 29 |",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "ACCEPTED",
+      "sourceCode": "#include<bits/stdc++.h>\n using namespace std ;\n int main()\n {\n  string s ,s1=\"\";\n  cin>>s;\n  for(int i=0 ; i<s.size() ; i++)\n  {\n  if(s[i]>='0'&& s[i]<='9') s1+=s[i];\n  }\n  cout<<s1;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交已通过，适合进入复盘",
+      "studentHint": "这次提交已经通过，下一步用自己的话解释为什么它能覆盖边界和最大规模。"
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "通过",
+        "复盘"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-accepted-generalization",
+      "misconception": "通过后只看结果，不复盘代码为什么对以及适用边界。",
+      "expectedStudentMove": "写出算法不变量、复杂度和一个边界样例，确认不是偶然通过。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-24-public-accepted-generalization-72030145",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50024,
+    "problem": {
+      "id": 50029,
+      "title": "CodeStream prob_029",
+      "description": "You will be dealing with the heights of the students here. First, you will be given an integer value N denoting the number of students in the class. Then you will be given N numbers (can be floating point numbers) denoting the height of each student in some unit. The ith number will denote the height of the ith student. After that you will be given a value K. \n  \n  \n  \n  In the assembly students are arranged from the smallest to largest height. You have to print the roll which will be standing in the Kth position in such an arrangement. The rolls follow 1 based indexing. In the case of repeating heights, you need to print the student with a lesser roll. \n  \n  \n  \n  Limits:\n  \n  1<=N<=100000\n  \n  1<=k<=100000\n  \n  100 <= height <= 5000\n  \n  \n  \n  Test Cases:\n  \n  \n  \n  Input\n  \n  \n  \n  5\n  \n  \n  \n  100 105.3 500.7 200.3 161\n  \n  \n  \n  3\n  \n  \n  \n  Output\n  \n  \n  \n  5\n  \n  \n  \n  Input\n  \n  \n  \n  4\n  \n  \n  \n  205.1 181.2 173.7 181.2\n  \n  \n  \n  2\n  \n  \n  \n  Output\n  \n  \n  \n  2",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "ACCEPTED",
+      "sourceCode": "import java.util.Scanner;\n \n public class Main{\n  public static void main(String[] args)\n  {\n  Scanner sc = new Scanner(System.in); \n \n  int n = sc.nextInt();\n  double[] h = new double[n]; \n  int[] pos = new int[n];\n \n  \n  for (int i = 0; i < n; i++) {\n  double hight = sc.nextDouble();\n  h[i] = hight;\n  pos[i] = i;\n  }\n \n  int k = sc.nextInt();\n  \n  \n  for (int i = 0; i < n - 1; i++) {\n  for (int j = i + 1; j < n; j++) {\n  if (h[i] > h[j]) {\n  \n  double temp = h[i];\n  h[i] = h[j];\n  h[j] = temp;\n \n  // ///\n  int tem = pos[i];\n  pos[i] = pos[j];\n  pos[j] = tem; \n  } else if (h[i] == h[j] && pos[i] > pos[j]) {\n  \n  double temp = h[i];\n  h[i] = h[j];\n  h[j] = temp;\n \n  \n  int tem = pos[i];\n  pos[i] = pos[j];\n  pos[j] = tem;\n  }\n  }\n  }\n \n  \n  int position = pos[k - 1] + 1;\n  System.out.println(position);\n \n  \n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交已通过，适合进入复盘",
+      "studentHint": "这次提交已经通过，下一步用自己的话解释为什么它能覆盖边界和最大规模。"
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "通过",
+        "复盘"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-accepted-generalization",
+      "misconception": "通过后只看结果，不复盘代码为什么对以及适用边界。",
+      "expectedStudentMove": "写出算法不变量、复杂度和一个边界样例，确认不是偶然通过。"
+    },
+    "history": null
+  },
+  {
+    "name": "codestream-25-public-accepted-generalization-11305032",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 50025,
+    "problem": {
+      "id": 50048,
+      "title": "CodeStream prob_048",
+      "description": "Sylhet is one of the most beautiful cities in Bangladesh during the monsoon season, and Anik has decided to explore it. However, navigating the city is difficult due to poor visibility on cloudy days. He has K units of petrol, allowing him to travel one unit per fuel.\n  \n  \n  \n  Given Sylhet's layout with interconnected cities and Anik's starting location, calculate and print the** possible** number of cities he can visit before running out of fuel.\n  \n  \n  \n  ## **Input**\n  \n  \n  \n  The input starts with four integers:\n  \n  \n  \n  - C : Number of cities in Sylhet\n  \n  - R : Number of roads connecting cities\n  \n  - K : Fuel units remaining\n  \n  - L : Starting city\n  \n  \n  \n  Then R lines follow, each describing a bidirectional road between two cities \\( u, v \\).\n  \n  \n  \n  ## **Output**\n  \n  \n  \n  Output a single integer: total number of cities Anik can reach using up to K fuel units. Do not use println, use print.\n  \n  \n  \n  ## **Constraints**\n  \n  \n  \n  - $$( 2 <= C <= 10^3 )$$\n  \n  - $$( 0 <= R <= \\frac{C(C-1)}{2} )$$\n  \n  - $$( 1 <= K <= 10^6 )$$\n  \n  - $$( 1 <= L <= C )$$\n  \n  \n  \n  \n  \n  ## **Sample Input**\n  \n  ```\n  \n  5 5 2 1\n  \n  5 3\n  \n  2 4\n  \n  3 4\n  \n  1 5\n  \n  2 5\n  \n  ```\n  \n  \n  \n  ## **Sample Output**\n  \n  ```\n  \n  4\n  \n  ```\n  \n  \n  \n  ## **Explanation**\n  \n  - Anik starts at city 1. \n  \n  - With 2 units of fuel, he can reach cities 5 and then 3 or 2. \n  \n  - The total number of reachable cities is {1, 5, 3, 2}, hence the output is 4.",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "ACCEPTED",
+      "sourceCode": "import java.util.*;\n \n public class Main {\n  public static void main(String[] args) {\n  List<List<Integer>> graph = new ArrayList<>();\n \n  int e, v, fuel, start;\n  Scanner sc = new Scanner(System.in);\n  v = sc.nextInt(); \n  e = sc.nextInt(); \n  fuel = sc.nextInt();\n  start = sc.nextInt();\n  boolean[] visited = new boolean[v + 1];\n  int dis[] = new int[v + 1];\n  for (int i = 0; i <= v; i++) {\n  graph.add(new ArrayList<>());\n  visited[i] = false;\n  dis[i] = -1;\n  }\n \n  for (int i = 0; i < e; i++) {\n  int s = sc.nextInt();\n  int f = sc.nextInt();\n  graph.get(s).add(f);\n  graph.get(f).add(s);\n  }\n \n  Queue<Integer> queue = new LinkedList<>();\n  queue.add(start);\n  dis[start] = 0;\n  visited[start] = true;\n \n  while (!queue.isEmpty()) {\n  int node = queue.poll();\n  for (int it : graph.get(node)) {\n  if (!visited[it]) {\n  queue.add(it);\n  visited[it] = true;\n  dis[it] = dis[node] + 1;\n  }\n  }\n  }\n \n  int k = 0;\n  for (int i = 1; i <= v; i++) {\n  if (dis[i] != -1 && dis[i] <= fuel)\n  k++;\n  }\n \n  System.out.print(k);\n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "公开提交已通过，适合进入复盘",
+      "studentHint": "这次提交已经通过，下一步用自己的话解释为什么它能覆盖边界和最大规模。"
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "通过",
+        "复盘"
+      ],
+      "mustNotMention": [
+        "完整代码",
+        "参考答案",
+        "隐藏测试点"
+      ],
+      "requiredEvidenceRefs": [
+        "verdict:accepted"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ]
+    },
+    "quality": {
+      "bugPattern": "public-accepted-generalization",
+      "misconception": "通过后只看结果，不复盘代码为什么对以及适用边界。",
+      "expectedStudentMove": "写出算法不变量、复杂度和一个边界样例，确认不是偶然通过。"
+    },
+    "history": null
+  }
+]

@@ -1,0 +1,38 @@
+# Local tooling and editor state
+.m2/
+.vscode/
+.DS_Store
+
+# Runtime data and logs
+data/
+**/data/
+logs/
+**/logs/
+*.log
+*.pid
+tmp-*.md
+tmp-*.pdf
+tmp/
+**/tmp/
+
+# Build outputs and dependency folders
+target/
+**/target/
+build/
+dist/
+out/
+node_modules/
+**/node_modules/
+**/.vite/
+*.tsbuildinfo
+
+# Local environment and credentials
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Temporary docx analysis / rendering artifacts
+.codex_tmp_docx_analysis/
+.tmp-docx-*/

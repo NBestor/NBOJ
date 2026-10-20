@@ -1,0 +1,1805 @@
+[
+  {
+    "name": "codestream-chain-01-fixed_compilation-69600866",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60001,
+    "problem": {
+      "id": 60022,
+      "title": "CodeStream prob_022",
+      "description": "In this problem, you will be given an integer `x`. Your task is to spell the integer in **English words**.\n\n### Requirements\n- Handle **singular and plural forms carefully**\n\n### Input\n- A single integer `x`  \n- Constraint: `1 ≤ x ≤ 9999`\n\n### Output\n- Print the English spelling of the integer\n\n### Example\n\n#### Input\n```\n\n123\n\n```\n\n#### Output\n```\n\none hundred\ntwenty three\n\n```\n\n#### Input\n```\n\n9910\n\n```\n\n#### Output\n```\n\nnine thousands\nnine hundreds\nten\n\n```",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "debugging sequence"
+      ],
+      "algorithmStrategies": [
+        "minimal verification"
+      ],
+      "commonMistakes": [
+        "switching_from_syntax_to_correctness_too_late"
+      ],
+      "boundaryTypes": [
+        "current_verdict"
+      ]
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "#include<stdio.h>\n #include<string.h>\n \n void spell(int n){\n char *ones[] = {\"\",\"One\",\"Two\",\"Three\",\"Four\",\"Five\",\"Six\",\"Seven\",\"Eight\",\"Nine\",\"Ten\",\"Eleven\",\"Twelve\",\"Thirteen\",\"Fourteen\",\"Fifteen\",\"Sixteen\",\"Seventeen\",\"Eighteen\",\"Nineteen\"};\n char *tens[] = {\"\",\"\",\"Twenty\",\"Thirty\",\"Forty\",\"Fifty\",\"Sixty\",\"Seventy\",\"Eighty\",\"Ninety\"};\n \n if (n == 0) {printf (\"Zero\");\n return;}\n \n if ( n >= 1000){\n  printf(\"%s thousand \", ones[n / 1000]);\n  n %= 1000;\n }\n if( n>= 100) {printf(\"%s hundred \",ones[n / 100]);\n n %= 100;\n }\n \n \n if (n >= 20){printf(\"%s\", tens[n / 10]);\n n %= 10;\n \n }\n \n if (n>0) {printf(\"%s\", ones[n]);}\n }\n \n \n \n int main() {\n  int num;\n  scanf(\"%d\", &num);\n  spell(num);\n  printf(\"\\n\");\n  return 0;\n \n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "8\n",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "eight\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows compilation was fixed, but the solution still needs correctness evidence.",
+      "studentHint": "Acknowledge that compilation has been fixed, then ask the student to test one minimal case for the new verdict."
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "ASK_MIN_CASE",
+        "COMPARE_OUTPUT",
+        "CHECK_RUNTIME_GUARDS"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "compile",
+        "current verdict"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:fixed_compilation"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "FIXED_COMPILATION",
+      "needsTeacherAttention": false
+    },
+    "quality": {
+      "bugPattern": "public-chain-fixed_compilation",
+      "misconception": "After fixing compilation, the student may assume the main problem is solved.",
+      "expectedStudentMove": "Separate the syntax fix from the remaining verdict and verify the smallest failing behavior."
+    },
+    "history": {
+      "previousVerdict": "COMPILATION_ERROR",
+      "transitionSignal": "Attempt 12 COMPILATION_ERROR -> attempt 13 WRONG_ANSWER",
+      "recentIssueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "BOUNDARY_CONDITION",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-02-repeated_stuck-20173854",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60002,
+    "problem": {
+      "id": 60022,
+      "title": "CodeStream prob_022",
+      "description": "In this problem, you will be given an integer `x`. Your task is to spell the integer in **English words**.\n\n### Requirements\n- Handle **singular and plural forms carefully**\n\n### Input\n- A single integer `x`  \n- Constraint: `1 ≤ x ≤ 9999`\n\n### Output\n- Print the English spelling of the integer\n\n### Example\n\n#### Input\n```\n\n123\n\n```\n\n#### Output\n```\n\none hundred\ntwenty three\n\n```\n\n#### Input\n```\n\n9910\n\n```\n\n#### Output\n```\n\nnine thousands\nnine hundreds\nten\n\n```",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "debugging sequence"
+      ],
+      "algorithmStrategies": [
+        "trace one case"
+      ],
+      "commonMistakes": [
+        "blind_repeated_edits"
+      ],
+      "boundaryTypes": [
+        "repeated_failure"
+      ]
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "#include<stdio.h>\n #include<string.h>\n \n void spell(int n){\n char *ones[] = {\"\",\"One\",\"Two\",\"Three\",\"Four\",\"Five\",\"Six\",\"Seven\",\"Eight\",\"Nine\",\"Ten\",\"Eleven\",\"Twelve\",\"Thirteen\",\"Fourteen\",\"Fifteen\",\"Sixteen\",\"Seventeen\",\"Eighteen\",\"Nineteen\"};\n char *tens[] = {\"\",\"\",\"Twenty\",\"Thirty\",\"Forty\",\"Fifty\",\"Sixty\",\"Seventy\",\"Eighty\",\"Ninety\"};\n \n if (n == 0) {printf (\"Zero\");\n return;}\n \n if ( n >= 1000){\n  printf(\"%s thousand \", ones[n / 1000]);\n  n %= 1000;\n }\n if( n>= 100) {printf(\"%s hundred \",ones[n / 100]);\n n %= 100;\n }\n \n \n if (n >= 20){printf(\"%s\", tens[n / 10]);\n n %= 10;\n \n }\n \n if (n>0) {printf(\"%s\", ones[n]);}\n }\n \n \n \n int main() {\n  int num;\n  scanf(\"%d\", &num);\n  spell(num);\n  printf(\"\\n\");\n  return 0;\n \n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "8\n",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "eight\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows the same failure category repeated many times.",
+      "studentHint": "Stop broad edits and reduce the task to one failing example, one key variable, and one expected output comparison."
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "ASK_MIN_CASE",
+        "TRACE_VARIABLES",
+        "BUILD_COUNTEREXAMPLE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "same failure",
+        "minimal case"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:repeated_stuck"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "REPEATED_STUCK",
+      "needsTeacherAttention": true
+    },
+    "quality": {
+      "bugPattern": "public-chain-repeated_stuck",
+      "misconception": "Repeated submissions are being used as the debugger instead of isolating the wrong assumption.",
+      "expectedStudentMove": "Use one small failing input and write the expected intermediate state before changing code again."
+    },
+    "history": {
+      "previousVerdict": "WRONG_ANSWER",
+      "transitionSignal": "Attempt 35 WRONG_ANSWER -> attempt 36 WRONG_ANSWER",
+      "recentIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "BOUNDARY_CONDITION",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 24,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-03-runtime_fixed_correctness_remains-55707130",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60003,
+    "problem": {
+      "id": 60019,
+      "title": "CodeStream prob_019",
+      "description": "In this problem, you are given a sorted list of n integers. You need to search whether a required integer is in it.\n  \n  \n  \n  **Input**\n  \n  \n  \n  First line consists of two integers n (3 <= n <= 100000) and m (1 <= m <= 100000). \n  \n  \n  \n  Second line consists of the list of n integers in the range of [-1000000000, 1000000000].\n  \n  \n  \n  Each of the next m lines will contain an integer which is the required value.\n  \n  \n  \n  **Output**\n  \n  \n  \n  For each required value print a line consisting of either “Found” or “Not Found”. See the sample I/O for clarification. \n  \n  \n  \n  **Sample Case 1:**\n  \n  \n  \n  |Sample Input| Sample Output|\n  \n  |------------------|--------------------|\n  \n  |10 3 | Found |\n  \n  |1 2 3 4 5 6 7 8 9 10 | Not Found |\n  \n  | 6 | Found |\n  \n  | -3 | |\n  \n  | 1 | |\n  \n  \n  \n  \n  \n  \n  \n  **Sample Case 2:**\n  \n  \n  \n  | Sample Input | Sample Output |\n  \n  |-------------------|----------------------|\n  \n  |5 6 | Not Found|\n  \n  |9 15 18 34 100 | Found |\n  \n  |7 | Found |\n  \n  |15 | Not Found |\n  \n  |9 | Found |\n  \n  |45 | Found |\n  \n  |100 | |\n  \n  |100 | |",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "runtime guards",
+        "correctness debugging"
+      ],
+      "algorithmStrategies": [
+        "guard then verify"
+      ],
+      "commonMistakes": [
+        "treating_no_crash_as_correct"
+      ],
+      "boundaryTypes": [
+        "runtime_to_correctness"
+      ]
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "#include <stdio.h>\n \n int main() {\n  int n, m, i, x;\n  int arr[10000]; \n  scanf(\"%d %d\", &n, &m);\n  for (i = 0; i < n; i++) {\n  scanf(\"%d\", &arr[i]);\n  }\n  for (i = 0; i < m; i++) {\n  scanf(\"%d\", &x);\n  int found = 0;\n  for (int j = 0; j < n; j++) {\n  if (arr[j] == x) {\n  found = 1;\n  break;\n  }\n  }\n \n  if (found)\n  printf(\"Found\\n\");\n  else\n  printf(\"Not Found\\n\");\n  }\n \n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows runtime instability moved into a correctness failure.",
+      "studentHint": "Keep the runtime guard that stopped the crash, then compare the answer on a small case."
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "ASK_MIN_CASE",
+        "CHECK_RUNTIME_GUARDS"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "runtime",
+        "correctness"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:runtime_fixed_correctness_remains"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "RUNTIME_FIXED_CORRECTNESS_REMAINS",
+      "needsTeacherAttention": false
+    },
+    "quality": {
+      "bugPattern": "public-chain-runtime_fixed_correctness_remains",
+      "misconception": "No crash is mistaken for a correct algorithm.",
+      "expectedStudentMove": "Explain which guard fixed the crash and then test whether the computed answer matches the expected answer."
+    },
+    "history": {
+      "previousVerdict": "RUNTIME_ERROR",
+      "transitionSignal": "Attempt 15 RUNTIME_ERROR -> attempt 16 WRONG_ANSWER",
+      "recentIssueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "BOUNDARY_CONDITION",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-04-accepted_after_fix-8349110",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60004,
+    "problem": {
+      "id": 60029,
+      "title": "CodeStream prob_029",
+      "description": "You will be dealing with the heights of the students here. First, you will be given an integer value N denoting the number of students in the class. Then you will be given N numbers (can be floating point numbers) denoting the height of each student in some unit. The ith number will denote the height of the ith student. After that you will be given a value K. \n  \n  \n  \n  In the assembly students are arranged from the smallest to largest height. You have to print the roll which will be standing in the Kth position in such an arrangement. The rolls follow 1 based indexing. In the case of repeating heights, you need to print the student with a lesser roll. \n  \n  \n  \n  Limits:\n  \n  1<=N<=100000\n  \n  1<=k<=100000\n  \n  100 <= height <= 5000\n  \n  \n  \n  Test Cases:\n  \n  \n  \n  Input\n  \n  \n  \n  5\n  \n  \n  \n  100 105.3 500.7 200.3 161\n  \n  \n  \n  3\n  \n  \n  \n  Output\n  \n  \n  \n  5\n  \n  \n  \n  Input\n  \n  \n  \n  4\n  \n  \n  \n  205.1 181.2 173.7 181.2\n  \n  \n  \n  2\n  \n  \n  \n  Output\n  \n  \n  \n  2",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [
+        "not_reflecting_after_accept"
+      ],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "ACCEPTED",
+      "sourceCode": "import java.util.*;\n public class Main{\n  public static void main(String args[]){\n  Scanner sc=new Scanner(System.in);\n  int n=sc.nextInt();\n  sc.nextLine();\n  double arr[]=new double[n];\n  int roll[]=new int[n];\n  for(int i=0;i<n;i++){\n  arr[i]=sc.nextDouble();\n  roll[i]=i+1;\n  }\n  int k=sc.nextInt();\n  //float ok=arr[k-1];\n  // for(int i=0;i<n;i++){\n  // if(i+1==k){\n  // ok=arr[i];\n  // break;\n  // }\n  // }\n  for(int i=0;i<n-1;i++){\n  for(int j=0;j<n-i-1;j++){\n  if(arr[j]>arr[j+1]){\n  double temp=arr[j];\n  arr[j]=arr[j+1];\n  arr[j+1]=temp;\n \n  int r=roll[j];\n  roll[j]=roll[j+1];\n  roll[j+1]=r;\n  }\n  }\n  }\n  \n  System.out.println(roll[k-1]);\n  //int a=-1;\n  // for(int i=0;i<n;i++){\n  // if(arr[i]==ok){\n  // // a=i+1;\n  // System.out.println(i+1);\n  // break;\n  // }\n  // }\n  //System.out.println(a);\n  sc.close();\n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows a failing submission moved to accepted.",
+      "studentHint": "Now that it passes, review what changed and why the fix covers the boundary or invariant."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "accepted",
+        "review"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:accepted_after_fix"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "ACCEPTED_AFTER_FIX",
+      "needsTeacherAttention": false
+    },
+    "quality": {
+      "bugPattern": "public-chain-accepted_after_fix",
+      "misconception": "Passing is treated as the end rather than a chance to consolidate the reasoning.",
+      "expectedStudentMove": "State the key fix, the complexity, and one boundary case that now works."
+    },
+    "history": {
+      "previousVerdict": "WRONG_ANSWER",
+      "transitionSignal": "Attempt 21 WRONG_ANSWER -> attempt 22 ACCEPTED",
+      "recentIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": null,
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-05-regression-17910352",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60005,
+    "problem": {
+      "id": 60006,
+      "title": "CodeStream prob_006",
+      "description": "A city named *Flower* on the western front, has been very quiet since some time after the deadly aftermath of war. But flowers are booming and things have started to move. \n  \n  \n  \n  The new mayor, *Tris*, has decided to repair the country's damaged roads, which are currently in very bad condition. Tris has old maps, which have information about the previous road network. Each road of the Flower is bidirectional by default, and in the map, Tris saw an additional piece of information for each road regarding the number of vehicles that can move simultaneously through that road. \n  \n  \n  \n  The budget is quite limited and Tris wants to maximize the total number of vehicles passing simultaneously all throughout the country. If there are **N** cities she wants to build exactly **(N-1)** roads so that all the country stays connected maximizing the total number of vehicles passing simultaneously. As there are a lot of cities and roads and Tris has been very busy managing the country, she has been looking for a programmer to help her solve this problem. \n  \n  \n  \n  *Can you come forward to help her by designing a solution?*",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "debugging sequence"
+      ],
+      "algorithmStrategies": [
+        "diff review"
+      ],
+      "commonMistakes": [
+        "partial_fix_regression"
+      ],
+      "boundaryTypes": [
+        "verdict_transition"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "COMPILATION_ERROR",
+      "sourceCode": "import java.util.*;\n \n class Road {\n  int u, v, capacity;\n \n  Road(int u, int v, int capacity) {\n  this.u = u;\n  this.v = v;\n  this.capacity = capacity;\n  }\n }\n \n public class MaxVehiclesRoadNetwork {\n  static int[] parent;\n \n  static int find(int x) {\n  if (parent[x] != x)\n  parent[x] = find(parent[x]);\n  return parent[x];\n  }\n \n  static boolean union(int x, int y) {\n  int px = find(x), py = find(y);\n  if (px == py) return false;\n  parent[px] = py;\n  return true;\n  }\n \n  public static int maxVehicles(int n, List<Road> roads) {\n  parent = new int[n];\n  for (int i = 0; i < n; i++) parent[i] = i;\n \n  \n  roads.sort((a, b) -> Integer.compare(b.capacity, a.capacity));\n \n  int totalCapacity = 0;\n  int edgesUsed = 0;\n \n  for (Road road : roads) {\n  if (union(road.u, road.v)) {\n  totalCapacity += road.capacity;\n  edgesUsed++;\n  if (edgesUsed == n - 1) break;\n  }\n  }\n \n  return (edgesUsed == n - 1) ? totalCapacity : -1;\n  }\n \n  public static void main(String[] args) {\n  Scanner sc = new Scanner(System.in);\n \n  int e = sc.nextInt(); \n  List<Road> roads = new ArrayList<>();\n  int maxNode = 0;\n \n  for (int i = 0; i < e; i++) {\n  int a = sc.nextInt();\n  int b = sc.nextInt();\n  int c = sc.nextInt();\n \n  roads.add(new Road(a-1, b-1, c));\n  maxNode = Math.max(maxNode, Math.max(a-1, b-1));\n  }\n \n  int n = maxNode + 1; \n \n  int result = maxVehicles(n, roads);\n  if (result != -1)\n  System.out.println(\"Maximum total vehicle capacity: \" + result);\n  else\n  System.out.println(\"Not enough roads to connect all cities.\");\n  }\n  sc.close();\n }",
+      "compileOutput": "Compilation Error from CodeStream final_verdict",
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": "Compilation Error",
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "CE",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows the latest edit regressed the verdict.",
+      "studentHint": "Compare only the latest diff first and identify which edit changed the previously better behavior."
+    },
+    "expected": {
+      "issueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "fineTags": [
+        "PARTIAL_FIX_REGRESSION"
+      ],
+      "teachingAction": "FIX_FIRST_COMPILER_ERROR",
+      "acceptableTeachingActions": [
+        "TRACE_VARIABLES",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "diff",
+        "regression"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:verdict_regression"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "REGRESSION",
+      "needsTeacherAttention": true
+    },
+    "quality": {
+      "bugPattern": "public-chain-regression",
+      "misconception": "The student may keep adding fixes without noticing that a recent edit made the state worse.",
+      "expectedStudentMove": "Compare the two latest submissions on one input and isolate the changed assumption."
+    },
+    "history": {
+      "previousVerdict": "WRONG_ANSWER",
+      "transitionSignal": "Attempt 9 WRONG_ANSWER -> attempt 10 COMPILATION_ERROR",
+      "recentIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "SYNTAX_ERROR",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-06-fixed_compilation-90336212",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60006,
+    "problem": {
+      "id": 60006,
+      "title": "CodeStream prob_006",
+      "description": "A city named *Flower* on the western front, has been very quiet since some time after the deadly aftermath of war. But flowers are booming and things have started to move. \n  \n  \n  \n  The new mayor, *Tris*, has decided to repair the country's damaged roads, which are currently in very bad condition. Tris has old maps, which have information about the previous road network. Each road of the Flower is bidirectional by default, and in the map, Tris saw an additional piece of information for each road regarding the number of vehicles that can move simultaneously through that road. \n  \n  \n  \n  The budget is quite limited and Tris wants to maximize the total number of vehicles passing simultaneously all throughout the country. If there are **N** cities she wants to build exactly **(N-1)** roads so that all the country stays connected maximizing the total number of vehicles passing simultaneously. As there are a lot of cities and roads and Tris has been very busy managing the country, she has been looking for a programmer to help her solve this problem. \n  \n  \n  \n  *Can you come forward to help her by designing a solution?*",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "debugging sequence"
+      ],
+      "algorithmStrategies": [
+        "minimal verification"
+      ],
+      "commonMistakes": [
+        "switching_from_syntax_to_correctness_too_late"
+      ],
+      "boundaryTypes": [
+        "current_verdict"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import java.util.*;\n \n class Road {\n  int u, v, capacity;\n \n  Road(int u, int v, int capacity) {\n  this.u = u;\n  this.v = v;\n  this.capacity = capacity;\n  }\n }\n \n public class MaxVehiclesRoadNetwork {\n  static int[] parent;\n \n  static int find(int x) {\n  if (parent[x] != x)\n  parent[x] = find(parent[x]);\n  return parent[x];\n  }\n \n  static boolean union(int x, int y) {\n  int px = find(x), py = find(y);\n  if (px == py) return false;\n  parent[px] = py;\n  return true;\n  }\n \n  public static int maxVehicles(int n, List<Road> roads) {\n  parent = new int[n];\n  for (int i = 0; i < n; i++) parent[i] = i;\n \n  \n  roads.sort((a, b) -> Integer.compare(b.capacity, a.capacity));\n \n  int totalCapacity = 0;\n  int edgesUsed = 0;\n \n  for (Road road : roads) {\n  if (union(road.u, road.v)) {\n  totalCapacity += road.capacity;\n  edgesUsed++;\n  if (edgesUsed == n - 1) break;\n  }\n  }\n \n  return (edgesUsed == n - 1) ? totalCapacity : -1;\n  }\n \n  public static void main(String[] args) {\n  Scanner sc = new Scanner(System.in);\n \n  int e = sc.nextInt(); \n  List<Road> roads = new ArrayList<>();\n  int maxNode = 0;\n \n  for (int i = 0; i < e; i++) {\n  int a = sc.nextInt();\n  int b = sc.nextInt();\n  int c = sc.nextInt();\n \n  roads.add(new Road(a-1, b-1, c));\n  maxNode = Math.max(maxNode, Math.max(a-1, b-1));\n  }\n \n  int n = maxNode + 1; \n \n  int result = maxVehicles(n, roads);\n  if (result != -1)\n  System.out.println(\"Maximum total vehicle capacity: \" + result);\n  else\n  System.out.println(\"Not enough roads to connect all cities.\");\n  \n  sc.close();}\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "4 6\n1 2 3\n1 3 4\n1 4 3\n2 3 3\n2 4 1\n3 4 2\n",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "10\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows compilation was fixed, but the solution still needs correctness evidence.",
+      "studentHint": "Acknowledge that compilation has been fixed, then ask the student to test one minimal case for the new verdict."
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "ASK_MIN_CASE",
+        "COMPARE_OUTPUT",
+        "CHECK_RUNTIME_GUARDS"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "compile",
+        "current verdict"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:fixed_compilation"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "FIXED_COMPILATION",
+      "needsTeacherAttention": false
+    },
+    "quality": {
+      "bugPattern": "public-chain-fixed_compilation",
+      "misconception": "After fixing compilation, the student may assume the main problem is solved.",
+      "expectedStudentMove": "Separate the syntax fix from the remaining verdict and verify the smallest failing behavior."
+    },
+    "history": {
+      "previousVerdict": "COMPILATION_ERROR",
+      "transitionSignal": "Attempt 10 COMPILATION_ERROR -> attempt 11 WRONG_ANSWER",
+      "recentIssueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "BOUNDARY_CONDITION",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-07-regression-29096238",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60007,
+    "problem": {
+      "id": 60029,
+      "title": "CodeStream prob_029",
+      "description": "You will be dealing with the heights of the students here. First, you will be given an integer value N denoting the number of students in the class. Then you will be given N numbers (can be floating point numbers) denoting the height of each student in some unit. The ith number will denote the height of the ith student. After that you will be given a value K. \n  \n  \n  \n  In the assembly students are arranged from the smallest to largest height. You have to print the roll which will be standing in the Kth position in such an arrangement. The rolls follow 1 based indexing. In the case of repeating heights, you need to print the student with a lesser roll. \n  \n  \n  \n  Limits:\n  \n  1<=N<=100000\n  \n  1<=k<=100000\n  \n  100 <= height <= 5000\n  \n  \n  \n  Test Cases:\n  \n  \n  \n  Input\n  \n  \n  \n  5\n  \n  \n  \n  100 105.3 500.7 200.3 161\n  \n  \n  \n  3\n  \n  \n  \n  Output\n  \n  \n  \n  5\n  \n  \n  \n  Input\n  \n  \n  \n  4\n  \n  \n  \n  205.1 181.2 173.7 181.2\n  \n  \n  \n  2\n  \n  \n  \n  Output\n  \n  \n  \n  2",
+      "difficulty": "MEDIUM",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "debugging sequence"
+      ],
+      "algorithmStrategies": [
+        "diff review"
+      ],
+      "commonMistakes": [
+        "partial_fix_regression"
+      ],
+      "boundaryTypes": [
+        "verdict_transition"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import java.util.Scanner;\n import java.util.Arrays;\n \n public class Main{\n  public static void main(String[] args)\n  {\n  Scanner sc=new Scanner(System.in);\n  int n=sc.nextInt();\n  \n  float[] arr=new float[n];\n  int [] roll=new int[n];\n  for(int i=0;i<n;i++)\n  {\n  arr[i]=sc.nextFloat();\n  roll[i]=i+1;\n  \n  \n  }\n  int k=sc.nextInt();\n  \n  for(int i=0;i<n-1;i++)\n  {\n  for(int j=i+1;j<n;j++)\n  {\n  if(arr[i]>arr[j])\n  {\n  float temp=arr[i];\n  arr[i]=arr[j];\n  arr[j]=temp;\n  int temp1=roll[i];\n  roll[i]=roll[j];\n  roll[j]=temp1;\n  }\n  }\n  }\n  \n  System.out.println(roll[k-1]);\n  \n }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "500\n540 3372 296 4188 3900 837 1250 1099 4851 4842 330 1438 2130 1414 5019 2201 321 239 917 1500 1373 928 1233 2088 4025 2114 927 581 328 1644 2003 1522 2537 313 3910 1567 2437 1689 1809 2024 1717 3066 3727 3259 1727 536 1651 884 674 4106 3760 3934 3743 511 1064 3269 4212 3649 3503 385 5035 2706 2073 2662 3824 4772 3728 1906 4059 5061 2786 3927 2258 2586 4043 4217 2699 1475 624 3098 4936 2736 172 4949 1435 1922 789 1943 3781 1533 2473 2452 1378 1980 2158 4785 3527 950 1415 2246 4767 2840 5014 271 433 3643 2054 1787 4126 3487 2360 4068 2858 600 3233 4568 3193 4975 3081 1055 932 2661 3111 3086 3100 804 907 140 1486 822 396 1131 2120 1074 3003 2409 3147 2019 832 2176 577 524 3732 4138 1601 2714 551 2625 4856 1952 2594 3133 738 3937 4055 3399 3898 2977 648 2167 1646 212 2998 3609 4167 2740 3251 4581 1943 4045 1281 2559 412 699 2524 3772 2428 4638 3102 1614 2217 2061 4898 3057 3447 1649 1779 4935 1259 3691 3461 3889 3127 2185 3844 3464 3283 509 3700 611 2470 2126 4905 4385 3014 1819 1808 1321 1780 781 4694 3840 3163 3668 2543 1363 3410 1557 2281 742 1464 603 107 3452 4688 1420 392 3215 1797 1213 1512 4443 1088 1984 1040 2838 1024 852 2801 1955 736 558 4199 2575 1071 2071 2835 939 2924 1038 467 3139 1281 528 2792 1350 2498 373 1233 4120 1365 4149 830 140 492 1578 1855 1838 3641 2231 4237 2032 553 1697 1089 2059 4805 2262 3453 4792 3925 244 1304 415 1805 2210 710 968 2364 4813 4486 1705 4666 2236 1709 2423 1859 3252 116 1272 2786 1779 766 1961 1591 3007 3205 3571 323 3927 133 3283 220 4869 2592 4594 1852 1322 2267 3042 4735 3282 1641 2467 2101 3626 1727 2828 2164 2127 3656 838 4706 5016 1786 5037 4385 3839 681 1592 4076 380 3986 1892 3025 4459 2731 4204 1264 999 2321 1196 2467 943 4249 1637 3397 2863 1603 3011 4096 3330 3676 2894 3370 2159 4843 214 1880 1322 1486 2106 2998 164 3646 3987 3733 3565 4649 1508 4206 769 4942 1405 3055 2961 4462 953 1539 1956 4577 284 2214 1373 1438 4609 2074 4815 536 490 1123 1430 4189 369 1122 3752 1424 288 608 2820 2946 276 2569 2089 652 1999 1403 5050 5032 3653 2767 2072 2569 1543 4023 777 3272 3583 1833 4288 2608 2291 2107 2917 2957 2069 2431 239 1616 4402 4321 3398 4518 778 2031 3878 1954 1960 4824 1769 3775 3946 2648 3540 1715 3803 3363 4373 3873 2223 2991 4347 1253 4391 4463 2846 4789 470 3006 1721 2198 1754 185 2558 3557 3719 4296 1448 5032 4857 2502 454 1339 2544 3934 1919 2367 1969 2017 537 3536 3371 1381 2383 1950 151 4696 1594 1751 3731 \n279\n",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "423\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows the latest edit regressed the verdict.",
+      "studentHint": "Compare only the latest diff first and identify which edit changed the previously better behavior."
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "PARTIAL_FIX_REGRESSION"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "TRACE_VARIABLES",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "diff",
+        "regression"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:verdict_regression"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "REGRESSION",
+      "needsTeacherAttention": true
+    },
+    "quality": {
+      "bugPattern": "public-chain-regression",
+      "misconception": "The student may keep adding fixes without noticing that a recent edit made the state worse.",
+      "expectedStudentMove": "Compare the two latest submissions on one input and isolate the changed assumption."
+    },
+    "history": {
+      "previousVerdict": "ACCEPTED",
+      "transitionSignal": "Attempt 13 ACCEPTED -> attempt 14 WRONG_ANSWER",
+      "recentIssueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "BOUNDARY_CONDITION",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-08-accepted_after_fix-90176407",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60008,
+    "problem": {
+      "id": 60048,
+      "title": "CodeStream prob_048",
+      "description": "Sylhet is one of the most beautiful cities in Bangladesh during the monsoon season, and Anik has decided to explore it. However, navigating the city is difficult due to poor visibility on cloudy days. He has K units of petrol, allowing him to travel one unit per fuel.\n  \n  \n  \n  Given Sylhet's layout with interconnected cities and Anik's starting location, calculate and print the** possible** number of cities he can visit before running out of fuel.\n  \n  \n  \n  ## **Input**\n  \n  \n  \n  The input starts with four integers:\n  \n  \n  \n  - C : Number of cities in Sylhet\n  \n  - R : Number of roads connecting cities\n  \n  - K : Fuel units remaining\n  \n  - L : Starting city\n  \n  \n  \n  Then R lines follow, each describing a bidirectional road between two cities \\( u, v \\).\n  \n  \n  \n  ## **Output**\n  \n  \n  \n  Output a single integer: total number of cities Anik can reach using up to K fuel units. Do not use println, use print.\n  \n  \n  \n  ## **Constraints**\n  \n  \n  \n  - $$( 2 <= C <= 10^3 )$$\n  \n  - $$( 0 <= R <= \\frac{C(C-1)}{2} )$$\n  \n  - $$( 1 <= K <= 10^6 )$$\n  \n  - $$( 1 <= L <= C )$$\n  \n  \n  \n  \n  \n  ## **Sample Input**\n  \n  ```\n  \n  5 5 2 1\n  \n  5 3\n  \n  2 4\n  \n  3 4\n  \n  1 5\n  \n  2 5\n  \n  ```\n  \n  \n  \n  ## **Sample Output**\n  \n  ```\n  \n  4\n  \n  ```\n  \n  \n  \n  ## **Explanation**\n  \n  - Anik starts at city 1. \n  \n  - With 2 units of fuel, he can reach cities 5 and then 3 or 2. \n  \n  - The total number of reachable cities is {1, 5, 3, 2}, hence the output is 4.",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [
+        "not_reflecting_after_accept"
+      ],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "ACCEPTED",
+      "sourceCode": "import java.util.*;\n \n class Graph{\n  int c=0;\n  int bfs(int n, ArrayList<ArrayList<Integer>> adj,int st,int k){\n  boolean vis[]=new boolean[n+1];\n  Queue<Integer> q=new LinkedList<>();\n  q.add(st);\n  vis[st]=true;\n  while(!q.isEmpty() && k>=0){\n  int s=q.size();\n  \n  for(int i=0;i<s;i++){\n  int a=q.poll();\n  c++;\n  for(int it:adj.get(a)){\n  if(!vis[it]){\n  vis[it]=true;\n  q.add(it);\n  }\n  }\n  }\n  k--;\n  }\n  return c;\n  }\n }\n public class Algo{\n  public static void main(String args[]){\n  Scanner sc=new Scanner(System.in);\n  int c,r,k,l,a=0,b=0;\n  c=sc.nextInt();\n  r=sc.nextInt();\n  k=sc.nextInt();\n  l=sc.nextInt();\n \n  ArrayList<ArrayList<Integer>> adj=new ArrayList<>();\n \n  for(int i=0;i<=c;i++){\n  adj.add(new ArrayList<>());\n  }\n \n  for(int i=0;i<r;i++){\n  a=sc.nextInt();\n  b=sc.nextInt();\n  adj.get(a).add(b);\n  adj.get(b).add(a);\n  }\n  Graph g=new Graph();\n  int n=g.bfs(c,adj,l,k);\n  System.out.print(n);\n  sc.close();\n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows a failing submission moved to accepted.",
+      "studentHint": "Now that it passes, review what changed and why the fix covers the boundary or invariant."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "accepted",
+        "review"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:accepted_after_fix"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "ACCEPTED_AFTER_FIX",
+      "needsTeacherAttention": false
+    },
+    "quality": {
+      "bugPattern": "public-chain-accepted_after_fix",
+      "misconception": "Passing is treated as the end rather than a chance to consolidate the reasoning.",
+      "expectedStudentMove": "State the key fix, the complexity, and one boundary case that now works."
+    },
+    "history": {
+      "previousVerdict": "RUNTIME_ERROR",
+      "transitionSignal": "Attempt 17 RUNTIME_ERROR -> attempt 18 ACCEPTED",
+      "recentIssueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": null,
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-09-regression-35544776",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60009,
+    "problem": {
+      "id": 60042,
+      "title": "CodeStream prob_042",
+      "description": "In this problem, you will be given 15 integers. Except one unique integer, all other numbers will occur in pairs. You need to find the unique integers. \n  \n  \n  \n  **Input**\n  \n  \n  \n  A line consists of 15 integers. All the input values are valid 32-bit signed integers.\n  \n  \n  \n  **Output**\n  \n  \n  \n  Print the unique integer. See sample for formatting.\n  \n  \n  \n  \n  \n  | Sample Input | Sample Output |\n  \n  |-------------------|--------------------- |\n  \n  |1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 | 8|\n  \n  |1 1 10 2 3 3 4 4 5 5 6 6 7 7 10 |2 |",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "debugging sequence"
+      ],
+      "algorithmStrategies": [
+        "diff review"
+      ],
+      "commonMistakes": [
+        "partial_fix_regression"
+      ],
+      "boundaryTypes": [
+        "verdict_transition"
+      ]
+    },
+    "submission": {
+      "languageName": "C++",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "#include<iostream>\n using namespace std;\n void dectobin(int n){\n  if(n==0){\n  cout<<\"0\";\n  return;\n  }\n  int binary[32];\n  int index=0;\n  while(n>0){\n  binary[index]=n%2;\n  n=n/2;\n  index++;\n  }\n  for(int i=index-1;i>0;i--){\n  cout<<binary[i];\n  }\n }\n int main(){\n  int decnum;\n  scanf(\"%d\",&decnum);\n  dectobin(decnum);\n  cout<<endl;\n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "30 33 18 26 30 17 37 18 17 35 33 27 27 26 35 \n",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "37\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows the latest edit regressed the verdict.",
+      "studentHint": "Compare only the latest diff first and identify which edit changed the previously better behavior."
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [
+        "PARTIAL_FIX_REGRESSION"
+      ],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "TRACE_VARIABLES",
+        "ASK_MIN_CASE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "diff",
+        "regression"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:verdict_regression"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "REGRESSION",
+      "needsTeacherAttention": true
+    },
+    "quality": {
+      "bugPattern": "public-chain-regression",
+      "misconception": "The student may keep adding fixes without noticing that a recent edit made the state worse.",
+      "expectedStudentMove": "Compare the two latest submissions on one input and isolate the changed assumption."
+    },
+    "history": {
+      "previousVerdict": "ACCEPTED",
+      "transitionSignal": "Attempt 13 ACCEPTED -> attempt 14 WRONG_ANSWER",
+      "recentIssueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "BOUNDARY_CONDITION",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-10-accepted_after_fix-26436302",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60010,
+    "problem": {
+      "id": 60036,
+      "title": "CodeStream prob_036",
+      "description": "You are given three integers representing the sides of a triangle. Determine:\n  \n  \n  \n  - Whether the three sides form a **valid triangle**\n  \n  - If valid, classify the triangle as:\n  \n  - `Equilateral`\n  \n  - `Isosceles`\n  \n  - `Scalene`\n  \n  \n  \n  ---\n  \n  \n  \n  ## Rules\n  \n  \n  \n  A triangle is **valid** if:\n  \n  \n  \n  - a + b > c\n  \n  - a + c > b\n  \n  - b + c > a\n  \n  \n  \n  ---\n  \n  \n  \n  ## Input\n  \n  \n  \n  - Three integers: `a`, `b`, `c`\n  \n  \n  \n  ---\n  \n  \n  \n  ## Output\n  \n  \n  \n  - If not a valid triangle → print: `Invalid`\n  \n  - If valid:\n  \n  - All sides equal → `Equilateral`\n  \n  - Any two sides equal → `Isosceles`\n  \n  - All sides different → `Scalene`",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [
+        "not_reflecting_after_accept"
+      ],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "ACCEPTED",
+      "sourceCode": "#include<stdio.h>\n int main(){\n  int a,b,c;\n  scanf(\"%d%d%d\", &a,&b,&c);\n  if( (a+b > c) && (b+c >a) && (a+c >b)){\n  \n  if (a==b && b==c){\n  printf(\"Equilateral\\n\");\n  }\n  else if((a==b && b!=c) || ((b==c) && (b !=a) )){\n  printf(\"Isosceles\\n\");\n  }\n  else if((a != b && b != c && a != c)){\n  printf(\"Scalene\\n\");\n  }\n \n \n  }\n  \n  \n  else {\n  printf(\"Invalid\\n\");\n  }\n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows a failing submission moved to accepted.",
+      "studentHint": "Now that it passes, review what changed and why the fix covers the boundary or invariant."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "accepted",
+        "review"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:accepted_after_fix"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "ACCEPTED_AFTER_FIX",
+      "needsTeacherAttention": false
+    },
+    "quality": {
+      "bugPattern": "public-chain-accepted_after_fix",
+      "misconception": "Passing is treated as the end rather than a chance to consolidate the reasoning.",
+      "expectedStudentMove": "State the key fix, the complexity, and one boundary case that now works."
+    },
+    "history": {
+      "previousVerdict": "WRONG_ANSWER",
+      "transitionSignal": "Attempt 13 WRONG_ANSWER -> attempt 14 ACCEPTED",
+      "recentIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": null,
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-11-repeated_stuck-78098548",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60011,
+    "problem": {
+      "id": 60025,
+      "title": "CodeStream prob_025",
+      "description": "Your friend wants help calculating his **annual income tax**. You need to build a program that computes his taxable income and tax amount.\n\n### Salary Structure\nAhmed’s monthly salary consists of:\n- Basic salary\n- House rent\n- Medical allowance\n\n### Tax Rules\n\n1. **Basic salary** → Fully taxable  \n2. **House rent** → Up to **50% of basic salary is tax-free**  \n3. **Medical allowance** → Up to **BDT 60,000 per year is tax-free**\n\n### Tax Slabs (Annual Taxable Income)\n\n| Income Range (BDT)        | Tax Rate |\n|--------------------------|----------|\n| First 0 – 250,000        | 0%       |\n| Next 400,000             | 10%      |\n| Next 500,000             | 15%      |\n| Next 600,000             | 20%      |\n| Next 3,000,000           | 25%      |\n| Remaining amount         | 30%      |\n\n### Input\n- Three positive integers:\n  - Monthly basic salary\n  - Monthly house rent\n  - Monthly medical allowance\n\n### Output\n- Print:\n  - Annual Taxable Income\n  - Estimated Tax  \n- Values must be printed up to **2 decimal places**\n\n### Example\n\n#### Input\n```\n25000\n18000\n6000\n\n```\n\n#### Output\n```\n\nAnnual Taxable Income: 378000.00 Taka\nTax: 12800.00 Taka\n\n```",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "debugging sequence"
+      ],
+      "algorithmStrategies": [
+        "trace one case"
+      ],
+      "commonMistakes": [
+        "blind_repeated_edits"
+      ],
+      "boundaryTypes": [
+        "repeated_failure"
+      ]
+    },
+    "submission": {
+      "languageName": "C",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "#include<stdio.h>\n int main(){\n  double tax,income,taxable_income,tax_rate;\n  printf(\"Your annual income\\n\");\n  scanf(\"%lf\",&income);\n  taxable_income=income-0;\n  tax=income*tax_rate;\n  if(0<=income<=250000){\n  taxable_income=income - 0;\n  printf(\"Taxable income is %lf\\n\",taxable_income);\n  tax=income*0;\n  printf(\"Annual tax is %lf\\n\",tax);\n  }\n  else if(250000<income<=650000){\n  taxable_income=income-250000;\n  printf(\"Taxable income is %lf\\n\",taxable_income);\n  tax=(income-250000)*0.1;\n  printf(\"Annual tax is %lf\\n\",tax);\n  } \n  else if(650000<income<=1150000){\n  taxable_income=income-250000;\n  printf(\"Taxable income is %lf\\n\",taxable_income);\n  tax=(650000-250000)*0.1+(income-6500000)*0.15;\n  printf(\"Annual tax is %lf\\n\",tax);\n  }\n  else if(1150000<income<=1750000){\n  taxable_income=income-250000;\n  printf(\"Taxable income is %lf\\n\",taxable_income);\n  tax=(650000-250000)*0.1+(1150000-6500000)*0.15 + (income-1150000)*0.20;\n  printf(\"Annual tax is %lf\\n\",tax);\n  }\n  else if(1750000<income<=4750000){\n  taxable_income=income-250000;\n  printf(\"Taxable income is %lf\\n\",taxable_income);\n  tax=(650000-250000)*0.1+(1150000-6500000)*0.15+(1750000-1150000)*0.20+(income-1750000)*0.25;\n  printf(\"Annual tax is %lf\\n\",tax);\n  }\n  else if(4750000<income){\n  taxable_income=income-250000;\n  printf(\"Taxable income is %lf\\n\",taxable_income);\n  tax=(650000-250000)*0.1+(1150000-6500000)*0.15+(1750000-1150000)*0.20+(475000-1750000)*0.25+(income-4750000)*0.30;\n  printf(\"Annual tax is %lf\\n\",tax);\n  }\n  return 0;\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "2069688 1635053 103484\n",
+        "actualOutput": "Wrong Answer",
+        "expectedOutput": "Annual Taxable Income: 33220572.00 Taka\nTax: 9526171.60 Taka\n",
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 6,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 8,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows the same failure category repeated many times.",
+      "studentHint": "Stop broad edits and reduce the task to one failing example, one key variable, and one expected output comparison."
+    },
+    "expected": {
+      "issueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "fineTags": [],
+      "teachingAction": "ASK_MIN_CASE",
+      "acceptableTeachingActions": [
+        "ASK_MIN_CASE",
+        "TRACE_VARIABLES",
+        "BUILD_COUNTEREXAMPLE"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "same failure",
+        "minimal case"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:repeated_stuck"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "REPEATED_STUCK",
+      "needsTeacherAttention": true
+    },
+    "quality": {
+      "bugPattern": "public-chain-repeated_stuck",
+      "misconception": "Repeated submissions are being used as the debugger instead of isolating the wrong assumption.",
+      "expectedStudentMove": "Use one small failing input and write the expected intermediate state before changing code again."
+    },
+    "history": {
+      "previousVerdict": "WRONG_ANSWER",
+      "transitionSignal": "Attempt 16 WRONG_ANSWER -> attempt 17 WRONG_ANSWER",
+      "recentIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": "BOUNDARY_CONDITION",
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 17,
+      "repeatedFineGrainedIssueCount": null
+    }
+  },
+  {
+    "name": "codestream-chain-12-accepted_after_fix-6353581",
+    "source": "codestream-mendeley-cc-by-4.0-v1",
+    "caseId": 60012,
+    "problem": {
+      "id": 60028,
+      "title": "CodeStream prob_028",
+      "description": "# Problem Description\n  \n  \n  \n  You will be given a string S (1<=|S|<=10000) containing English alphabets and digits without spaces. You need to extract the digits and print it as a sequence. Please look at the samples. \n  \n  \n  \n  |Sample Input | Sample Output |\n  \n  |----------------|----------------|\n  \n  | a1b1c2 | 112| \n  \n  | bt29 | 29 |",
+      "difficulty": "EASY",
+      "timeLimit": 2,
+      "memoryLimit": 256,
+      "knowledgePoints": [
+        "generalization"
+      ],
+      "algorithmStrategies": [
+        "solution explanation"
+      ],
+      "commonMistakes": [
+        "not_reflecting_after_accept"
+      ],
+      "boundaryTypes": [
+        "generalization_check"
+      ]
+    },
+    "submission": {
+      "languageName": "Java",
+      "verdict": "ACCEPTED",
+      "sourceCode": "import java.util.Scanner;\n \n public class FindDigits{\n  public static void main(String[] args){\n  Scanner sc = new Scanner(System.in);\n  String input = sc.nextLine();\n  String result = \"\";\n  for(int i= 0; i<input.length(); i++){\n  char ch = input.charAt(i);\n  if(ch>='0' && ch<='9'){\n  result +=ch;\n  }\n  }\n  System.out.print(result);\n  }\n }",
+      "compileOutput": null,
+      "errorMessage": null
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 2,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 3,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 4,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 5,
+        "passed": true,
+        "hidden": true,
+        "inputSnapshot": null,
+        "actualOutput": null,
+        "expectedOutput": null,
+        "executionTime": 0.05,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "AC",
+      "originalIssueTags": [],
+      "originalFineGrainedTags": [],
+      "analysisHeadline": "Public attempt chain shows a failing submission moved to accepted.",
+      "studentHint": "Now that it passes, review what changed and why the fix covers the boundary or invariant."
+    },
+    "expected": {
+      "issueTags": [
+        "GENERALIZATION_CHECK"
+      ],
+      "fineTags": [],
+      "teachingAction": "EXPLAIN_GENERALITY",
+      "acceptableTeachingActions": [
+        "EXPLAIN_GENERALITY"
+      ],
+      "hintLevel": "L2",
+      "mustMention": [
+        "accepted",
+        "review"
+      ],
+      "mustNotMention": [
+        "complete code",
+        "reference answer",
+        "hidden test"
+      ],
+      "requiredEvidenceRefs": [
+        "history:accepted_after_fix"
+      ],
+      "forbiddenIssueTags": [],
+      "forbiddenFineTags": [
+        "STATE_RESET"
+      ],
+      "trajectoryPhase": "ACCEPTED_AFTER_FIX",
+      "needsTeacherAttention": false
+    },
+    "quality": {
+      "bugPattern": "public-chain-accepted_after_fix",
+      "misconception": "Passing is treated as the end rather than a chance to consolidate the reasoning.",
+      "expectedStudentMove": "State the key fix, the complexity, and one boundary case that now works."
+    },
+    "history": {
+      "previousVerdict": "COMPILATION_ERROR",
+      "transitionSignal": "Attempt 15 COMPILATION_ERROR -> attempt 16 ACCEPTED",
+      "recentIssueTags": [
+        "SYNTAX_ERROR"
+      ],
+      "recentFineGrainedTags": [],
+      "repeatedIssueTag": null,
+      "repeatedFineGrainedTag": null,
+      "repeatedIssueCount": 1,
+      "repeatedFineGrainedIssueCount": null
+    }
+  }
+]

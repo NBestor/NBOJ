@@ -1,0 +1,309 @@
+{
+  "generatedAt": "2026-07-20T12:03:42Z",
+  "change": "add-teaching-contest-scenario-layer",
+  "baseline": {
+    "database": "production PostgreSQL 16 V6 snapshot",
+    "snapshotCreatedAt": "2026-07-20T11:04:57Z",
+    "snapshotSha256": "69ec3cea2837b14cbfd5d1d55aaa2acfd4f063d1017d0b15ebe9decb185eaa80",
+    "flywayVersion": "6",
+    "enabledKnowledgeNodes": 737,
+    "enabledSkillUnits": 140,
+    "enabledMistakePoints": 381,
+    "enabledImprovementPoints": 121,
+    "enabledScopeMappings": 39,
+    "formalSkillsWithoutImprovement": 17,
+    "compatibilitySkillsWithoutImprovement": 10,
+    "businessCounts": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 53,
+      "submissionAnalyses": 34,
+      "submissionDiagnosisFacts": 85,
+      "studentAiFeedbacks": 53
+    }
+  },
+  "selectionPolicy": {
+    "mode": "formal-gap-and-transfer-driven",
+    "reason": "真实学生样本仍不足以估计教学效果；本批以生产库全部 17 个正式能力路径缺口为精确清单，并用官方课程与竞赛标准设计应用语境",
+    "treeRule": "课堂与竞赛场景复用同一知识点和正式能力点，不建立平行知识库",
+    "evidenceRule": "场景只提供任务、观察、检查和迁移语境，不作为当前提交证据或合法诊断 ID",
+    "qualityRule": "每个正式能力必须同时拥有可执行提升点、课堂形成性任务和竞赛约束任务，并闭合易错点与提升点引用"
+  },
+  "batch": {
+    "migration": "V7__add_teaching_contest_application_scenarios.sql",
+    "applicationScenarioTable": "ai_standard_application_scenarios",
+    "improvementPointsAdded": 17,
+    "applicationScenariosAdded": 34,
+    "transferPairsAdded": 17,
+    "classroomScenarios": 17,
+    "contestScenarios": 17,
+    "formalImprovementGapsClosed": 17,
+    "knowledgeNodesAdded": 0,
+    "skillUnitsAdded": 0,
+    "mistakePointsAdded": 0,
+    "remainingFormalSkillsWithoutImprovement": 0,
+    "remainingCompatibilitySkillsWithoutImprovement": 10
+  },
+  "scenarioContract": {
+    "requiredFields": [
+      "taskContext",
+      "studentTask",
+      "observableEvidence",
+      "commonFailure",
+      "teacherMove",
+      "studentCheck",
+      "constraintProfile",
+      "successCriteria",
+      "transferNote"
+    ],
+    "learningPhaseDistribution": {
+      "CONCEPT_DISCOVERY": 6,
+      "GUIDED_PRACTICE": 11,
+      "PROBLEM_READING": 6,
+      "IMPLEMENTATION": 9,
+      "POST_SUBMISSION_REVIEW": 2
+    },
+    "difficultyDistribution": {
+      "FOUNDATION": 8,
+      "INTERMEDIATE": 14,
+      "ADVANCED": 12
+    },
+    "aiPackLimit": 12,
+    "nestedSkillScenarioLimit": 2,
+    "promptBoundary": "当前题目、代码、判题事实和 evidenceRefs 始终优先；场景 commonFailure 不得反推当前学生已发生该错误"
+  },
+  "coverage": [
+    {
+      "theme": "答案二分可行性",
+      "skill": "SK_BINARY_ANSWER_CHECK",
+      "improvement": "IP_DQ5_BINARY_FEASIBILITY_BOUNDARY_TABLE",
+      "classroomFocus": "连续候选值的可行性边界表与等号归属",
+      "contestFocus": "由 n 和值域证明答案二分合同、复杂度与边界"
+    },
+    {
+      "theme": "位置、答案与精度二分",
+      "skill": "SK_V7_BINARY_TEMPLATE_PRECISION_CONTRACT",
+      "improvement": "IP_DQ5_BINARY_MODEL_CONTRACT_COMPARISON",
+      "classroomFocus": "三类模型六项合同辨析",
+      "contestFocus": "降序、半开区间与实数精度变式下重建不变量"
+    },
+    {
+      "theme": "结构化动态规划依赖",
+      "skill": "SK_V7_DP_STRUCTURED_STATE_DEPENDENCY",
+      "improvement": "IP_DQ5_DP_DEPENDENCY_GRAPH_AUDIT",
+      "classroomFocus": "树形、状压与滚动 DP 依赖图拼图",
+      "contestFocus": "由状态规模、内存与依赖选择计算顺序和优化"
+    },
+    {
+      "theme": "计数动态规划语义",
+      "skill": "SK_V7_DP_COUNTING_BASE_ANSWER_CONTRACT",
+      "improvement": "IP_DQ5_COUNTING_DP_SEMANTIC_LEDGER",
+      "classroomFocus": "空方案、状态集合与答案格的方案卡片",
+      "contestFocus": "枚举对拍、取模规范和答案聚合位置"
+    },
+    {
+      "theme": "图松弛与候选生命周期",
+      "skill": "SK_V7_GRAPH_RELAXATION_AND_TOPO_CONTRACT",
+      "improvement": "IP_DQ5_GRAPH_RELAXATION_LIFECYCLE_TRACE",
+      "classroomFocus": "堆项、当前距离和并列选择事件剧场",
+      "contestFocus": "用最小失败图定位陈旧扩展、初始化和顺序失分"
+    },
+    {
+      "theme": "拓扑依赖",
+      "skill": "SK_TOPO_INDEGREE_PROCESS",
+      "improvement": "IP_DQ5_TOPO_DEPENDENCY_LEDGER",
+      "classroomFocus": "自然语言边方向与入度总账",
+      "contestFocus": "建模、环检测和输出验收器"
+    },
+    {
+      "theme": "可证明贪心",
+      "skill": "SK_GREEDY_EXCHANGE_REASONING",
+      "improvement": "IP_DQ5_GREEDY_EXCHANGE_COUNTEREXAMPLE_PROTOCOL",
+      "classroomFocus": "交换论证与最小反例实验",
+      "contestFocus": "从部分分枚举到排序方向证明"
+    },
+    {
+      "theme": "一维前缀区间",
+      "skill": "SK_PREFIX_RANGE_QUERY",
+      "improvement": "IP_DQ5_PREFIX_INTERVAL_CONTRACT_TABLE",
+      "classroomFocus": "原数组、空前缀和查询端点对照",
+      "contestFocus": "大值域累计类型和区间边界联合验收"
+    },
+    {
+      "theme": "二维前缀与差分",
+      "skill": "SK_V7_PREFIX_DIFF_DIMENSION_INDEX_CONTRACT",
+      "improvement": "IP_DQ5_PREFIX_DIFF_COORDINATE_AUDIT",
+      "classroomFocus": "非方阵坐标与矩形四角事件",
+      "contestFocus": "触边更新、恢复顺序和二维边界对拍"
+    },
+    {
+      "theme": "BFS 层次、多源与判重",
+      "skill": "SK_V7_GRAPH_SEARCH_LAYER_VISITED_CONTRACT",
+      "improvement": "IP_DQ5_BFS_LAYER_START_VISITED_AUDIT",
+      "classroomFocus": "分层队列、零层起点与状态键快照",
+      "contestFocus": "资源维度状态和最大规模搜索预算"
+    },
+    {
+      "theme": "搜索状态签名",
+      "skill": "SK_SEARCH_VISITED_STATE",
+      "improvement": "IP_DQ5_SEARCH_STATE_SIGNATURE",
+      "classroomFocus": "删除候选维度并构造未来行为反例",
+      "contestFocus": "在正确性和状态规模之间证明最小判重键"
+    },
+    {
+      "theme": "模拟状态同步",
+      "skill": "SK_SIMULATION_STATE_SYNC",
+      "improvement": "IP_DQ5_SIMULATION_EVENT_STATE_LEDGER",
+      "classroomFocus": "事件、读状态、写状态和终止时机总账",
+      "contestFocus": "多对象大规模事件流与最小反例日志"
+    },
+    {
+      "theme": "排序比较合同",
+      "skill": "SK_SORT_COMPARATOR_CONTRACT",
+      "improvement": "IP_DQ5_SORT_TOTAL_ORDER_KEY_TABLE",
+      "classroomFocus": "主键、方向、并列键、稳定性与身份表",
+      "contestFocus": "严格弱序、重复值和原下标联合验收"
+    },
+    {
+      "theme": "滑动窗口不变量",
+      "skill": "SK_WINDOW_INVARIANT",
+      "improvement": "IP_DQ5_WINDOW_INVARIANT_LEDGER",
+      "classroomFocus": "每次指针移动后的频次与合法性守恒",
+      "contestFocus": "窗口收缩时机、答案更新与线性复杂度证明"
+    },
+    {
+      "theme": "图建模",
+      "skill": "SK_GRAPH_EDGE_MODELING",
+      "improvement": "IP_DQ5_GRAPH_MODELING_DICTIONARY",
+      "classroomFocus": "点、边、方向、权值和特殊边建模字典",
+      "contestFocus": "用可达性和路径代价反例排除错误模型"
+    },
+    {
+      "theme": "哈希频次映射",
+      "skill": "SK_HASH_FREQUENCY_MAPPING",
+      "improvement": "IP_DQ5_HASH_KEY_VALUE_DEFAULT_PROTOCOL",
+      "classroomFocus": "键、值、默认状态和累计守恒",
+      "contestFocus": "首次出现、稀疏值域和大规模在线更新"
+    },
+    {
+      "theme": "set、map 与排序选择",
+      "skill": "SK_SET_MAP_OPERATION_CHOICE",
+      "improvement": "IP_DQ5_SET_MAP_SORT_OPERATION_MATRIX",
+      "classroomFocus": "成员、频次、去重和有序输出操作矩阵",
+      "contestFocus": "由 q、动态更新和信息保留需求选择结构"
+    }
+  ],
+  "isolatedResult": {
+    "flywayTarget": "7",
+    "flywayMigrationApplied": true,
+    "hibernateSchemaValidation": "PASS",
+    "rawSqlRunsOnRestoredSnapshot": 2,
+    "idempotentCountsStable": true,
+    "enabledImprovementPoints": 138,
+    "enabledApplicationScenarios": 34,
+    "transferPairs": 17,
+    "formalSkillsWithoutImprovement": 0,
+    "compatibilitySkillsWithoutImprovement": 10,
+    "structuralBlockers": 0,
+    "businessCountsUnchanged": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 53,
+      "submissionAnalyses": 34,
+      "submissionDiagnosisFacts": 85,
+      "studentAiFeedbacks": 53
+    }
+  },
+  "verification": {
+    "flywayIntegration": "V1-V7 empty database, idempotent restart, explicit baseline and schema drift blocking PASS",
+    "productionSnapshotFlyway": "V6 snapshot migrated to V7 and Hibernate validate PASS",
+    "productionSnapshotRawSqlIdempotency": "2 runs, 17 improvements, 34 scenarios and 17 pairs after each run",
+    "qualityGate": "PASS",
+    "fullBackendTests": "660 run, 0 failures, 0 errors, 9 skipped",
+    "openSpec": "change strict validation and 109-item full validation PASS",
+    "staticChecks": "git diff --check, shell syntax and docker compose config PASS"
+  },
+  "productionResult": {
+    "status": "DEPLOYED_VERIFIED",
+    "deployedAt": "2026-07-20T11:15:56Z",
+    "commit": "e9b7763e48606f56cc6a01ce11f5de870d13188d",
+    "flywayVersion": "7",
+    "databaseBackup": {
+      "path": "backups/onlinejudge-20260720-190457.dump",
+      "sha256": "69ec3cea2837b14cbfd5d1d55aaa2acfd4f063d1017d0b15ebe9decb185eaa80"
+    },
+    "rollbackImage": "wenzhong-oj-app:rollback-pre-v7-20260720-191339",
+    "applicationImageId": "sha256:158b52a9cad7676c31cec8425c00368a4f16e91947ca7d3fb56e1f8fee87aeb5",
+    "enabledImprovementPoints": 138,
+    "batchImprovementPoints": 17,
+    "enabledApplicationScenarios": 34,
+    "transferPairs": 17,
+    "formalSkillsWithoutImprovement": 0,
+    "compatibilitySkillsWithoutImprovement": 10,
+    "qualityGate": "PASS",
+    "schemaReadiness": "PASS",
+    "contentReadiness": "PASS",
+    "applicationHttp": 200,
+    "canonicalPublicUrl": "https://tuotuzju.com/code/",
+    "nginxCanonicalRouteHttps": 200,
+    "canonicalAssetRewrite": "PASS",
+    "canonicalApiRewrite": "PASS",
+    "legacySubdomainNginxSite": "DISABLED",
+    "legacySubdomainRollbackConfig": "/etc/nginx/sites-available/code_tuotuzju",
+    "readinessStatus": "DEGRADED",
+    "readinessBlockingFailures": 0,
+    "readinessNonBlockingWarnings": [
+      "ai-smoke",
+      "ai-standard-library-growth"
+    ],
+    "teacherDiagnosticNavigation": {
+      "status": "PASS",
+      "knowledgePoint": "ALGO.BINARY.ANSWER.check_函数",
+      "skillUnit": "SK_BINARY_ANSWER_CHECK",
+      "scenarioContexts": [
+        "CLASSROOM",
+        "CONTEST"
+      ],
+      "scenarioCodes": [
+        "SC_DQ5_BINARY_ANSWER_CLASSROOM",
+        "SC_DQ5_BINARY_ANSWER_CONTEST"
+      ]
+    },
+    "businessCountsUnchanged": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 53,
+      "submissionAnalyses": 34,
+      "submissionDiagnosisFacts": 85,
+      "studentAiFeedbacks": 53
+    }
+  },
+  "sources": [
+    {
+      "name": "教育部关于印发普通高中课程方案和课程标准（2017年版2020年修订）的通知",
+      "url": "https://www.moe.gov.cn/srcsite/A26/s8001/202006/t20200603_462199.html"
+    },
+    {
+      "name": "普通高中信息技术课程标准（2017年版2020年修订）",
+      "url": "https://jyj.changdu.gov.cn/cdsjyj/c101476/202205/764ee1914e3c45aaba8e372f1b628a34/files/f97a4fa12a6c4acf94d34755a16a9d22.pdf"
+    },
+    {
+      "name": "CCF NOI 2025 大纲发布说明",
+      "url": "https://www.noi.cn/xw/2025-04-18/841584.shtml"
+    },
+    {
+      "name": "NOI 大纲（2025年修订版）",
+      "url": "https://www.noi.cn/upload/resources/file/2025/04/18/NOI_Syllabus_Edition_2025.pdf"
+    },
+    {
+      "name": "CSP-J/S 2025 入门级题目知识构成分析报告",
+      "url": "https://www.noi.cn/upload/resources/file/2025/11/14/CSP-JS2025%E5%85%A5%E9%97%A8%E7%BA%A7%E9%A2%98%E7%9B%AE%E7%9F%A5%E8%AF%86%E6%9E%84%E6%88%90%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A.pdf"
+    }
+  ],
+  "limitations": [
+    "本批证明标准覆盖、场景内容、引用完整性、AI 可读取性和工程可发布性，不证明学生已经掌握或竞赛成绩提高",
+    "34 个场景是依据官方标准与本地教学推导人工审校的首批应用合同，仍需要真实课堂观察和教师反馈继续校正",
+    "剩余 10 个无提升路径能力全部是历史兼容能力，不应为追求覆盖率补写正式教学内容",
+    "知识树仍有 454 个模板描述节点；下一步应先用真实新 cohort、教师校正与场景使用反馈重排，而不是继续平均铺量"
+  ]
+}

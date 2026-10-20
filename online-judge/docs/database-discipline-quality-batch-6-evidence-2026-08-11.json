@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-08-10T18:45:31Z",
+  "change": "expand-discipline-library-batch-6",
+  "goal": "全面细化知识库与标准库，优先真实可用性，不为体积翻倍复制同义内容或拉长文案",
+  "documentedBaseline": {
+    "enabledKnowledgeNodes": 737,
+    "enabledKnowledgePoints": 586,
+    "templateKnowledgeDescriptions": 454,
+    "enabledSkillUnits": 140,
+    "enabledMistakePoints": 381,
+    "enabledImprovementPoints": 138,
+    "enabledApplicationScenarios": 34,
+    "normalizedAndApplicationRecords": 693,
+    "fiveLayerMeaningfulTextCharacters": 246767
+  },
+  "selectionPolicy": {
+    "mode": "balanced-theme-pack-closure",
+    "candidateRule": "仅选择已启用、仍为模板描述、且没有精确主能力的既有知识点",
+    "domainRule": "ALGO、BASIC、CONTEST、DS、ENG、MATH 各 8 个主题，不新建高中与竞赛平行知识树",
+    "closureRule": "每个主题必须同时具有 1 个精修知识点、1 个能力、3 个不同错因、1 个改进路径和 1 组课堂—竞赛迁移对",
+    "evidenceRule": "标准库只为 AI 提供命名、检索和改进参考；当前代码、判题事实与 evidenceRefs 始终优先"
+  },
+  "batch": {
+    "migration": "V11__expand_discipline_library_batch_6.sql",
+    "knowledgePointsRefined": 48,
+    "knowledgeNodesAdded": 0,
+    "skillUnitsAdded": 48,
+    "mistakePointsAdded": 144,
+    "improvementPointsAdded": 48,
+    "applicationScenariosAdded": 96,
+    "transferPairsAdded": 48,
+    "flatCompatibilitySnapshotsAdded": 240,
+    "legacyMappingsAdded": 240,
+    "normalizedAndApplicationRecordsAdded": 336,
+    "templateKnowledgeDescriptionsAfter": 406,
+    "effectiveBatchTextCharacters": 110954
+  },
+  "sizeComparison": {
+    "normalizedAndApplicationRecordGrowthPercent": 48.48,
+    "effectiveBatchTextAsBaselinePercent": 44.96,
+    "reachedTwoTimes": false,
+    "interpretation": "48.48% 是能力、错因、改进和场景等核心记录的净新增比例；44.96% 是本批有效文本体量相对原五层基线的比例，不声称为整库净字符增长",
+    "decision": "不为达到 100% 增长而降低错因差异、练习可执行性或证据密度"
+  },
+  "domainDistribution": {
+    "ALGO": 8,
+    "BASIC": 8,
+    "CONTEST": 8,
+    "DS": 8,
+    "ENG": 8,
+    "MATH": 8
+  },
+  "qualityContract": {
+    "exactThemePacks": 48,
+    "exactMistakesPerTheme": 3,
+    "exactImprovementsPerTheme": 1,
+    "exactScenariosPerTheme": 2,
+    "requiredScenarioContexts": [
+      "CLASSROOM",
+      "CONTEST"
+    ],
+    "minimumEffectiveBatchTextCharacters": 100000,
+    "maximumTemplateDescriptionsAfterBatch": 406,
+    "forbiddenPaddingExamples": [
+      "理解或应用偏差",
+      "多做练习",
+      "待补",
+      "待定"
+    ]
+  },
+  "isolatedVerification": {
+    "database": "isolated PostgreSQL 16 restored from backups/onlinejudge-20260715-010407.sql",
+    "rawSqlRuns": 2,
+    "idempotentCountsStable": true,
+    "batchCounts": {
+      "knowledgePoints": 48,
+      "skillUnits": 48,
+      "mistakePoints": 144,
+      "improvementPoints": 48,
+      "applicationScenarios": 96,
+      "flatSnapshots": 240,
+      "legacyMappings": 240
+    },
+    "allBatchSixQualityMetrics": "PASS",
+    "businessCountsUnchanged": {
+      "problems": 16,
+      "testCases": 45,
+      "submissions": 0,
+      "submissionAnalyses": 0,
+      "submissionDiagnosisFacts": 0,
+      "studentAiFeedbacks": 0
+    },
+    "historicalSnapshotLimitation": "该 2026-07-15 历史备份比后续生产基线少 1 个 V3 提升点，因此旧批次全库门禁显示 3 个既有差异；V11 本批指标全部通过，且未借 V11 改写历史数据"
+  },
+  "verification": {
+    "batchSixQualityMetrics": "PASS",
+    "rawSqlIdempotency": "PASS, 2 runs",
+    "flywayIntegration": "PASS, V1-V11 empty database, idempotent restart, explicit baseline and schema drift blocking",
+    "navigationRegression": "PASS, representative closed theme pack in all six domains",
+    "migrationSafetyRegression": "PASS",
+    "fullBackendTests": "681 run, 0 failures, 0 errors, 9 skipped",
+    "openSpecStrictValidation": "PASS",
+    "staticChecks": "JSON parse, shell syntax and git diff --check PASS"
+  },
+  "evidenceBoundary": {
+    "proves": [
+      "48 个主题在知识、能力、错因、改进和场景五层上形成可读闭环",
+      "六领域分布均衡且兼容快照与映射完整",
+      "迁移可重复执行，不改变题目、测试、提交和分析事实"
+    ],
+    "doesNotProve": [
+      "学生学习成绩或竞赛分数已经提高",
+      "AI 对每一个新主题的实际命中率已经被生产样本证明",
+      "知识库已没有剩余模板债务"
+    ]
+  }
+}

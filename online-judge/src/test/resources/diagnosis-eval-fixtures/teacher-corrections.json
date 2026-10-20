@@ -1,0 +1,241 @@
+[
+  {
+    "name": "teacher-corrected-input-parsing",
+    "source": "teacher-correction",
+    "correctionId": 9001,
+    "submissionId": 1201,
+    "problem": {
+      "id": 501,
+      "title": "区间求和输入读取",
+      "description": "第一行输入 n 和 q，第二行输入 n 个整数，接下来 q 行每行给出 l r，输出每个区间和。",
+      "difficulty": "MEDIUM",
+      "timeLimit": 1000,
+      "memoryLimit": 65536
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "n = int(input())\narr = list(map(int, input().split()))\nl, r = map(int, input().split())\nprint(sum(arr[l:r]))\n"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "5 2\n1 2 3 4 5\n1 3\n2 5",
+        "actualOutput": "3",
+        "expectedOutput": "6\n14",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "analysis": {
+      "scenario": "WA",
+      "originalIssueTags": ["BOUNDARY_CONDITION"],
+      "originalFineGrainedTags": ["OFF_BY_ONE"],
+      "analysisHeadline": "边界问题"
+    },
+    "teacherCorrection": {
+      "correctedIssueTag": "IO_FORMAT",
+      "correctedFineGrainedTag": "INPUT_PARSING",
+      "teacherNote": "学生不是边界错，而是把 n q 的输入结构读错，并且没有处理多组查询。"
+    },
+    "expectedIssueTags": ["IO_FORMAT"],
+    "expectedFineTags": ["INPUT_PARSING"],
+    "mustMention": ["输入结构", "多组查询"],
+    "mustNotMention": ["完整代码", "隐藏测试点"],
+    "sourceMaterial": {
+      "localFolder": "synthetic-teacher-correction-seed",
+      "artifacts": ["teacher correction note"],
+      "anonymizationNote": "合成示例，不含真实学生身份。"
+    },
+    "quality": {
+      "bugPattern": "teacher-input-parsing",
+      "misconception": "把第一行 n q 当成只有 n，并且只处理一组查询。",
+      "expectedStudentMove": "重新圈出输入格式，列出 q 行查询分别应该产生几行输出。",
+      "evalPurpose": "验证 AI 能把边界误判修正为输入结构问题。"
+    }
+  },
+  {
+    "name": "teacher-corrected-brute-force",
+    "source": "teacher-correction",
+    "correctionId": 9002,
+    "submissionId": 1202,
+    "problem": {
+      "id": 502,
+      "title": "重复数字统计",
+      "description": "输入 n 和 n 个整数，统计每个数出现次数。n 最大为 200000。",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "n = int(input())\na = list(map(int, input().split()))\nfor x in a:\n    print(x, a.count(x))\n"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "",
+        "actualOutput": "",
+        "expectedOutput": "",
+        "executionTime": 1.2,
+        "memoryUsed": 2048
+      }
+    ],
+    "analysis": {
+      "scenario": "TLE",
+      "originalIssueTags": ["ALGORITHM_STRATEGY"],
+      "originalFineGrainedTags": ["OVER_SIMULATION"],
+      "analysisHeadline": "策略偏模拟"
+    },
+    "teacherCorrection": {
+      "correctedIssueTag": "TIME_COMPLEXITY",
+      "correctedFineGrainedTag": "BRUTE_FORCE_LIMIT",
+      "teacherNote": "真正问题是循环里反复 count，属于重复扫描；最大规模下时间复杂度会退化成平方级。"
+    },
+    "expectedIssueTags": ["TIME_COMPLEXITY"],
+    "expectedFineTags": ["BRUTE_FORCE_LIMIT"],
+    "mustMention": ["复杂度", "重复扫描"],
+    "mustNotMention": ["完整代码", "参考答案"],
+    "sourceMaterial": {
+      "localFolder": "synthetic-teacher-correction-seed",
+      "artifacts": ["teacher correction note"],
+      "anonymizationNote": "合成示例，不含真实学生身份。"
+    },
+    "quality": {
+      "bugPattern": "teacher-brute-force-count",
+      "misconception": "认为内置 count 在循环里调用仍然是常数级。",
+      "expectedStudentMove": "估算 n 次循环里每次 count 又扫描 n 个元素，总操作量约为 n*n。",
+      "evalPurpose": "验证 AI 能把策略偏模拟修正为复杂度瓶颈。"
+    }
+  },
+  {
+    "name": "teacher-corrected-in-place-swap-convergence",
+    "source": "teacher-correction",
+    "correctionId": 9003,
+    "submissionId": 1203,
+    "problem": {
+      "id": 503,
+      "title": "第一个缺失的正整数",
+      "description": "给定包含 n 个整数的列表 nums，找出缺失的第一个正整数；如果 1 到 n 都没有缺失，则返回 n + 1。错误程序尝试把值 x 放到下标 x - 1 的位置。",
+      "difficulty": "MEDIUM",
+      "timeLimit": 1000,
+      "memoryLimit": 65536
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "def findz(nums):\n    n = len(nums)\n    for i in range(n):\n        if 1 <= nums[i] <= n:\n            p = nums[i] - 1\n            if nums[p] != nums[i]:\n                nums[p], nums[i] = nums[i], nums[p]\n    for i in range(n):\n        if nums[i] != i + 1:\n            return i + 1\n    return n + 1\n\nnums = [3, 4, -2, 1]\nprint(findz(nums))\n"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "[3,4,-2,1]",
+        "actualOutput": "1",
+        "expectedOutput": "2",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "analysis": {
+      "scenario": "WA",
+      "originalIssueTags": ["BOUNDARY_CONDITION"],
+      "originalFineGrainedTags": ["DUPLICATE_CASE"],
+      "analysisHeadline": "边界或重复值场景"
+    },
+    "teacherCorrection": {
+      "correctedIssueTag": "STATE_TRANSITION",
+      "correctedFineGrainedTag": "IN_PLACE_STATE_PROGRESS",
+      "teacherNote": "教师资料中的反例 [3,4,-2,1] 暴露了真正问题：每个位置只交换一次，新换到 nums[i] 的值没有继续归位，原地交换过程没有维持到稳定状态。"
+    },
+    "expectedIssueTags": ["STATE_TRANSITION"],
+    "expectedFineTags": ["IN_PLACE_STATE_PROGRESS"],
+    "mustMention": ["原地交换", "继续归位", "[3,4,-2,1]"],
+    "mustNotMention": ["完整代码", "参考答案", "隐藏测试点"],
+    "sourceMaterial": {
+      "localFolder": "C:\\Users\\Administrator\\Desktop\\1",
+      "artifacts": [
+        "T13程序有bug，修正版.py",
+        "24.09 名校协作体-信息（考试版）.pdf",
+        "24.09 名校协作体-信息（解析版）.pdf",
+        "信息技术参考答案.pdf"
+      ],
+      "anonymizationNote": "来自老师提供的真实教学资料；fixture 只保留题目、代码和反例，不保留学生身份信息。"
+    },
+    "quality": {
+      "bugPattern": "real-teacher-in-place-swap-convergence",
+      "misconception": "以为每个下标交换一次就足够，但新换来的当前值可能仍需要继续归位。",
+      "expectedStudentMove": "手推 [3,4,-2,1]，观察第一次交换后 nums[i] 的新值是否已经处在合法位置。",
+      "evalPurpose": "验证 AI 能识别原地状态推进不收敛，而不是泛泛归为边界或重复元素。"
+    }
+  },
+  {
+    "name": "teacher-corrected-square-greedy-counterexample",
+    "source": "teacher-correction",
+    "correctionId": 9004,
+    "submissionId": 1204,
+    "problem": {
+      "id": 504,
+      "title": "小木棒拼正方形",
+      "description": "给定若干小木棒长度，每根必须使用且不能折断，判断是否能拼成四条边相等的正方形。错误程序把木棒按长度排序后，遇到第一条还能放下的边就放进去。",
+      "difficulty": "MEDIUM",
+      "timeLimit": 1000,
+      "memoryLimit": 65536
+    },
+    "submission": {
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "a = [9, 5, 5, 4, 3, 2, 2, 2, 2, 2]\na.sort(reverse=True)\ntotal = sum(a)\nside = total // 4\nsq = [[] for _ in range(4)]\nc = 0\nif total % 4 != 0 or a[0] > side:\n    print(\"不能拼成正方形\")\nelse:\n    for x in a:\n        for j in range(4):\n            if side - sum(sq[j]) >= x:\n                sq[j].append(x)\n                c += 1\n                break\n    print(\"能拼成正方形\" if c == len(a) else \"不能拼成正方形\")\n"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "[9,5,5,4,3,2,2,2,2,2]",
+        "actualOutput": "不能拼成正方形",
+        "expectedOutput": "能拼成正方形",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "analysis": {
+      "scenario": "WA",
+      "originalIssueTags": ["BOUNDARY_CONDITION"],
+      "originalFineGrainedTags": ["MAX_BOUNDARY"],
+      "analysisHeadline": "边界条件判断"
+    },
+    "teacherCorrection": {
+      "correctedIssueTag": "ALGORITHM_STRATEGY",
+      "correctedFineGrainedTag": "GREEDY_ASSUMPTION",
+      "teacherNote": "教师讨论指出这不是普通边界问题，而是贪心策略缺少证明。反例 [9,5,5,4,3,2,2,2,2,2] 可以组成正方形，但 first-fit 贪心会被局部选择误导。"
+    },
+    "expectedIssueTags": ["ALGORITHM_STRATEGY"],
+    "expectedFineTags": ["GREEDY_ASSUMPTION"],
+    "mustMention": ["贪心", "反例", "局部选择"],
+    "mustNotMention": ["完整代码", "参考答案", "隐藏测试点"],
+    "sourceMaterial": {
+      "localFolder": "C:\\Users\\Administrator\\Desktop\\2",
+      "artifacts": [
+        "T13 有BUG.jpg",
+        "CZH台州名校13题参考代码重写.pdf",
+        "23.12 台州名校联盟-信息（考试版）.pdf",
+        "23.12 台州名校联盟-信息（解析版）.pdf",
+        "信息技术参考答案.docx"
+      ],
+      "anonymizationNote": "来自老师提供的真实教学讨论；fixture 只保留匿名化反例和算法错误，不保留聊天成员身份。"
+    },
+    "quality": {
+      "bugPattern": "real-teacher-square-greedy-counterexample",
+      "misconception": "认为按当前能放下的第一条边放置木棒一定能得到可行划分。",
+      "expectedStudentMove": "用 [9,5,5,4,3,2,2,2,2,2] 检验局部选择，把失败的放置过程和可行组合进行对照说明。",
+      "evalPurpose": "验证 AI 能区分算法策略错误和普通边界错误，并能要求学生用反例检验贪心假设。"
+    }
+  }
+]

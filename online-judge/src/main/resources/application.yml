@@ -1,0 +1,154 @@
+debug: false
+
+server:
+  port: ${SERVER_PORT:8081}
+  compression:
+    enabled: true
+    min-response-size: 2KB
+    mime-types: application/json,application/javascript,text/html,text/xml,text/plain,text/css,application/xml,image/svg+xml,text/javascript
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  config:
+    import: optional:file:.env[.properties]
+  profiles:
+    active: ${APP_PROFILE:dev}
+  application:
+    name: nboj
+  datasource:
+    url: jdbc:h2:file:./data/onlinejudge
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: ${H2_CONSOLE_ENABLED:false}
+      path: /h2-console
+  flyway:
+    enabled: ${FLYWAY_ENABLED:false}
+    baseline-on-migrate: ${FLYWAY_BASELINE_ON_MIGRATE:true}
+    baseline-version: 1
+    validate-on-migrate: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+executor:
+  mode: ${EXECUTOR_MODE:local}
+  docker:
+    cpp17-image: ${OJ_CPP17_DOCKER_IMAGE:wenzhong-oj-cpp17-runner:13}
+    python3-image: ${OJ_PYTHON3_DOCKER_IMAGE:python:3.12-slim}
+
+ai:
+  enabled: ${AI_ENABLED:true}
+  base-url: ${OJ_AI_BASE_URL:${AI_BASE_URL:https://api-inference.modelscope.cn/v1}}
+  api-key: ${OJ_MODELSCOPE_API_KEY:${MODELSCOPE_API_KEY:}}
+  model: ${OJ_AI_MODEL:${AI_MODEL:Qwen/Qwen3.5-35B-A3B}}
+  model-pool: ${OJ_AI_MODEL_POOL:${AI_MODEL_POOL:Qwen/Qwen3.5-35B-A3B,Qwen/Qwen3.5-397B-A17B,Qwen/Qwen3-235B-A22B-Instruct-2507}}
+  modelscope-compatible-request: ${AI_MODELSCOPE_COMPATIBLE_REQUEST:auto}
+  enable-thinking: ${AI_ENABLE_THINKING:false}
+  timeout-seconds: ${AI_TIMEOUT_SECONDS:30}
+  external-runtime-enabled: ${AI_EXTERNAL_RUNTIME_ENABLED:true}
+  external-runtime-profile: ${AI_EXTERNAL_RUNTIME_PROFILE:standard}
+  diagnosis-report-v3-enabled: ${AI_DIAGNOSIS_REPORT_V3_ENABLED:true}
+  max-output-tokens: ${AI_MAX_OUTPUT_TOKENS:3200}
+  stream-enabled: ${AI_STREAM_ENABLED:true}
+  stream-fallback-enabled: ${AI_STREAM_FALLBACK_ENABLED:false}
+  structured-retry-enabled: ${AI_STRUCTURED_RETRY_ENABLED:true}
+  structured-retry-output-tokens: ${AI_STRUCTURED_RETRY_OUTPUT_TOKENS:4200}
+  retry:
+    max-attempts: ${AI_RETRY_MAX_ATTEMPTS:1}
+    backoff-ms: ${AI_RETRY_BACKOFF_MS:700}
+  workflow:
+    branch-concurrency: ${AI_WORKFLOW_BRANCH_CONCURRENCY:4}
+    branch-queue-capacity: ${AI_WORKFLOW_BRANCH_QUEUE_CAPACITY:200}
+    recovery-enabled: ${AI_WORKFLOW_RECOVERY_ENABLED:true}
+  student-feedback:
+    min-request-interval-ms: ${AI_STUDENT_FEEDBACK_MIN_REQUEST_INTERVAL_MS:2000}
+  standard-library-growth:
+    enabled: ${AI_STANDARD_LIBRARY_GROWTH_ENABLED:true}
+    auto-merge-enabled: ${AI_STANDARD_LIBRARY_AUTO_MERGE_ENABLED:true}
+    auto-merge-min-confidence: ${AI_STANDARD_LIBRARY_AUTO_MERGE_MIN_CONFIDENCE:0.90}
+    auto-merge-min-occurrences: ${AI_STANDARD_LIBRARY_AUTO_MERGE_MIN_OCCURRENCES:2}
+
+app:
+  code-run:
+    enabled: ${APP_CODE_RUN_ENABLED:true}
+    max-source-bytes: ${APP_CODE_RUN_MAX_SOURCE_BYTES:102400}
+    max-stdin-bytes: ${APP_CODE_RUN_MAX_STDIN_BYTES:65536}
+    max-output-bytes: ${APP_CODE_RUN_MAX_OUTPUT_BYTES:65536}
+    max-runs-per-minute: ${APP_CODE_RUN_MAX_RUNS_PER_MINUTE:10}
+    max-concurrent-per-key: ${APP_CODE_RUN_MAX_CONCURRENT_PER_KEY:1}
+    max-concurrent-global: ${APP_CODE_RUN_MAX_CONCURRENT_GLOBAL:4}
+  submission-evidence:
+    strict-classroom-context-enabled: ${APP_STRICT_CLASSROOM_SUBMISSION_ENABLED:true}
+    analytics-read-enabled: ${APP_SUBMISSION_EVIDENCE_ANALYTICS_ENABLED:true}
+    lifecycle-projection-enabled: ${APP_SUBMISSION_ISSUE_LIFECYCLE_PROJECTION_ENABLED:true}
+    lifecycle-read-enabled: ${APP_SUBMISSION_ISSUE_LIFECYCLE_READ_ENABLED:true}
+    lifecycle-startup-backfill-enabled: ${APP_SUBMISSION_ISSUE_LIFECYCLE_BACKFILL_ENABLED:false}
+    lifecycle-startup-backfill-dry-run: ${APP_SUBMISSION_ISSUE_LIFECYCLE_BACKFILL_DRY_RUN:true}
+    lifecycle-backfill-batch-size: ${APP_SUBMISSION_ISSUE_LIFECYCLE_BACKFILL_BATCH_SIZE:200}
+    persistent-difficulty-threshold: ${APP_SUBMISSION_ISSUE_PERSISTENT_THRESHOLD:3}
+    cross-problem-weakness-threshold: ${APP_SUBMISSION_ISSUE_CROSS_PROBLEM_THRESHOLD:2}
+    class-coverage-threshold: ${APP_SUBMISSION_ISSUE_CLASS_COVERAGE_THRESHOLD:0.4}
+    class-repeat-threshold: ${APP_SUBMISSION_ISSUE_CLASS_REPEAT_THRESHOLD:1.5}
+    class-low-recovery-threshold: ${APP_SUBMISSION_ISSUE_CLASS_LOW_RECOVERY_THRESHOLD:0.6}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: never
+
+---
+spring:
+  config:
+    activate:
+      on-profile: school
+  datasource:
+    url: ${POSTGRES_JDBC_URL:jdbc:postgresql://postgres:5432/onlinejudge}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:onlinejudge}
+    password: ${POSTGRES_PASSWORD:}
+  h2:
+    console:
+      enabled: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: ${FLYWAY_BASELINE_ON_MIGRATE:false}
+    baseline-version: "1"
+    baseline-description: Existing Hibernate-managed schema
+    validate-on-migrate: true
+    clean-disabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+app:
+  profile: school
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+app:
+  profile: dev
+
+logging:
+  file:
+    name: logs/nboj.log
+  level:
+    root: INFO
+    com.onlinejudge: INFO
+    org.springframework: INFO
+    org.hibernate.SQL: WARN

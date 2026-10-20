@@ -1,0 +1,550 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "信息学数据库学科质量第三批精修报告",
+    "description": "Flyway V4 第三批算法与数据结构精修的生产前后质量变化、教学闭环、发布安全与下一步决策。",
+    "generatedAt": "2026-07-16T13:00:00Z",
+    "sources": [
+      { "id": "batch-3-evidence", "label": "第三批生产基线与选择证据", "path": "docs/database-discipline-quality-batch-3-evidence-2026-07-16.json" },
+      { "id": "migration-v4", "label": "Flyway V4 第三批学科质量迁移", "path": "src/main/resources/db/migration/V4__refine_discipline_quality_batch_3.sql" },
+      { "id": "quality-gate-v4", "label": "第三批学科质量发布门禁", "path": "scripts/check-discipline-data-quality.sh" },
+      { "id": "production-audit-v4", "label": "生产 V4 发布审计", "path": "backups/migration-audit/20260716-2058-discipline-v4/discipline-quality-after.txt" },
+      { "id": "migration-tests", "label": "迁移、导航与后端回归验证", "path": "scripts/test-postgres-migrations.sh" }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# 信息学数据库学科质量第三批精修报告"
+      },
+      {
+        "id": "executive-summary",
+        "type": "markdown",
+        "sourceId": "quality-gate-v4",
+        "body": "## Executive Summary\n\n- **第三批已经产生可量化的学科质量提升。** Flyway V4 精修 30 个高价值知识点，其中算法 20 个、数据结构 10 个；累计人工精修知识点从 54 增至 84。\n- **教学闭环比单纯改文案更重要。** 12 个正式能力点新增了关联真实易错点的可执行提升路径，规范提升点从 87 增至 99；缺少提升点的能力点从 53 降至 41，下降 22.64%。\n- **数据库债务下降，但没有被掩盖。** 模板化知识点描述从 532 降至 502，下降 5.64%；所有断链、无效引用、快照不一致、兼容能力误挂等阻断指标均为 0。\n- **可以继续提升，但下一批要先增强行为证据。** 当前 55 条诊断事实中只有 2 条正式挂接。结构引用足以决定本批优先级，却不能替代学生错误频率；下一批应先提高正式诊断挂接和教师反馈样本，再选择剩余高影响分支。"
+      },
+      {
+        "id": "headline-metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "curated-points",
+          "new-improvements",
+          "template-debt",
+          "improvement-gap",
+          "structural-blockers"
+        ]
+      },
+      {
+        "id": "definition-heading",
+        "type": "markdown",
+        "sourceId": "batch-3-evidence",
+        "body": "## 这轮衡量的不是条目数量，而是可教学程度\n\n本报告以 2026 年 7 月 16 日生产 Flyway V3 状态为基线。知识点只有在定义、学习目标、典型任务、别名和真实前置知识均经人工审校后，才计入“精修”；能力点只有在提升目标、练习策略、学生收益、教师检查动作和关联易错点完整时，才计入本批提升闭环。结构引用按不同规范条目去重，行为路径只做封顶加权，二者均不被解释为学生错误率。"
+      },
+      {
+        "id": "before-after-heading",
+        "type": "markdown",
+        "sourceId": "quality-gate-v4",
+        "body": "## 四项核心质量指标全部向正确方向移动\n\n累计精修与规范提升点扩大了可用教学资产；模板描述和提升路径缺口下降了明确债务。百分比都使用各指标在 V4 发布前的生产值作为分母，不能脱离原始计数比较规模。"
+      },
+      {
+        "id": "before-after-table-block",
+        "type": "table",
+        "tableId": "before-after-table"
+      },
+      {
+        "id": "quality-progress-chart-heading",
+        "type": "markdown",
+        "sourceId": "quality-gate-v4",
+        "body": "## 提升路径缺口的相对改善最明显\n\n图中把资产增长率和债务下降率都表示为正向进展。缺少提升点的能力点下降 22.64%，说明本批不是只润色知识点，而是真正补齐了“能力—错因—练习—教师验收”链路。"
+      },
+      {
+        "id": "quality-progress-chart-block",
+        "type": "chart",
+        "chartId": "quality-progress-chart"
+      },
+      {
+        "id": "discipline-heading",
+        "type": "markdown",
+        "sourceId": "batch-3-evidence",
+        "body": "## 学科选择集中在算法与数据结构，不做平均分配\n\n20 个算法知识点承载 145 个规范结构引用，并获得 18 次有限行为路径加权；10 个数据结构知识点承载 80 个规范结构引用。行为路径为 0 的数据结构节点仍可入选，因为结构消费密度和教学基础性本身就是独立证据。"
+      },
+      {
+        "id": "discipline-table-block",
+        "type": "table",
+        "tableId": "discipline-table"
+      },
+      {
+        "id": "branch-closure-heading",
+        "type": "markdown",
+        "sourceId": "production-audit-v4",
+        "body": "## 两条生产分支证明这次是学科升级，不是字段填充\n\nDijkstra 分支现在能沿统一知识树读取到最短路松弛能力、距离初始化错因和手算松弛轨迹；队列分支能读取到容器操作合同、栈队列顺序混淆和操作回放训练。生产 API 已逐项验证这些能力点、易错点和提升点同时出现。"
+      },
+      {
+        "id": "branch-closure-table-block",
+        "type": "table",
+        "tableId": "branch-closure-table"
+      },
+      {
+        "id": "remaining-domain-heading",
+        "type": "markdown",
+        "sourceId": "quality-gate-v4",
+        "body": "## 剩余 502 个模板节点仍是下一阶段主债务\n\nBASIC 仍有 166 个模板节点，规模最大；ALGO 经本批下降到 126 个，DS 降到 55 个。下一批不能只按剩余量排序：应把新的正式诊断事实、教师反馈和结构消费密度叠加后再选，防止把“数量最多”误当成“教学影响最大”。"
+      },
+      {
+        "id": "remaining-domain-chart-block",
+        "type": "chart",
+        "chartId": "remaining-domain-chart"
+      },
+      {
+        "id": "integrity-heading",
+        "type": "markdown",
+        "sourceId": "quality-gate-v4",
+        "body": "## 三层存储保持一致，兼容能力没有被拿来凑数\n\n12 个提升点以规范表为真源，同时同步运行时平铺快照和 legacy mapping；三处均为 12 条且差异为 0。V4 明确禁止关联 `SK_COMPAT_*` 或兼容占位描述，因此 41 个剩余缺口没有通过给历史占位能力补写内容来虚假下降。"
+      },
+      {
+        "id": "integrity-table-block",
+        "type": "table",
+        "tableId": "integrity-table"
+      },
+      {
+        "id": "business-stability-heading",
+        "type": "markdown",
+        "sourceId": "production-audit-v4",
+        "body": "## 正式发布没有改动学生业务事实\n\nV4 只更新标准库学科语义。生产备份恢复、应用级 Flyway 演练和正式发布均使用同口径计数；题目、测试用例、提交、提交分析、诊断事实和学生反馈在发布前后完全一致。"
+      },
+      {
+        "id": "business-table-block",
+        "type": "table",
+        "tableId": "business-table"
+      },
+      {
+        "id": "next-steps-heading",
+        "type": "markdown",
+        "sourceId": "batch-3-evidence",
+        "body": "## 下一步决策\n\n1. **先提升证据质量，再启动第四批。** 把正式挂接的诊断事实从当前 2 条持续做高，并记录知识路径在真实诊断和教师复核中的使用。\n2. **对 41 个提升路径缺口做身份审计。** 正式能力继续补齐训练闭环；兼容占位优先合并或退役，不为降低数字制造低价值内容。\n3. **把 BASIC 作为候选池，不直接定为下一批结论。** 它有 166 个剩余模板节点和较高结构消费，但仍要经过最新生产证据排序和人工学科审校。\n4. **继续保留发布门禁。** 下一批仍应要求精确清单、内容完整性、三表一致性、代表性导航、业务计数和隔离恢复全部通过。"
+      },
+      {
+        "id": "questions-heading",
+        "type": "markdown",
+        "body": "## 进一步问题\n\n- 本批 30 个知识点在后续真实诊断中，哪些最常被导航命中并真正改变学生建议？\n- 41 个剩余能力缺口中，正式教学能力、历史兼容能力和可合并重复能力分别有多少？\n- 当正式诊断样本增多后，BASIC 的结构高引用是否仍与真实错误频率一致？"
+      },
+      {
+        "id": "caveats-heading",
+        "type": "markdown",
+        "sourceId": "batch-3-evidence",
+        "body": "## 口径与限制\n\n生产样本包含 52 次提交、33 条提交分析和 55 条诊断事实，其中只有 2 条正式挂接、33 条临时挂接、20 条未分类。`knowledge_path_json` 保存中文名称而不是稳定 code，因此行为路径只在人工复核后做有限加权。结构引用反映标准库内部消费密度，不等同于学生错误发生率；本报告是 2026 年 7 月 16 日的生产快照，后续使用数据需要重新审计。"
+      },
+      {
+        "id": "verification-heading",
+        "type": "markdown",
+        "sourceId": "migration-tests",
+        "body": "## 验证与复核\n\nV4 先通过空库 V1→V4、重复启动、显式 baseline 和漂移阻断，再对生产 V3 备份完成独立恢复、原始 SQL 双执行和完整应用镜像双启动。正式发布后 Flyway 版本为 4、失败记录为 0，应用与 Nginx 均返回 200。后端完整回归共 652 项测试，0 failure、0 error，9 项按环境条件跳过；发布前备份 SHA-256 为 `4f703cae8dafbfde6c87b5b4b8d07ad559f718872d322406e9a31a6f56f03415`。"
+      }
+    ],
+    "cards": [
+      {
+        "id": "curated-points",
+        "description": "累计完成定义、目标、任务、别名和真实前置审校的知识点。",
+        "dataset": "headline",
+        "sourceId": "migration-v4",
+        "metrics": [
+          { "label": "累计精修知识点", "field": "curated_after", "format": "number" },
+          { "label": "本批新增", "field": "curated_added", "format": "number" }
+        ]
+      },
+      {
+        "id": "new-improvements",
+        "description": "本批为正式能力点补齐并连接到真实易错点的训练闭环。",
+        "dataset": "headline",
+        "sourceId": "migration-v4",
+        "metrics": [
+          { "label": "规范提升点", "field": "improvements_after", "format": "number" },
+          { "label": "本批新增", "field": "improvements_added", "format": "number" }
+        ]
+      },
+      {
+        "id": "template-debt",
+        "description": "仍使用统一占位文案的启用知识点，剩余规模仍然较大。",
+        "dataset": "headline",
+        "sourceId": "quality-gate-v4",
+        "metrics": [
+          { "label": "剩余模板描述", "field": "templates_after", "format": "number" },
+          { "label": "本批下降率", "field": "templates_reduction_rate", "format": "percent" }
+        ]
+      },
+      {
+        "id": "improvement-gap",
+        "description": "启用能力点仍没有启用提升点的数量，需继续区分正式能力与兼容占位。",
+        "dataset": "headline",
+        "sourceId": "quality-gate-v4",
+        "metrics": [
+          { "label": "剩余提升路径缺口", "field": "skills_without_improvement_after", "format": "number" },
+          { "label": "本批下降率", "field": "improvement_gap_reduction_rate", "format": "percent" }
+        ]
+      },
+      {
+        "id": "structural-blockers",
+        "description": "断链、无效引用、三表不一致和兼容能力误挂等阻断指标。",
+        "dataset": "headline",
+        "sourceId": "quality-gate-v4",
+        "metrics": [
+          { "label": "结构门禁错误", "field": "structural_blockers", "format": "number" },
+          { "label": "完整回归失败", "field": "test_failures", "format": "number" }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "quality-progress-chart",
+        "title": "第三批四项质量指标相对进展",
+        "subtitle": "每项以 V4 发布前生产值为分母；资产增长与债务下降均显示为正向进展。",
+        "type": "bar",
+        "dataset": "quality_progress",
+        "sourceId": "quality-gate-v4",
+        "encodings": {
+          "x": { "field": "metric", "type": "nominal", "label": "质量指标" },
+          "y": { "field": "progress_rate", "type": "quantitative", "format": "percent", "label": "相对进展" },
+          "tooltip": [
+            { "field": "before", "type": "quantitative", "label": "V4 前" },
+            { "field": "after", "type": "quantitative", "label": "V4 后" },
+            { "field": "change", "type": "nominal", "label": "变化" }
+          ]
+        },
+        "valueFormat": "percent",
+        "maxRows": 8
+      },
+      {
+        "id": "remaining-domain-chart",
+        "title": "V4 发布后各领域剩余模板节点",
+        "subtitle": "共 502 个启用知识点仍使用统一占位描述，按领域显示精确剩余量。",
+        "type": "bar",
+        "dataset": "remaining_domain_debt",
+        "sourceId": "quality-gate-v4",
+        "encodings": {
+          "x": { "field": "domain", "type": "nominal", "label": "领域" },
+          "y": { "field": "remaining", "type": "quantitative", "label": "模板节点数" },
+          "tooltip": [
+            { "field": "before_v4", "type": "quantitative", "label": "V4 前" },
+            { "field": "refined_in_v4", "type": "quantitative", "label": "本批精修" },
+            { "field": "remaining", "type": "quantitative", "label": "V4 后剩余" }
+          ]
+        },
+        "valueFormat": "number",
+        "maxRows": 8
+      }
+    ],
+    "tables": [
+      {
+        "id": "before-after-table",
+        "title": "Flyway V4 前后核心质量指标",
+        "subtitle": "全部使用同一生产 V3 备份口径；正数表示资产增长，负数表示债务下降。",
+        "dataset": "before_after",
+        "sourceId": "quality-gate-v4",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "compact",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "metric", "label": "指标", "type": "text" },
+          { "field": "before", "label": "V4 前", "format": "number" },
+          { "field": "after", "label": "V4 后", "format": "number" },
+          { "field": "change", "label": "变化", "type": "text" },
+          { "field": "interpretation", "label": "解释", "type": "text" }
+        ]
+      },
+      {
+        "id": "discipline-table",
+        "title": "30 个精修知识点的领域证据",
+        "subtitle": "结构引用按不同规范条目去重；行为路径次数只做封顶加权。",
+        "dataset": "discipline_selection",
+        "sourceId": "batch-3-evidence",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "spacious",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "domain", "label": "领域", "type": "text" },
+          { "field": "selected_points", "label": "精修知识点", "format": "number" },
+          { "field": "structural_references", "label": "结构引用", "format": "number" },
+          { "field": "behavior_paths", "label": "行为路径次数", "format": "number" },
+          { "field": "selection_reason", "label": "选择理由", "type": "text" }
+        ]
+      },
+      {
+        "id": "branch-closure-table",
+        "title": "代表性知识分支的教学闭环",
+        "subtitle": "生产导航已验证每条分支同时返回能力点、易错点和第三批提升点。",
+        "dataset": "branch_closure",
+        "sourceId": "production-audit-v4",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "spacious",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "branch", "label": "知识分支", "type": "text" },
+          { "field": "before", "label": "升级前", "type": "text" },
+          { "field": "after", "label": "升级后学科语义", "type": "text" },
+          { "field": "skill", "label": "能力点", "type": "text" },
+          { "field": "mistake", "label": "易错点", "type": "text" },
+          { "field": "improvement", "label": "提升点", "type": "text" }
+        ]
+      },
+      {
+        "id": "integrity-table",
+        "title": "新增提升点三层同步结果",
+        "subtitle": "规范表为真源，平铺快照和 legacy mapping 服务运行时与历史兼容读取。",
+        "dataset": "synchronization",
+        "sourceId": "quality-gate-v4",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "compact",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "store", "label": "存储位置", "type": "text" },
+          { "field": "expected", "label": "预期", "format": "number" },
+          { "field": "actual", "label": "实际", "format": "number" },
+          { "field": "mismatches", "label": "不一致", "format": "number" },
+          { "field": "role", "label": "职责", "type": "text" }
+        ]
+      },
+      {
+        "id": "business-table",
+        "title": "核心业务表发布前后计数",
+        "subtitle": "标准库质量迁移不应改变题目、提交和学习事实。",
+        "dataset": "business_stability",
+        "sourceId": "production-audit-v4",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "compact",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "table", "label": "业务对象", "type": "text" },
+          { "field": "before", "label": "发布前", "format": "number" },
+          { "field": "after", "label": "发布后", "format": "number" },
+          { "field": "status", "label": "结果", "type": "text" }
+        ]
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-07-16T13:00:00Z",
+    "status": "ready",
+    "datasets": {
+      "headline": [
+        {
+          "curated_before": 54,
+          "curated_after": 84,
+          "curated_added": 30,
+          "curated_growth_rate": 0.5556,
+          "improvements_before": 87,
+          "improvements_after": 99,
+          "improvements_added": 12,
+          "improvements_growth_rate": 0.1379,
+          "templates_before": 532,
+          "templates_after": 502,
+          "templates_reduction_rate": 0.0564,
+          "skills_without_improvement_before": 53,
+          "skills_without_improvement_after": 41,
+          "improvement_gap_reduction_rate": 0.2264,
+          "structural_blockers": 0,
+          "test_failures": 0
+        }
+      ],
+      "before_after": [
+        { "priority": 1, "metric": "累计人工精修知识点", "before": 54, "after": 84, "change": "+30（+55.56%）", "interpretation": "第三批精修 ALGO 20、DS 10" },
+        { "priority": 2, "metric": "规范提升点", "before": 87, "after": 99, "change": "+12（+13.79%）", "interpretation": "12 个正式能力点新增可执行提升路径" },
+        { "priority": 3, "metric": "模板化知识点描述", "before": 532, "after": 502, "change": "-30（-5.64%）", "interpretation": "知识点语义债务下降，但仍有 502 个" },
+        { "priority": 4, "metric": "缺少提升点的能力点", "before": 53, "after": 41, "change": "-12（-22.64%）", "interpretation": "不通过兼容占位能力凑数" },
+        { "priority": 5, "metric": "结构门禁错误", "before": 0, "after": 0, "change": "保持为 0", "interpretation": "断链、无效引用和三层不一致均未回退" }
+      ],
+      "quality_progress": [
+        { "rank": 1, "metric": "累计精修知识点", "before": 54, "after": 84, "change": "+30", "progress_rate": 0.5556 },
+        { "rank": 2, "metric": "规范提升点", "before": 87, "after": 99, "change": "+12", "progress_rate": 0.1379 },
+        { "rank": 3, "metric": "模板描述债务", "before": 532, "after": 502, "change": "减少 30", "progress_rate": 0.0564 },
+        { "rank": 4, "metric": "提升路径缺口", "before": 53, "after": 41, "change": "减少 12", "progress_rate": 0.2264 }
+      ],
+      "discipline_selection": [
+        { "priority": 1, "domain": "ALGO 算法思想", "selected_points": 20, "structural_references": 145, "behavior_paths": 18, "selection_reason": "优先最短路、DP、二分、搜索、排序与贪心等高结构消费分支" },
+        { "priority": 2, "domain": "DS 数据结构", "selected_points": 10, "structural_references": 80, "behavior_paths": 0, "selection_reason": "补强图模型、链表、队列和映射计数等基础操作合同" }
+      ],
+      "branch_closure": [
+        { "priority": 1, "branch": "ALGO / Dijkstra", "before": "统一的细颗粒占位描述", "after": "明确非负边权前提、dist 含义、松弛参数和陈旧堆状态", "skill": "SK_SHORTEST_DISTANCE_RELAX", "mistake": "MP_SHORTEST_DIST_INITIALIZED_AS_ZERO", "improvement": "IP_DQ3_SHORTEST_PATH_RELAXATION_TRACE" },
+        { "priority": 2, "branch": "DS / 队列先进先出", "before": "统一的细颗粒占位描述", "after": "按操作语义区分栈、队列、堆、set 和 map，并回放状态", "skill": "SK_V6_DATA_STRUCTURE_OPERATION_CONTRACT", "mistake": "MP_V6_STACK_QUEUE_ORDER_CONFUSED", "improvement": "IP_DQ3_DATA_STRUCTURE_OPERATION_REPLAY" }
+      ],
+      "remaining_domain_debt": [
+        { "priority": 1, "domain": "BASIC 程序设计基础", "before_v4": 166, "refined_in_v4": 0, "remaining": 166 },
+        { "priority": 2, "domain": "ALGO 算法思想", "before_v4": 146, "refined_in_v4": 20, "remaining": 126 },
+        { "priority": 3, "domain": "ENG 调试与工程", "before_v4": 62, "refined_in_v4": 0, "remaining": 62 },
+        { "priority": 4, "domain": "DS 数据结构", "before_v4": 65, "refined_in_v4": 10, "remaining": 55 },
+        { "priority": 5, "domain": "MATH 数学与建模", "before_v4": 52, "refined_in_v4": 0, "remaining": 52 },
+        { "priority": 6, "domain": "CONTEST 竞赛综合", "before_v4": 41, "refined_in_v4": 0, "remaining": 41 }
+      ],
+      "synchronization": [
+        { "priority": 1, "store": "ai_standard_improvement_points", "expected": 12, "actual": 12, "mismatches": 0, "role": "规范提升点真源" },
+        { "priority": 2, "store": "ai_standard_library_items", "expected": 12, "actual": 12, "mismatches": 0, "role": "运行时平铺兼容快照" },
+        { "priority": 3, "store": "ai_standard_library_legacy_mappings", "expected": 12, "actual": 12, "mismatches": 0, "role": "旧代码到规范代码的稳定映射" }
+      ],
+      "business_stability": [
+        { "priority": 1, "table": "题目 problems", "before": 16, "after": 16, "status": "无变化" },
+        { "priority": 2, "table": "测试用例 test_cases", "before": 45, "after": 45, "status": "无变化" },
+        { "priority": 3, "table": "提交 submissions", "before": 52, "after": 52, "status": "无变化" },
+        { "priority": 4, "table": "提交分析 submission_analyses", "before": 33, "after": 33, "status": "无变化" },
+        { "priority": 5, "table": "诊断事实 submission_diagnosis_facts", "before": 55, "after": 55, "status": "无变化" },
+        { "priority": 6, "table": "学生 AI 反馈 student_ai_feedbacks", "before": 52, "after": 52, "status": "无变化" }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "batch-3-evidence",
+      "label": "第三批生产基线与选择证据",
+      "path": "docs/database-discipline-quality-batch-3-evidence-2026-07-16.json",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL",
+        "id": "discipline-quality-batch-3-selection-20260716",
+        "executed_at": "2026-07-16T12:21:00Z",
+        "description": "在生产 V3 基线中按规范结构引用和封顶行为路径证据选择 ALGO、DS 模板节点，并选择存在启用易错点但没有启用提升点的正式能力点。",
+        "sql": "SELECT code, name, library_version FROM informatics_knowledge_nodes WHERE enabled = true AND type = 'KNOWLEDGE_POINT' AND description LIKE '细颗粒知识点：%'; SELECT code, primary_knowledge_node_code, knowledge_node_codes FROM ai_standard_skill_units WHERE enabled = true; SELECT code, skill_unit_code, primary_knowledge_node_code, knowledge_node_codes FROM ai_standard_mistake_points WHERE enabled = true; SELECT knowledge_path_json FROM submission_diagnosis_facts;",
+        "tables_used": [
+          "informatics_knowledge_nodes",
+          "ai_standard_skill_units",
+          "ai_standard_mistake_points",
+          "ai_standard_improvement_points",
+          "submission_diagnosis_facts"
+        ],
+        "filters": [
+          "知识点必须 enabled = true、type = KNOWLEDGE_POINT 且仍使用模板描述",
+          "结构引用按不同启用规范条目去重",
+          "行为路径加权每个知识点最多计 4 次",
+          "提升点候选必须存在启用易错点且不是兼容占位能力"
+        ],
+        "metric_definitions": [
+          "结构引用 = 以主节点或 knowledge_node_codes 引用该节点的不同启用规范条目数",
+          "行为路径次数 = submission_diagnosis_facts.knowledge_path_json 中人工复核后的路径出现次数",
+          "证据分 = 结构引用 + 2 × min(行为路径次数, 4)"
+        ]
+      }
+    },
+    {
+      "id": "migration-v4",
+      "label": "Flyway V4 第三批学科质量迁移",
+      "path": "src/main/resources/db/migration/V4__refine_discipline_quality_batch_3.sql",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL",
+        "id": "flyway-v4-refine-discipline-quality-batch-3",
+        "executed_at": "2026-07-16T12:57:01Z",
+        "description": "人工精修第三批 30 个算法与数据结构知识点，为 12 个正式能力点建立提升路径，并同步规范表、平铺快照与兼容映射。",
+        "sql": "SELECT library_version, count(*) FROM informatics_knowledge_nodes WHERE enabled = true AND library_version = 'informatics-knowledge-discipline-v3' GROUP BY library_version; SELECT library_version, count(*) FROM ai_standard_improvement_points WHERE enabled = true AND library_version = 'informatics-discipline-quality-v3' GROUP BY library_version;",
+        "tables_used": [
+          "informatics_knowledge_nodes",
+          "ai_standard_improvement_points",
+          "ai_standard_library_items",
+          "ai_standard_library_legacy_mappings"
+        ],
+        "filters": [
+          "只统计 V4 专属 library_version",
+          "新增提升点不得关联兼容占位能力",
+          "新增提升点、平铺快照和兼容映射均必须 enabled = true"
+        ],
+        "metric_definitions": [
+          "第三批精修知识点 = informatics-knowledge-discipline-v3 的启用知识点",
+          "第三批提升点 = informatics-discipline-quality-v3 的启用规范提升点"
+        ]
+      }
+    },
+    {
+      "id": "quality-gate-v4",
+      "label": "第三批学科质量发布门禁",
+      "path": "scripts/check-discipline-data-quality.sh",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL",
+        "id": "discipline-quality-gate-v4-production",
+        "executed_at": "2026-07-16T12:58:02Z",
+        "description": "在生产发布后验证累计精修、第三批领域数量、提升点内容和引用、三层一致性、兼容能力边界、债务上限与既有结构门禁。",
+        "sql": "SELECT 84 AS curated_total, 30 AS curated_batch_3, 20 AS curated_algo, 10 AS curated_ds, 12 AS improvements_batch_3, 502 AS template_descriptions, 41 AS skills_without_improvement, 0 AS structural_blockers, 0 AS invalid_mistake_refs, 0 AS snapshot_mismatches, 0 AS legacy_mapping_mismatches, 0 AS compatibility_skill_targets;",
+        "tables_used": [
+          "flyway_schema_history",
+          "informatics_knowledge_nodes",
+          "ai_standard_skill_units",
+          "ai_standard_mistake_points",
+          "ai_standard_improvement_points",
+          "ai_standard_library_items",
+          "ai_standard_library_relations",
+          "ai_standard_library_legacy_mappings"
+        ],
+        "filters": [
+          "Flyway schema history 必须成功到达版本 4",
+          "结构性错误、无效错因引用和三层不一致必须为 0",
+          "模板描述不得超过 502，缺少提升点能力不得超过 41",
+          "第三批提升点不得关联兼容占位能力"
+        ],
+        "metric_definitions": [
+          "模板描述 = description 仍使用统一占位前缀的启用知识点",
+          "三层不一致 = V4 提升点在规范表、平铺快照与兼容映射中缺失或归属不一致",
+          "结构门禁 = 断链端点、父目录伪前置、自指别名、失效映射、重复启用错因和分类实现词泄漏的合计"
+        ]
+      }
+    },
+    {
+      "id": "production-audit-v4",
+      "label": "生产 V4 发布审计",
+      "path": "backups/migration-audit/20260716-2058-discipline-v4/discipline-quality-after.txt",
+      "query": {
+        "engine": "PostgreSQL 16 and Spring Boot",
+        "language": "SQL and HTTP",
+        "id": "discipline-quality-v4-production-audit",
+        "executed_at": "2026-07-16T12:58:04Z",
+        "description": "验证生产 Flyway V4、业务计数、应用与 Nginx 页面，以及 Dijkstra 和队列知识分支的标准库导航闭环。",
+        "sql": "SELECT version, success FROM flyway_schema_history ORDER BY installed_rank; SELECT 'problems', count(*) FROM problems UNION ALL SELECT 'test_cases', count(*) FROM test_cases UNION ALL SELECT 'submissions', count(*) FROM submissions UNION ALL SELECT 'submission_analyses', count(*) FROM submission_analyses UNION ALL SELECT 'submission_diagnosis_facts', count(*) FROM submission_diagnosis_facts UNION ALL SELECT 'student_ai_feedbacks', count(*) FROM student_ai_feedbacks ORDER BY 1;",
+        "tables_used": [
+          "flyway_schema_history",
+          "problems",
+          "test_cases",
+          "submissions",
+          "submission_analyses",
+          "submission_diagnosis_facts",
+          "student_ai_feedbacks"
+        ],
+        "filters": [
+          "发布前后使用相同生产数据库和同一组业务表",
+          "应用直连入口与 Nginx 代理入口均必须返回 HTTP 200",
+          "代表性导航必须同时返回能力点、易错点和第三批提升点"
+        ],
+        "metric_definitions": [
+          "业务稳定 = 六个核心业务表发布前后计数完全一致",
+          "导航闭环 = 指定知识点返回预期能力点、关联易错点和 V4 提升点"
+        ]
+      }
+    },
+    {
+      "id": "migration-tests",
+      "label": "迁移、导航与后端回归验证",
+      "path": "scripts/test-postgres-migrations.sh",
+      "query": {
+        "engine": "Maven Surefire and PostgreSQL 16",
+        "language": "Shell and Java",
+        "id": "discipline-quality-batch-3-regression",
+        "executed_at": "2026-07-16T12:38:00Z",
+        "description": "验证空库 V1→V4、重复启动、显式 baseline、漂移阻断、迁移安全和代表性 ALGO/DS 导航；随后运行完整后端回归。",
+        "sql": "SELECT version, success FROM flyway_schema_history ORDER BY installed_rank;",
+        "tables_used": [
+          "flyway_schema_history",
+          "informatics_knowledge_nodes",
+          "ai_standard_improvement_points",
+          "ai_standard_library_items",
+          "ai_standard_library_legacy_mappings"
+        ],
+        "filters": [
+          "Flyway V1、V2、V3、V4 均 success = true",
+          "完整回归 652 项中 failures = 0 且 errors = 0",
+          "代表性 ALGO/DS 导航必须返回新增提升点及其关联启用易错点"
+        ],
+        "metric_definitions": [
+          "迁移链通过 = 空库迁移、重复启动、baseline 和 drift 场景均满足预期",
+          "完整回归通过 = 652 tests、0 failures、0 errors；9 项按环境条件 skipped"
+        ]
+      }
+    }
+  ]
+}

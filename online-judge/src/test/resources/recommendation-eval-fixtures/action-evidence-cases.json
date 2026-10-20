@@ -1,0 +1,80 @@
+[
+  {
+    "id": "stable-issue-persists",
+    "focusIssueIds": ["issue-loop-boundary"],
+    "followupIssueIds": ["issue-loop-boundary"],
+    "verdict": "WRONG_ANSWER",
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "UNRESOLVED_SAME_FOCUS",
+    "expectedMatchBasis": "ISSUE_ID"
+  },
+  {
+    "id": "normalized-point-persists-after-title-change",
+    "focusPointKeys": ["mistake:mp-off-by-one"],
+    "followupPointKeys": ["mistake:mp-off-by-one"],
+    "verdict": "WRONG_ANSWER",
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "UNRESOLVED_SAME_FOCUS",
+    "expectedMatchBasis": "POINT_KEY"
+  },
+  {
+    "id": "formal-mistake-anchor-persists",
+    "focusMistakePointCodes": ["MP_LOOP_RIGHT_ENDPOINT"],
+    "followupMistakePointCodes": ["MP_LOOP_RIGHT_ENDPOINT"],
+    "verdict": "WRONG_ANSWER",
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "UNRESOLVED_SAME_FOCUS",
+    "expectedMatchBasis": "MISTAKE_POINT"
+  },
+  {
+    "id": "failed-test-semantic-persists",
+    "focusTestSemanticCodes": ["TCI_FACTORIAL_ZERO"],
+    "followupFailedTestSemanticCodes": ["TCI_FACTORIAL_ZERO"],
+    "verdict": "WRONG_ANSWER",
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "UNRESOLVED_SAME_FOCUS",
+    "expectedMatchBasis": "TEST_SEMANTIC"
+  },
+  {
+    "id": "legacy-tag-compatible",
+    "focusTags": ["OFF_BY_ONE"],
+    "followupIssueTag": "OFF_BY_ONE",
+    "verdict": "WRONG_ANSWER",
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "UNRESOLVED_SAME_FOCUS",
+    "expectedMatchBasis": "LEGACY_TAG"
+  },
+  {
+    "id": "accepted-without-persisting-focus",
+    "focusPointKeys": ["mistake:mp-input-order"],
+    "verdict": "ACCEPTED",
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "CONTRACT_FULFILLED",
+    "expectedMatchBasis": "NONE"
+  },
+  {
+    "id": "judge-finished-diagnosis-pending",
+    "focusPointKeys": ["mistake:mp-prime-boundary"],
+    "verdict": "WRONG_ANSWER",
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "WAITING_DIAGNOSIS",
+    "expectedMatchBasis": "NONE"
+  },
+  {
+    "id": "high-risk-needs-teacher",
+    "focusPointKeys": ["mistake:mp-graph-relaxation"],
+    "followupPointKeys": ["mistake:mp-different-symptom"],
+    "verdict": "WRONG_ANSWER",
+    "riskLevel": "HIGH",
+    "expectedOutcome": "TEACHER_INTERVENTION_NEEDED",
+    "expectedMatchBasis": "NONE"
+  },
+  {
+    "id": "entered-without-submission",
+    "focusPointKeys": ["mistake:mp-branch-order"],
+    "hasSubmission": false,
+    "riskLevel": "MEDIUM",
+    "expectedOutcome": "NO_FOLLOWUP_SUBMISSION",
+    "expectedMatchBasis": "NONE"
+  }
+]

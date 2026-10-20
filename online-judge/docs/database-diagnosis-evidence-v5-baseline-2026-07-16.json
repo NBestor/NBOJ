@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-07-16T13:17:00Z",
+  "database": "production PostgreSQL 16",
+  "flywayVersion": "4",
+  "grain": {
+    "analysis": "one saved submission analysis per submission",
+    "advice": "one basic or improvement advice item inside report_json",
+    "fact": "one projected advice item identified by fact_key",
+    "candidate": "one provisional standard-library candidate code aggregated across independent submissions"
+  },
+  "baseline": {
+    "submissionAnalyses": 33,
+    "analysesWithAdvice": 21,
+    "analysesWithoutAdvice": 12,
+    "analysesWithProjectedFacts": 14,
+    "analysesWithAdviceMissingProjection": 7,
+    "missingFactRowsFromAdvice": 26,
+    "diagnosisFacts": 55,
+    "formalFacts": 2,
+    "provisionalFacts": 33,
+    "unclassifiedFacts": 20,
+    "factsWithUnknownLibraryFit": 55,
+    "factsUsingFormalIdentity": 2,
+    "factsUsingTextFingerprint": 53,
+    "growthCandidates": 40,
+    "feedbacks": 52,
+    "feedbackRevisions": 18,
+    "feedbacksWithoutRevision": 36,
+    "feedbackEvents": 80,
+    "linkedFeedbackEvents": 29,
+    "unlinkedFeedbackEvents": 51,
+    "issueTransitions": 23,
+    "backfillBatches": 0
+  },
+  "deterministicRepairEvidence": {
+    "existingFactsMatchedToAdviceByFactKey": 55,
+    "existingFactsUnmatchedToAdvice": 0,
+    "provisionalFactsWithRecoverableCode": 33,
+    "provisionalFactsWithoutRecoverableCode": 0,
+    "distinctAdviceProvisionalCodes": 38,
+    "codesMatchedToGrowthCandidate": 38,
+    "codesWithoutGrowthCandidate": 0,
+    "matchedCandidatesWithoutParentCode": 0,
+    "invalidParentKnowledgeNodeCodes": 0
+  },
+  "expectedAfterDeterministicBackfill": {
+    "submissionAnalyses": 33,
+    "analysesWithAdvice": 21,
+    "analysesWithAdviceMissingProjection": 0,
+    "diagnosisFacts": 81,
+    "formalFacts": 4,
+    "provisionalFacts": 43,
+    "unclassifiedFacts": 34,
+    "feedbackRevisions": 54,
+    "linkedFeedbackEvents": 80,
+    "factsWithUnknownLibraryFit": 0,
+    "provisionalFactsWithoutStableCode": 0
+  },
+  "coreBusinessCounts": {
+    "problems": 16,
+    "testCases": 45,
+    "submissions": 52,
+    "submissionAnalyses": 33,
+    "studentAiFeedbacks": 52
+  },
+  "qualityAssessment": {
+    "contentReadiness": "PASS",
+    "structuralIntegrity": "PASS",
+    "factProjectionCompleteness": "FAIL",
+    "stableProvisionalIdentity": "FAIL",
+    "effectEvidence": "INSUFFICIENT_POST_V4_SAMPLE"
+  },
+  "limitations": [
+    "All 55 existing diagnosis facts were created before Flyway V4, so they cannot measure V4 outcome impact.",
+    "Only 2 of 55 existing facts are FORMAL; this is a baseline for later navigation and candidate-governance work, not evidence that V4 failed.",
+    "The 12 analyses without advice cannot be projected without inventing new model output and are excluded from the projection-completeness denominator.",
+    "The existing evidence backfill also creates missing feedback revisions and links events; those are expected derived-evidence changes, while feedback content remains unchanged."
+  ],
+  "sources": [
+    "submission_analyses.report_json",
+    "submission_diagnosis_facts",
+    "ai_standard_library_growth_candidates",
+    "informatics_knowledge_nodes",
+    "student_ai_feedbacks",
+    "student_ai_feedback_revisions",
+    "student_ai_feedback_events",
+    "submission_issue_transitions"
+  ]
+}

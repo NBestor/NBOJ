@@ -1,0 +1,36 @@
+name: Deploy online judge manually
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: online-judge-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Build and deploy on server with explicit confirmation
+        env:
+          DEPLOY_HOST: ${{ secrets.OJ_DEPLOY_HOST }}
+          DEPLOY_KEY: ${{ secrets.OJ_DEPLOY_SSH_KEY }}
+          DEPLOY_PORT: ${{ secrets.OJ_DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.OJ_DEPLOY_USER }}
+        run: |
+          set -euo pipefail
+
+          port="${DEPLOY_PORT:-22}"
+          mkdir -p ~/.ssh
+          install -m 600 /dev/null ~/.ssh/online-judge-deploy
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/online-judge-deploy
+          ssh-keyscan -p "$port" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+          ssh \
+            -i ~/.ssh/online-judge-deploy \
+            -p "$port" \
+            -o IdentitiesOnly=yes \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "deploy-online-judge --confirm-build"

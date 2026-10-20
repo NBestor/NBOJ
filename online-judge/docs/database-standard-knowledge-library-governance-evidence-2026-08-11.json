@@ -1,0 +1,55 @@
+{
+  "auditDate": "2026-08-11",
+  "scope": "standard and knowledge library stock governance",
+  "migration": "V12__govern_standard_knowledge_library_quality.sql",
+  "sourceSnapshot": "backups/onlinejudge-20260715-010407.sql restored to isolated PostgreSQL 16 and advanced through V11",
+  "stableBoundaries": {
+    "stableCodesChanged": 0,
+    "knowledgeParentRelationshipsChanged": 0,
+    "businessFactsChanged": 0,
+    "newKnowledgeNodes": 0,
+    "newSkillUnits": 0,
+    "newMistakePoints": 0,
+    "newImprovementPoints": 0,
+    "newApplicationScenarios": 0
+  },
+  "enabledTotalsAfter": {
+    "knowledgeNodes": 737,
+    "skillUnits": 188,
+    "mistakePoints": 524,
+    "improvementPoints": 185,
+    "applicationScenarios": 130
+  },
+  "qualityComparison": {
+    "knowledgeDuplicateExtraRows": { "before": 18, "after": 0 },
+    "mistakeDuplicateExtraRows": { "before": 1, "after": 0 },
+    "metaRepairInstructions": { "before": 358, "after": 0 },
+    "actionableFormalLegacyRepairs": { "before": 0, "after": 348, "distinctAfter": 348 },
+    "compatibilityRoutingContracts": { "before": 0, "after": 10 },
+    "templateKnowledgeDescriptions": { "before": 406, "after": 384 },
+    "v11TransferPairsWithSameTeacherMove": { "before": 48, "after": 0 },
+    "v11DistinctTeacherMoves": { "before": 48, "after": 96 },
+    "normalizedFlatSnapshotMismatches": { "before": 0, "after": 0 },
+    "repairTextCharacterDelta": 26669
+  },
+  "verification": {
+    "isolatedV12Transaction": "PASS",
+    "rawV12SqlReplay": "PASS",
+    "v12QualityMetrics": "PASS",
+    "flywayV1ToV12": "PASS",
+    "repeatStartup": "PASS",
+    "explicitLegacyBaseline": "PASS",
+    "hibernateSchemaValidation": "PASS",
+    "schemaDriftBlocking": "PASS",
+    "backendTests": { "tests": 687, "failures": 0, "errors": 0, "skipped": 9 },
+    "openSpecChangeStrictValidation": "PASS",
+    "openSpecAllValidation": {
+      "passed": 113,
+      "failed": 1,
+      "unrelatedExistingWarning": "spec/class-learning-overview Purpose section is too brief"
+    },
+    "shellSyntax": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "historicalSnapshotLimitation": "The 2026-07-15 snapshot is missing one later V3 improvement point, so three pre-existing full-gate metrics remain failed; V12-specific metrics all pass and V12 does not alter that unrelated historical gap."
+}

@@ -1,0 +1,463 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "数据库学科质量阶段验收",
+    "description": "评估前三批学科质量升级是否成立，并验收 Flyway V5 对诊断事实、稳定身份、反馈版本和生命周期证据链的增强结果。",
+    "generatedAt": "2026-07-16T15:12:00Z",
+    "sources": [
+      { "id": "production-evidence-v5", "label": "生产 V5 阶段验收证据", "path": "docs/database-diagnosis-evidence-v5-report-2026-07-16/production-evidence.json" },
+      { "id": "v4-baseline", "label": "生产 V4 诊断证据基线", "path": "docs/database-diagnosis-evidence-v5-baseline-2026-07-16.json" },
+      { "id": "migration-v5", "label": "Flyway V5 诊断证据质量迁移", "path": "src/main/resources/db/migration/V5__strengthen_diagnosis_evidence_quality.sql" },
+      { "id": "evidence-gate-v5", "label": "诊断证据质量门禁", "path": "scripts/check-diagnosis-evidence-quality.sh" },
+      { "id": "backfill-v5", "label": "提交证据幂等回填服务", "path": "src/main/java/com/onlinejudge/submission/application/SubmissionEvidenceBackfillService.java" }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# 数据库学科质量阶段验收"
+      },
+      {
+        "id": "executive-summary",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## Executive Summary\n\n- **前三批学科升级可以保留。** 当前 84 个精修知识点、3 个学习框架、13 份范围映射和 737 个启用范围节点继续通过内容门禁，结构阻断为 0，没有证据要求回退 V4 内容。\n- **但本阶段不能宣称学习效果已经提升。** V4 发布后新增提交和新增分析均为 0；正式诊断从 2 条变成 4 条来自历史 advice 补投影，不是新学生样本。\n- **因此路线已经从“继续堆内容”切到“先补证据工程”。** V5 把有 advice 的 21 份分析全部投影完整，稳定身份事实从 2 条增至 47 条，反馈版本从 18 条增至 54 条，80 个反馈事件全部连接到版本。\n- **修复结果达到发布条件。** 十二项阻断指标全部为 0，657 项后端测试无失败无错误，隔离恢复、重复回填、生产发布、应用入口和业务计数均通过；下一批内容应等待新的观察样本再决定。"
+      },
+      {
+        "id": "headline-metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "quality-gate",
+          "projection-coverage",
+          "stable-identity",
+          "post-v4-cohort"
+        ]
+      },
+      {
+        "id": "quality-definition",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 先区分三种“质量”\n\n1. **学科内容质量**：知识点、能力点、易错点和提升点是否准确、可教学、可导航。前三批在这一层已经形成明确增量。\n2. **证据工程质量**：一次 AI 分析能否完整投影为事实，事实能否稳定归一，反馈和生命周期能否追溯。本轮 V5 主要解决这一层。\n3. **真实结果质量**：新内容是否提高正式命中、反馈有效性或学生后续表现。由于 V4 后没有新样本，这一层当前只能标记为“证据不足”，不能用前两层代替。"
+      },
+      {
+        "id": "content-assessment",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 学科内容升级站住了，但本轮真正补的是证据链\n\n内容门禁继续确认 84 个累计精修知识点、第二批 30 个和第三批 30 个精修节点、3 个学习框架、13 份范围映射及 737 个启用知识范围节点。V5 没有改题目、测试用例、提交、分析、反馈或成长候选的源事实；它让已有分析可完整投影、可稳定识别、可关联反馈版本，并为后续判断内容效果建立可信观测底座。"
+      },
+      {
+        "id": "evidence-assets-heading",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 证据链从稀疏变为可追踪\n\n诊断事实从 55 条增至 81 条，是把历史 advice 中缺失的 26 条事实确定性补齐；稳定身份事实从 2 条增至 47 条，使同一正式条目或临时候选不再依赖文本指纹；反馈版本和事件连接则补齐“学生看到了哪一版反馈”的审计链。"
+      },
+      {
+        "id": "evidence-assets-chart-block",
+        "type": "chart",
+        "chartId": "evidence-assets-chart"
+      },
+      {
+        "id": "path-composition-heading",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 正式命中仍然很少，不能把工程修复当成学科效果\n\nV5 发布后正式路径只有 4 条，占 81 条事实的 4.94%；临时路径 43 条，未分类 34 条。正式路径从 2 条增至 4 条只是历史投影恢复。由于 V4 安装时间晚于当前最新提交和最新分析，正式命中率是否因内容精修而提高仍完全未知。"
+      },
+      {
+        "id": "path-composition-chart-block",
+        "type": "chart",
+        "chartId": "path-composition-chart"
+      },
+      {
+        "id": "integrity-heading",
+        "type": "markdown",
+        "sourceId": "evidence-gate-v5",
+        "body": "## 数据完整性已经进入可持续门禁\n\n十二项阻断指标全部归零。尤其值得保留的是演练中发现的一条正式错因跨锚点：事实指向的能力点并不拥有该规范易错点。修复后以正式标准库条目的规范归属为真源，迁移和新投影都会统一能力锚点；随后从原始 V4 备份重做演练，跨锚点错误由 1 降为 0。"
+      },
+      {
+        "id": "quality-gate-table-block",
+        "type": "table",
+        "tableId": "quality-gate-table"
+      },
+      {
+        "id": "business-stability-heading",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 修复没有改写核心业务事实\n\n题目、测试用例、提交、分析、学生 AI 反馈和成长候选发布前后完全一致。生命周期 transition 从 23 条变成 21 条，是稳定身份重建后合并了重复派生历史；21 条均有不同 identity key，空 key、重复组和缺失提交关联全部为 0，不是源证据丢失。"
+      },
+      {
+        "id": "business-stability-table-block",
+        "type": "table",
+        "tableId": "business-stability-table"
+      },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 下一步：先观察新样本，再决定第四批学科内容\n\n1. **冻结泛化扩充，单独观察 V4 后的新 cohort。** 累计至少 30 份新分析，并尽量覆盖不少于 5 道题、3 名学生后，再做第一次人工复核；这是务实观察触发线，不是统计显著性承诺。\n2. **只比较新样本的四个指标。** 正式路径占比、临时候选重复出现率、同一稳定问题的持续/解决变化、教师校正率；历史回填数据不得混入效果分子。\n3. **用重复临时候选反推第四批。** 多个独立提交反复命中的 provisional code，经证据、父知识点和教师复核确认后，才进入正式标准库或成为第四批精修对象。\n4. **保持 V5 门禁。** 后续投影缺失、身份漂移、正式跨锚点、反馈版本断链或生命周期重复任一非零，都先修数据链，不继续扩内容。"
+      },
+      {
+        "id": "further-questions",
+        "type": "markdown",
+        "body": "## 进一步问题\n\n- 新 cohort 中，第三批精修的 ALGO 与 DS 分支是否真的更容易命中正式条目？\n- 43 条临时路径里，哪些 code 会跨学生、跨题目重复出现，哪些只是单次措辞变化？\n- 教师校正最常发生在错因、知识路径、证据引用还是反馈内容，能否反向定位标准库缺口？\n- 稳定身份建立后，同一问题的 `NEW → PERSISTED → RESOLVED` 是否与学生真实后续表现一致？"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 口径与限制\n\nV4 后没有新提交或新分析，因此本报告不评价学习效果。新增 26 条事实来自历史 advice 的确定性回填，不是新模型输出；12 份没有 advice 的分析被排除在投影完整率分母外，强行生成事实会制造证据。生命周期 23→21 是稳定身份重建后的派生合并。报告是 2026 年 7 月 16 日生产发布后的静态快照，不是实时看板。"
+      },
+      {
+        "id": "verification",
+        "type": "markdown",
+        "sourceId": "production-evidence-v5",
+        "body": "## 发布验证\n\n发布前备份已校验 SHA-256 并完成独立恢复；候选镜像在恢复库执行 V5、预览、正式回填和重复回填，重复运行新增量为 0。生产 Flyway 成功到版本 5，应用与 Nginx 均返回 HTTP 200。后端完整回归 657 项，0 failure、0 error，9 项按环境条件跳过；空库 V1→V5、幂等启动、baseline guard、drift block、内容门禁、学科门禁和证据门禁全部通过。"
+      }
+    ],
+    "cards": [
+      {
+        "id": "quality-gate",
+        "description": "投影、身份、标准库归属、反馈版本和生命周期的发布阻断检查。",
+        "dataset": "headline",
+        "sourceId": "evidence-gate-v5",
+        "metrics": [
+          { "label": "通过门禁", "field": "blockers_passed", "format": "number" },
+          { "label": "门禁总数", "field": "blockers_total", "format": "number" }
+        ]
+      },
+      {
+        "id": "projection-coverage",
+        "description": "只统计保存了 advice 的分析；无 advice 分析不制造事实。",
+        "dataset": "headline",
+        "sourceId": "production-evidence-v5",
+        "metrics": [
+          { "label": "已完整投影分析", "field": "projected_analyses", "format": "number" },
+          { "label": "有 advice 分析", "field": "analyses_with_advice", "format": "number" }
+        ]
+      },
+      {
+        "id": "stable-identity",
+        "description": "使用 FORMAL_ID 或 PROVISIONAL_ID 的事实，可跨重复投影稳定归一。",
+        "dataset": "headline",
+        "sourceId": "production-evidence-v5",
+        "metrics": [
+          { "label": "稳定身份事实", "field": "stable_identity_facts", "format": "number" },
+          { "label": "全部诊断事实", "field": "diagnosis_facts", "format": "number" }
+        ]
+      },
+      {
+        "id": "post-v4-cohort",
+        "description": "V4 学科升级后可用于评价真实效果的新数据。",
+        "dataset": "headline",
+        "sourceId": "production-evidence-v5",
+        "metrics": [
+          { "label": "V4 后新分析", "field": "post_v4_analyses", "format": "number" },
+          { "label": "V4 后新提交", "field": "post_v4_submissions", "format": "number" }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "evidence-assets-chart",
+        "title": "证据资产：V4 基线与 V5 发布后",
+        "subtitle": "事实增长来自历史 advice 补投影；稳定身份、反馈版本和事件连接反映可追踪性增强。",
+        "type": "bar",
+        "dataset": "evidence_assets",
+        "sourceId": "production-evidence-v5",
+        "encodings": {
+          "x": { "field": "metric", "type": "nominal", "label": "证据资产" },
+          "y": { "field": "rows", "type": "quantitative", "label": "行数" },
+          "color": { "field": "stage", "type": "nominal", "label": "阶段" },
+          "tooltip": [
+            { "field": "stage", "type": "nominal", "label": "阶段" },
+            { "field": "rows", "type": "quantitative", "label": "行数" },
+            { "field": "interpretation", "type": "nominal", "label": "口径" }
+          ]
+        },
+        "valueFormat": "number",
+        "maxRows": 12
+      },
+      {
+        "id": "path-composition-chart",
+        "title": "诊断路径构成：V4 基线与 V5 发布后",
+        "subtitle": "百分比堆叠显示三类路径内部构成；正式路径仍不足 5%。",
+        "type": "stackedBar100",
+        "dataset": "path_composition",
+        "sourceId": "production-evidence-v5",
+        "encodings": {
+          "x": { "field": "stage", "type": "nominal", "label": "阶段" },
+          "y": { "field": "rows", "type": "quantitative", "label": "事实数" },
+          "color": { "field": "status", "type": "nominal", "label": "诊断路径" },
+          "tooltip": [
+            { "field": "status", "type": "nominal", "label": "诊断路径" },
+            { "field": "rows", "type": "quantitative", "label": "事实数" },
+            { "field": "share", "type": "quantitative", "format": "percent", "label": "阶段占比" }
+          ]
+        },
+        "valueFormat": "percent",
+        "maxRows": 8
+      }
+    ],
+    "tables": [
+      {
+        "id": "quality-gate-table",
+        "title": "十二项诊断证据阻断门禁",
+        "subtitle": "“基线/发现时”列区分原始 V4 基线与首次演练发现；发布目标统一为 0。",
+        "dataset": "quality_gate",
+        "sourceId": "evidence-gate-v5",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "compact",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "metric", "label": "阻断指标", "type": "text" },
+          { "field": "before", "label": "基线 / 发现时", "type": "text" },
+          { "field": "after", "label": "V5 发布后", "format": "number" },
+          { "field": "target", "label": "目标", "format": "number" },
+          { "field": "result", "label": "结果", "type": "text" }
+        ]
+      },
+      {
+        "id": "business-stability-table",
+        "title": "核心业务事实发布前后计数",
+        "subtitle": "V5 只修复派生证据链，不修改题目、提交、分析、反馈或成长候选源事实。",
+        "dataset": "business_stability",
+        "sourceId": "production-evidence-v5",
+        "defaultSort": { "field": "priority", "direction": "asc" },
+        "density": "compact",
+        "columns": [
+          { "field": "priority", "label": "顺序", "format": "number" },
+          { "field": "object", "label": "业务对象", "type": "text" },
+          { "field": "before", "label": "发布前", "format": "number" },
+          { "field": "after", "label": "发布后", "format": "number" },
+          { "field": "result", "label": "结果", "type": "text" }
+        ]
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-07-16T15:12:00Z",
+    "status": "ready",
+    "datasets": {
+      "headline": [
+        {
+          "blockers_passed": 12,
+          "blockers_total": 12,
+          "projected_analyses": 21,
+          "analyses_with_advice": 21,
+          "stable_identity_facts": 47,
+          "diagnosis_facts": 81,
+          "post_v4_analyses": 0,
+          "post_v4_submissions": 0
+        }
+      ],
+      "evidence_assets": [
+        { "priority": 1, "metric": "诊断事实", "stage": "V4 基线", "rows": 55, "interpretation": "已有投影事实" },
+        { "priority": 2, "metric": "诊断事实", "stage": "V5 发布后", "rows": 81, "interpretation": "补齐历史 advice 的 26 条确定性投影" },
+        { "priority": 3, "metric": "稳定身份事实", "stage": "V4 基线", "rows": 2, "interpretation": "仅正式 ID 稳定" },
+        { "priority": 4, "metric": "稳定身份事实", "stage": "V5 发布后", "rows": 47, "interpretation": "4 条正式 ID 加 43 条临时候选 ID" },
+        { "priority": 5, "metric": "反馈版本", "stage": "V4 基线", "rows": 18, "interpretation": "36 条反馈没有版本" },
+        { "priority": 6, "metric": "反馈版本", "stage": "V5 发布后", "rows": 54, "interpretation": "历史反馈版本链补齐" },
+        { "priority": 7, "metric": "已关联反馈事件", "stage": "V4 基线", "rows": 29, "interpretation": "80 个事件中 51 个未关联版本" },
+        { "priority": 8, "metric": "已关联反馈事件", "stage": "V5 发布后", "rows": 80, "interpretation": "所有反馈事件均关联版本" }
+      ],
+      "path_composition": [
+        { "priority": 1, "stage": "V4 基线", "status": "正式 FORMAL", "rows": 2, "share": 0.036364 },
+        { "priority": 2, "stage": "V4 基线", "status": "临时 PROVISIONAL", "rows": 33, "share": 0.6 },
+        { "priority": 3, "stage": "V4 基线", "status": "未分类 UNCLASSIFIED", "rows": 20, "share": 0.363636 },
+        { "priority": 4, "stage": "V5 发布后", "status": "正式 FORMAL", "rows": 4, "share": 0.049383 },
+        { "priority": 5, "stage": "V5 发布后", "status": "临时 PROVISIONAL", "rows": 43, "share": 0.530864 },
+        { "priority": 6, "stage": "V5 发布后", "status": "未分类 UNCLASSIFIED", "rows": 34, "share": 0.419753 }
+      ],
+      "quality_gate": [
+        { "priority": 1, "metric": "有 advice 分析投影不完整", "before": "7", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 2, "metric": "advice 缺失事实行", "before": "26", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 3, "metric": "临时候选身份不一致", "before": "33", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 4, "metric": "临时事实缺少稳定 code", "before": "33", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 5, "metric": "临时事实父知识点无效", "before": "0", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 6, "metric": "正式事实条目无效", "before": "0", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 7, "metric": "正式事实跨锚点", "before": "首次演练发现 1", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 8, "metric": "library fit 未知", "before": "55", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 9, "metric": "latest revision 关联无效", "before": "V5 前 36 条反馈无版本", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 10, "metric": "事件 revision 关联无效", "before": "V5 前 51 个事件未关联", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 11, "metric": "生命周期重复 identity 组", "before": "V5 前未按稳定身份重建", "after": 0, "target": 0, "result": "PASS" },
+        { "priority": 12, "metric": "生命周期空 identity key", "before": "V5 前未按稳定身份重建", "after": 0, "target": 0, "result": "PASS" }
+      ],
+      "business_stability": [
+        { "priority": 1, "object": "题目 problems", "before": 16, "after": 16, "result": "无变化" },
+        { "priority": 2, "object": "测试用例 test_cases", "before": 45, "after": 45, "result": "无变化" },
+        { "priority": 3, "object": "提交 submissions", "before": 52, "after": 52, "result": "无变化" },
+        { "priority": 4, "object": "提交分析 submission_analyses", "before": 33, "after": 33, "result": "无变化" },
+        { "priority": 5, "object": "学生 AI 反馈 student_ai_feedbacks", "before": 52, "after": 52, "result": "无变化" },
+        { "priority": 6, "object": "成长候选 growth_candidates", "before": 40, "after": 40, "result": "无变化" }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "production-evidence-v5",
+      "label": "生产 V5 阶段验收证据",
+      "path": "docs/database-diagnosis-evidence-v5-report-2026-07-16/production-evidence.json",
+      "query": {
+        "engine": "PostgreSQL 16 and Spring Boot",
+        "language": "SQL, HTTP and release audit",
+        "id": "diagnosis-evidence-v5-production-acceptance-20260716",
+        "executed_at": "2026-07-16T15:12:00Z",
+        "description": "对生产 V4 基线、V5 回填前后、核心业务计数、Flyway、应用入口和 V4 后新样本进行同口径验收。",
+        "sql": "SELECT version, success, installed_on FROM flyway_schema_history ORDER BY installed_rank; SELECT classification_status, identity_source, library_fit_status, count(*) FROM submission_diagnosis_facts GROUP BY classification_status, identity_source, library_fit_status; SELECT count(*) FROM submissions WHERE created_at > TIMESTAMP '2026-07-16 12:57:01.485302'; SELECT count(*) FROM submission_analyses WHERE generated_at > TIMESTAMP '2026-07-16 12:57:01.485302';",
+        "tables_used": [
+          "flyway_schema_history",
+          "problems",
+          "test_cases",
+          "submissions",
+          "submission_analyses",
+          "submission_diagnosis_facts",
+          "student_ai_feedbacks",
+          "student_ai_feedback_revisions",
+          "student_ai_feedback_events",
+          "submission_issue_transitions",
+          "ai_standard_library_growth_candidates",
+          "submission_evidence_backfill_batches"
+        ],
+        "filters": [
+          "有 advice 分析才进入事实投影完整率分母",
+          "V4 后样本以 Flyway V4 installed_on 为切点",
+          "核心业务计数在同一生产数据库发布前后比较",
+          "质量门禁的十二项阻断指标必须全部为 0"
+        ],
+        "metric_definitions": [
+          "稳定身份事实 = identity_source 为 FORMAL_ID 或 PROVISIONAL_ID 的事实",
+          "正式路径占比 = classification_status 为 FORMAL 的事实数 / 全部事实数",
+          "V4 后新分析 = generated_at 晚于 V4 installed_on 的提交分析"
+        ]
+      }
+    },
+    {
+      "id": "v4-baseline",
+      "label": "生产 V4 诊断证据基线",
+      "path": "docs/database-diagnosis-evidence-v5-baseline-2026-07-16.json",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL and deterministic JSON projection audit",
+        "id": "diagnosis-evidence-v4-baseline-20260716",
+        "executed_at": "2026-07-16T13:17:00Z",
+        "description": "固化生产 V4 中分析 advice、诊断事实、临时候选、反馈版本、反馈事件和生命周期的发布前基线。",
+        "sql": "SELECT count(*) FROM submission_analyses; SELECT classification_status, count(*) FROM submission_diagnosis_facts GROUP BY classification_status; SELECT count(*) FROM student_ai_feedback_revisions; SELECT count(*) FILTER (WHERE feedback_revision_id IS NOT NULL) FROM student_ai_feedback_events;",
+        "tables_used": [
+          "submission_analyses",
+          "submission_diagnosis_facts",
+          "ai_standard_library_growth_candidates",
+          "student_ai_feedbacks",
+          "student_ai_feedback_revisions",
+          "student_ai_feedback_events",
+          "submission_issue_transitions"
+        ],
+        "filters": [
+          "所有 55 条既有事实必须能按 fact_key 回连 advice",
+          "临时候选 code 必须能回连成长候选和有效父知识点",
+          "无 advice 分析不要求投影事实"
+        ],
+        "metric_definitions": [
+          "缺失事实行 = 保存的 advice 条目数减去可按 fact_key 回连的事实数",
+          "投影缺失分析 = 有 advice 但至少缺一条事实投影的分析"
+        ]
+      }
+    },
+    {
+      "id": "migration-v5",
+      "label": "Flyway V5 诊断证据质量迁移",
+      "path": "src/main/resources/db/migration/V5__strengthen_diagnosis_evidence_quality.sql",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "SQL",
+        "id": "flyway-v5-strengthen-diagnosis-evidence-quality",
+        "executed_at": "2026-07-16T15:10:59Z",
+        "description": "增加 provisional_node_code 和一致性约束，确定性恢复历史临时候选身份，并把正式事实的能力归属统一到规范标准库真源。",
+        "sql": "SELECT provisional_node_code, identity_source, library_fit_status, classification_status, count(*) FROM submission_diagnosis_facts GROUP BY provisional_node_code, identity_source, library_fit_status, classification_status;",
+        "tables_used": [
+          "submission_diagnosis_facts",
+          "submission_analyses",
+          "ai_standard_library_growth_candidates",
+          "ai_standard_library_items",
+          "ai_standard_mistake_points",
+          "informatics_knowledge_nodes"
+        ],
+        "filters": [
+          "临时事实 code 必须存在于成长候选且父节点有效",
+          "正式事实 entry 和 skill 归属必须与规范标准库一致",
+          "identity source 与分类状态必须一致"
+        ],
+        "metric_definitions": [
+          "正式跨锚点 = 正式事实的 skill_unit_id 与规范条目实际所属 skill 不一致",
+          "临时稳定身份 = provisional_node_code 非空且 identity_source = PROVISIONAL_ID"
+        ]
+      }
+    },
+    {
+      "id": "evidence-gate-v5",
+      "label": "诊断证据质量门禁",
+      "path": "scripts/check-diagnosis-evidence-quality.sh",
+      "query": {
+        "engine": "PostgreSQL 16",
+        "language": "Shell and SQL",
+        "id": "diagnosis-evidence-quality-gate-v5",
+        "executed_at": "2026-07-16T15:12:00Z",
+        "description": "验证投影完整、稳定临时候选、正式标准库锚点、library fit、反馈版本关联和生命周期身份的十二项阻断指标。",
+        "sql": "SELECT count(*) FROM submission_diagnosis_facts WHERE library_fit_status IS NULL OR library_fit_status = 'UNKNOWN'; SELECT identity_key, count(*) FROM submission_issue_transitions GROUP BY identity_key HAVING count(*) > 1;",
+        "tables_used": [
+          "submission_analyses",
+          "submission_diagnosis_facts",
+          "ai_standard_library_growth_candidates",
+          "ai_standard_library_items",
+          "ai_standard_mistake_points",
+          "student_ai_feedbacks",
+          "student_ai_feedback_revisions",
+          "student_ai_feedback_events",
+          "submission_issue_transitions"
+        ],
+        "filters": [
+          "十二项阻断指标目标均为 0",
+          "只对有 advice 的分析要求投影完整",
+          "正式条目必须存在且归属锚点一致",
+          "生命周期 identity_key 不得为空或重复"
+        ],
+        "metric_definitions": [
+          "门禁通过 = 十二项阻断查询全部返回 0",
+          "正式跨锚点 = 事实保存的 skill 与规范条目归属 skill 不一致"
+        ]
+      }
+    },
+    {
+      "id": "backfill-v5",
+      "label": "提交证据幂等回填服务",
+      "path": "src/main/java/com/onlinejudge/submission/application/SubmissionEvidenceBackfillService.java",
+      "query": {
+        "engine": "Spring Boot and PostgreSQL 16",
+        "language": "Java and SQL",
+        "id": "submission-evidence-v5-backfill",
+        "executed_at": "2026-07-16T15:11:40Z",
+        "description": "先预览再正式运行历史证据回填，并重复执行验证事实、反馈版本和事件关联的幂等性。",
+        "sql": "SELECT mode, processed_count, success_count, skipped_count, failure_count, created_fact_count, created_revision_count, linked_event_count FROM submission_evidence_backfill_batches ORDER BY created_at;",
+        "tables_used": [
+          "submission_evidence_backfill_batches",
+          "submission_analyses",
+          "submission_diagnosis_facts",
+          "student_ai_feedbacks",
+          "student_ai_feedback_revisions",
+          "student_ai_feedback_events",
+          "submission_issue_transitions"
+        ],
+        "filters": [
+          "执行顺序为 preview、apply、repeat",
+          "重复执行新增事实、版本和事件连接必须均为 0",
+          "失败数必须为 0"
+        ],
+        "metric_definitions": [
+          "幂等回填 = 相同生产状态第二次 apply 不产生新增事实、版本或事件连接",
+          "成功 = 至少完成一项确定性证据修复且没有失败"
+        ]
+      }
+    }
+  ]
+}

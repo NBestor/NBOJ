@@ -1,0 +1,148 @@
+.learning-proof {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.learning-proof__stages {
+  display: grid;
+  grid-template-columns: auto minmax(24px, 1fr) auto minmax(24px, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.learning-proof__stages > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 820;
+  white-space: nowrap;
+}
+
+.learning-proof__stages > span b {
+  width: 23px;
+  height: 23px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+}
+
+.learning-proof__stages > span.is-active,
+.learning-proof__stages > span.is-done {
+  color: var(--ink);
+}
+
+.learning-proof__stages > span.is-done b {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.learning-proof__stages > i {
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.learning-proof__body {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(280px, 1.4fr) minmax(180px, 0.8fr);
+  align-items: start;
+}
+
+.learning-proof__body > div {
+  min-width: 0;
+  min-height: 88px;
+  display: grid;
+  align-content: start;
+  gap: 0.34rem;
+  padding: 0.76rem;
+  border-left: 1px solid var(--line);
+}
+
+.learning-proof__body > div:first-child {
+  border-left: 0;
+}
+
+.learning-proof__body strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+
+.learning-proof__body span,
+.learning-proof__body small,
+.learning-proof__body p,
+.learning-proof__body label {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.learning-proof__reflection form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.learning-proof__reflection textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 0.55rem 0.62rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  color: var(--ink);
+  background: var(--surface-raised);
+  font: inherit;
+  line-height: 1.5;
+}
+
+.learning-proof__primary,
+.learning-proof__target a {
+  width: fit-content;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0 0.68rem;
+  border: 1px solid var(--ink);
+  border-radius: 5px;
+  color: var(--surface);
+  background: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 820;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.learning-proof__primary:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+@media (max-width: 760px) {
+  .learning-proof__stages {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding: 0.65rem;
+  }
+
+  .learning-proof__stages > i {
+    display: none;
+  }
+
+  .learning-proof__body {
+    grid-template-columns: 1fr;
+  }
+
+  .learning-proof__body > div {
+    min-height: 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+}

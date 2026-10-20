@@ -1,0 +1,1925 @@
+[
+  {
+    "caseId": "diagnosis-query-input-missing-loop-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题面有 q 次区间查询，学生代码只读取并输出了一次查询。AI 应定位为输入读取结构和题面不一致，而不是泛泛说前缀和或边界问题；提示学生把题面输入行和代码读取次数逐行对齐，不直接给循环写法。",
+    "rubric": {
+      "expectedSignals": [
+        "INPUT_PARSING",
+        "IO_FORMAT",
+        "q 次",
+        "读取次数",
+        "多次查询"
+      ],
+      "expectedIssueTags": [
+        "IO_FORMAT"
+      ],
+      "expectedFineGrainedTags": [
+        "INPUT_PARSING"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:repeated_input_source_single_read"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "for _ in range(q)",
+        "while q"
+      ]
+    },
+    "qualityNotes": "中等长度真实输入读取错误样本，包含前缀和、函数拆分和无关边界处理，用来检查外部模型能否穿过干扰代码抓住读取次数这一核心错因。",
+    "diagnosis": {
+      "problem": {
+        "id": 7401,
+        "title": "区间和多次查询",
+        "description": "第一行输入 n 和 q，第二行输入 n 个整数。接下来 q 行，每行给出 l 和 r，需要分别输出每次查询区间 [l,r] 的元素和。q 可能大于 1。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "前缀和",
+          "输入读取",
+          "循环"
+        ],
+        "algorithmStrategies": [
+          "前缀和",
+          "多次查询"
+        ],
+        "commonMistakes": [
+          "只读取第一组查询",
+          "把 q 次查询当成一次查询"
+        ],
+        "boundaryTypes": [
+          "q=1",
+          "q>1"
+        ]
+      },
+      "submission": {
+        "id": 740101,
+        "problemId": 7401,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "import sys\n\ndef read_numbers():\n    line = sys.stdin.readline().strip()\n    if not line:\n        return []\n    return list(map(int, line.split()))\n\ndef build_prefix(values):\n    prefix = [0]\n    total = 0\n    for value in values:\n        total += value\n        prefix.append(total)\n    return prefix\n\ndef clamp_pair(left, right, n):\n    if left < 1:\n        left = 1\n    if right > n:\n        right = n\n    return left, right\n\ndef range_sum(prefix, left, right):\n    left, right = clamp_pair(left, right, len(prefix) - 1)\n    return prefix[right] - prefix[left - 1]\n\nn, q = read_numbers()\nnums = read_numbers()\nprefix = build_prefix(nums)\nl, r = read_numbers()\nprint(range_sum(prefix, l, r))"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "5 2\n1 2 3 4 5\n1 3\n2 5",
+          "actualOutput": "6",
+          "expectedOutput": "6\n14",
+          "executionTime": 0.02,
+          "memoryUsed": 2048
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "只处理了一次查询",
+        "summary": "样例包含两次查询，但程序只读取并输出第一组查询结果。",
+        "issueTags": [
+          "IO_FORMAT"
+        ],
+        "fineGrainedTags": [
+          "INPUT_PARSING"
+        ],
+        "evidenceRefs": [
+          "problem:repeated_input_source_single_read",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "把题面输入的每一行和代码中的每次读取按顺序画出来，先找第一处次数不一致的位置。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-multicase-state-reset-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题面是多组数据，学生把 cur 和 best 放在组循环外累计，导致上一组状态污染下一组。AI 应提示检查每组开始前状态是否重置，而不是只说字符串处理错误。",
+    "rubric": {
+      "expectedSignals": [
+        "STATE_RESET",
+        "VARIABLE_INITIALIZATION",
+        "多组",
+        "重置",
+        "状态污染"
+      ],
+      "expectedIssueTags": [
+        "VARIABLE_INITIALIZATION"
+      ],
+      "expectedFineGrainedTags": [
+        "STATE_RESET"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:multi_case_state_before_loop"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "把 best 和 cur 放进循环"
+      ]
+    },
+    "qualityNotes": "真实多测试用例状态污染样本，代码本身有函数封装，错误不在语法而在状态生命周期，用来检查模型是否能给出教学上可追踪的状态表建议。",
+    "diagnosis": {
+      "problem": {
+        "id": 7402,
+        "title": "多组最长连续 1",
+        "description": "第一行输入 T，接下来 T 组数据。每组给出一个只包含 0 和 1 的字符串，请分别输出该组字符串中最长连续 1 的长度。每组数据应独立计算。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "字符串",
+          "多组数据",
+          "状态变量"
+        ],
+        "algorithmStrategies": [
+          "线性扫描"
+        ],
+        "commonMistakes": [
+          "多组数据状态没有重置",
+          "上一组结果影响下一组"
+        ],
+        "boundaryTypes": [
+          "全 0",
+          "连续多组"
+        ]
+      },
+      "submission": {
+        "id": 740201,
+        "problemId": 7402,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "def update_run(ch, cur, best):\n    if ch == '1':\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\n    return cur, best\n\ndef solve_case(text, cur, best):\n    for ch in text.strip():\n        cur, best = update_run(ch, cur, best)\n    return cur, best\n\ndef normalize(text):\n    return ''.join(ch for ch in text if ch in '01')\n\nT = int(input())\nbest = 0\ncur = 0\nfor _ in range(T):\n    s = normalize(input())\n    cur, best = solve_case(s, cur, best)\n    print(best)"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "2\n111\n0",
+          "actualOutput": "3\n3",
+          "expectedOutput": "3\n0",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "多组之间状态没有独立",
+        "summary": "第二组全 0 仍输出 3，说明上一组的 best 留到了下一组。",
+        "issueTags": [
+          "VARIABLE_INITIALIZATION"
+        ],
+        "fineGrainedTags": [
+          "STATE_RESET"
+        ],
+        "evidenceRefs": [
+          "problem:multi_case_state_before_loop",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "只跟踪第二组开始前 cur 和 best 的值，判断它们是否仍带着第一组的信息。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-dp-state-design-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目要求选择若干不相邻位置，学生虽然写了 dp，但状态转移只在上一状态和当前单个值之间取最大，没有表达选择当前值时必须来自更早安全状态。AI 应定位为 DP 状态来源设计不足，不直接给公式。",
+    "rubric": {
+      "expectedSignals": [
+        "DP_STATE_DESIGN",
+        "ALGORITHM_STRATEGY",
+        "状态",
+        "不相邻",
+        "来源"
+      ],
+      "expectedIssueTags": [
+        "ALGORITHM_STRATEGY",
+        "STATE_TRANSITION"
+      ],
+      "expectedFineGrainedTags": [
+        "DP_STATE_DESIGN"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:dp_state_needs_design"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "dp[i - 2] + a[i]",
+        "dp[i-2]+a[i]",
+        "前前位置的最大和",
+        "前前位置最大和"
+      ]
+    },
+    "qualityNotes": "中等长度 DP 误建模样本，代码表面上已经使用 dp，适合检验外部模型能否区分“写了 dp”和“状态足够表达约束”。",
+    "diagnosis": {
+      "problem": {
+        "id": 7403,
+        "title": "不相邻选择最大和",
+        "description": "给定 n 个非负整数，从中选择若干位置，使任意两个被选位置不相邻，求能得到的最大和。需要设计状态表达选择约束和不同来源。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "动态规划",
+          "状态设计"
+        ],
+        "algorithmStrategies": [
+          "DP"
+        ],
+        "commonMistakes": [
+          "状态只记录当前最大值，没有表达选择当前元素的来源"
+        ],
+        "boundaryTypes": [
+          "n=1",
+          "相邻大数"
+        ]
+      },
+      "submission": {
+        "id": 740301,
+        "problemId": 7403,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "def read_ints():\n    return list(map(int, input().split()))\n\ndef choose_best(previous, current):\n    if previous >= current:\n        return previous\n    return current\n\ndef solve(values):\n    n = len(values)\n    if n == 0:\n        return 0\n    dp = [0] * n\n    dp[0] = values[0]\n    for i in range(1, n):\n        skip_current = dp[i - 1]\n        take_current = values[i]\n        dp[i] = choose_best(skip_current, take_current)\n    return dp[-1]\n\nn = int(input())\na = read_ints()\nprint(solve(a))"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "5\n2 7 9 3 1",
+          "actualOutput": "9",
+          "expectedOutput": "12",
+          "executionTime": 0.01,
+          "memoryUsed": 2048
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "DP 状态没有覆盖选择当前值的来源",
+        "summary": "样例中最优结果需要组合不相邻位置，但代码只在历史最大值和当前单值之间比较。",
+        "issueTags": [
+          "ALGORITHM_STRATEGY"
+        ],
+        "fineGrainedTags": [
+          "DP_STATE_DESIGN"
+        ],
+        "evidenceRefs": [
+          "problem:dp_state_needs_design",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先用小样例说明 dp[i] 表示什么，再问选择当前位置时需要从哪个不会相邻的状态来。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-greedy-assumption-counterexample-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题面没有保证贪心性质，学生按面值从大到小选硬币会在 1,3,4 凑 6 时失败。AI 应要求学生构造反例验证贪心假设，而不是直接给动态规划实现。",
+    "rubric": {
+      "expectedSignals": [
+        "GREEDY_ASSUMPTION",
+        "ALGORITHM_STRATEGY",
+        "贪心",
+        "反例",
+        "不保证"
+      ],
+      "expectedIssueTags": [
+        "ALGORITHM_STRATEGY"
+      ],
+      "expectedFineGrainedTags": [
+        "GREEDY_ASSUMPTION"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:greedy_assumption_unproven"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接用 DP",
+        "动态规划代码",
+        "dp 数组"
+      ]
+    },
+    "qualityNotes": "策略假设错误样本，核心不在代码语法，而在没有验证局部最优选择是否成立；适合检验模型能否像老师一样引导学生找反例。",
+    "diagnosis": {
+      "problem": {
+        "id": 7404,
+        "title": "最少硬币数",
+        "description": "给定 m 种硬币面值和目标金额 target，每种硬币数量不限，求凑出 target 的最少硬币数。面值不保证满足贪心性质，不能只根据排序后的最大面值做局部选择。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "算法策略",
+          "反例",
+          "贪心"
+        ],
+        "algorithmStrategies": [
+          "反例验证",
+          "状态设计"
+        ],
+        "commonMistakes": [
+          "默认最大面值优先一定最优",
+          "没有验证贪心假设"
+        ],
+        "boundaryTypes": [
+          "无法凑出",
+          "非规范硬币系统"
+        ]
+      },
+      "submission": {
+        "id": 740401,
+        "problemId": 7404,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "def read_case():\n    m, target = map(int, input().split())\n    coins = list(map(int, input().split()))\n    return m, target, coins\n\ndef normalize(coins):\n    cleaned = []\n    for coin in coins:\n        if coin > 0:\n            cleaned.append(coin)\n    return sorted(cleaned, reverse=True)\n\ndef greedy_count(target, coins):\n    count = 0\n    rest = target\n    for coin in coins:\n        while rest >= coin:\n            rest -= coin\n            count += 1\n        if rest == 0:\n            break\n    if rest != 0:\n        return -1\n    return count\n\nm, target, coins = read_case()\ncoins = normalize(coins)\nprint(greedy_count(target, coins))"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "3 6\n1 3 4",
+          "actualOutput": "3",
+          "expectedOutput": "2",
+          "executionTime": 0.01,
+          "memoryUsed": 2048
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "贪心策略缺少成立条件",
+        "summary": "最大面值优先在 1,3,4 凑 6 时不是最优，说明策略假设被反例破坏。",
+        "issueTags": [
+          "ALGORITHM_STRATEGY"
+        ],
+        "fineGrainedTags": [
+          "GREEDY_ASSUMPTION"
+        ],
+        "evidenceRefs": [
+          "problem:greedy_assumption_unproven",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先写出当前贪心在这个小样例里的选择过程，再找是否存在硬币数更少的组合。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-over-simulation-large-bound-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题面步数最高到 10^9，学生代码仍然按每一步逐次模拟，隐藏大数据会超时。AI 应定位为过度模拟和数量级问题，引导学生估算最大步数下循环次数，而不是直接给公式或完整改法。",
+    "rubric": {
+      "expectedSignals": [
+        "OVER_SIMULATION",
+        "TIME_COMPLEXITY",
+        "10^9",
+        "逐步模拟",
+        "数量级"
+      ],
+      "expectedIssueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "expectedFineGrainedTags": [
+        "OVER_SIMULATION"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:large_bound_step_simulation"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "直接用公式"
+      ]
+    },
+    "qualityNotes": "中等长度过度模拟样本，代码有封装和格式化函数，核心错误是把超大步数按单步执行，适合检验模型能否抓住题面规模和代码行为之间的矛盾。",
+    "diagnosis": {
+      "problem": {
+        "id": 7405,
+        "title": "机器人向右走",
+        "description": "输入起点 start 和步数 k，机器人每一步都向右移动 1 个单位，输出 k 步后的坐标。k 最大可达到 10^9，不能按每一步逐次模拟。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "复杂度",
+          "模拟",
+          "数量级估算"
+        ],
+        "algorithmStrategies": [
+          "规律发现"
+        ],
+        "commonMistakes": [
+          "按 10^9 步逐次模拟",
+          "没有先估算循环次数"
+        ],
+        "boundaryTypes": [
+          "k=0",
+          "k=10^9"
+        ]
+      },
+      "submission": {
+        "id": 740501,
+        "problemId": 7405,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "TIME_LIMIT_EXCEEDED",
+        "sourceCode": "def read_case():\n    start, steps = map(int, input().split())\n    return start, steps\n\ndef normalize_position(value):\n    if value < 0:\n        return 0\n    return value\n\ndef move_once(pos):\n    pos += 1\n    return pos\n\ndef simulate(start, steps):\n    pos = normalize_position(start)\n    used = 0\n    while used < steps:\n        pos = move_once(pos)\n        used += 1\n    return pos\n\ndef format_answer(value):\n    return str(value)\n\nstart, steps = read_case()\nanswer = simulate(start, steps)\nprint(format_answer(answer))"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": true,
+          "hidden": false,
+          "inputSnapshot": "3 4",
+          "actualOutput": "7",
+          "expectedOutput": "7",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        },
+        {
+          "testCaseNumber": 6,
+          "passed": false,
+          "hidden": true,
+          "inputSnapshot": "",
+          "actualOutput": "",
+          "expectedOutput": "",
+          "executionTime": 1.0,
+          "memoryUsed": 2048
+        }
+      ],
+      "baseline": {
+        "scenario": "TLE",
+        "headline": "按超大步数逐次模拟",
+        "summary": "小样例能过，但 k 到 10^9 时 while 循环会执行过多次。",
+        "issueTags": [
+          "TIME_COMPLEXITY"
+        ],
+        "fineGrainedTags": [
+          "OVER_SIMULATION"
+        ],
+        "evidenceRefs": [
+          "problem:large_bound_step_simulation",
+          "verdict:tle"
+        ],
+        "studentHint": "先不改代码，只估算当 k 取最大值时 while 循环会运行多少次。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-empty-input-missing-guard-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题面允许 n=0 的空序列，学生代码会对空列表求最大值导致运行错误。AI 应定位为极小输入保护不足，引导学生手推 n=0 时每个函数收到什么，而不是只泛泛说运行错误。",
+    "rubric": {
+      "expectedSignals": [
+        "EMPTY_INPUT",
+        "BOUNDARY_CONDITION",
+        "n=0",
+        "空序列",
+        "极小输入"
+      ],
+      "expectedIssueTags": [
+        "BOUNDARY_CONDITION",
+        "RUNTIME_STABILITY"
+      ],
+      "expectedFineGrainedTags": [
+        "EMPTY_INPUT"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:empty_input_missing_guard"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "替换为"
+      ]
+    },
+    "qualityNotes": "极小输入样本，错误不是常规数组逻辑，而是题面允许空序列时函数链条缺少保护，适合检验外部模型能否把运行错误还原成边界意识问题。",
+    "diagnosis": {
+      "problem": {
+        "id": 7406,
+        "title": "非负分数最大值",
+        "description": "输入 n 和一个长度为 n 的分数序列，输出其中最大的非负分数；当 n=0 或空序列时输出 0。n=0 是合法输入。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "边界条件",
+          "列表",
+          "函数调用"
+        ],
+        "algorithmStrategies": [
+          "线性扫描"
+        ],
+        "commonMistakes": [
+          "空序列直接求最大值",
+          "没有覆盖 n=0"
+        ],
+        "boundaryTypes": [
+          "n=0",
+          "全负数",
+          "单元素"
+        ]
+      },
+      "submission": {
+        "id": 740601,
+        "problemId": 7406,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "RUNTIME_ERROR",
+        "errorMessage": "ValueError: max() arg is an empty sequence",
+        "sourceCode": "def read_values():\n    n = int(input())\n    if n == 0:\n        return n, []\n    values = list(map(int, input().split()))\n    return n, values\n\ndef filter_scores(values):\n    cleaned = []\n    for value in values:\n        if value >= 0:\n            cleaned.append(value)\n    return cleaned\n\ndef best_score(values):\n    cleaned = filter_scores(values)\n    return max(cleaned)\n\ndef solve():\n    n, values = read_values()\n    ans = best_score(values)\n    print(ans)\n\nsolve()"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "0",
+          "actualOutput": "ValueError: max() arg is an empty sequence",
+          "expectedOutput": "0",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "RE",
+        "headline": "空序列没有被保护",
+        "summary": "n=0 时 values 为空，后续 best_score 仍对空列表求最大值。",
+        "issueTags": [
+          "BOUNDARY_CONDITION"
+        ],
+        "fineGrainedTags": [
+          "EMPTY_INPUT"
+        ],
+        "evidenceRefs": [
+          "problem:empty_input_missing_guard",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "只跟踪 n=0 时 read_values、filter_scores、best_score 分别拿到什么值。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-in-place-swap-single-pass-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目需要把值反复放到目标下标直到当前位置稳定，学生每个下标最多交换一次，交换回来的新值没有继续处理。AI 应定位为原地状态推进不完整，引导学生手推一次交换后的当前位置，而不是直接给 while 写法。",
+    "rubric": {
+      "expectedSignals": [
+        "IN_PLACE_STATE_PROGRESS",
+        "STATE_TRANSITION",
+        "原地",
+        "交换",
+        "当前位置"
+      ],
+      "expectedIssueTags": [
+        "STATE_TRANSITION"
+      ],
+      "expectedFineGrainedTags": [
+        "IN_PLACE_STATE_PROGRESS"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:in_place_swap_single_pass"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "while nums"
+      ]
+    },
+    "qualityNotes": "原地修改类真实错因样本，表面上代码已经做了交换，核心在于循环不变量没有维持到稳定，适合检验模型是否能给出状态推进层面的提示。",
+    "diagnosis": {
+      "problem": {
+        "id": 7407,
+        "title": "第一个缺失的正整数",
+        "description": "给定一个整数数组，把每个合法正整数 x 尽量放到下标 x - 1 的位置，最后找出缺失的第一个正整数。原地调整时要保证当前位置的新值也被处理到稳定。",
+        "difficulty": "HARD",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "原地修改",
+          "循环不变量",
+          "数组"
+        ],
+        "algorithmStrategies": [
+          "原地置换"
+        ],
+        "commonMistakes": [
+          "每个位置只交换一次",
+          "交换后的当前位置没有继续检查"
+        ],
+        "boundaryTypes": [
+          "乱序",
+          "重复值",
+          "连续正整数"
+        ]
+      },
+      "submission": {
+        "id": 740701,
+        "problemId": 7407,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "def parse_nums():\n    n = int(input())\n    nums = list(map(int, input().split()))\n    return n, nums\n\ndef first_missing_positive(nums):\n    n = len(nums)\n    for i in range(n):\n        if 1 <= nums[i] <= n:\n            p = nums[i] - 1\n            if nums[p] != nums[i]:\n                nums[i], nums[p] = nums[p], nums[i]\n    for i in range(n):\n        if nums[i] != i + 1:\n            return i + 1\n    return n + 1\n\ndef solve():\n    n, nums = parse_nums()\n    if n != len(nums):\n        nums = nums[:n]\n    print(first_missing_positive(nums))\n\nsolve()"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "4\n2 3 4 1",
+          "actualOutput": "1",
+          "expectedOutput": "5",
+          "executionTime": 0.01,
+          "memoryUsed": 2048
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "交换后当前位置没有继续处理",
+        "summary": "一次交换可能把新的合法值换到当前位置，但代码直接进入下一个下标。",
+        "issueTags": [
+          "STATE_TRANSITION"
+        ],
+        "fineGrainedTags": [
+          "IN_PLACE_STATE_PROGRESS"
+        ],
+        "evidenceRefs": [
+          "problem:in_place_swap_single_pass",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "手推第一个交换后 nums[i] 变成了什么，判断这个新值是否已经满足当前位置的不变量。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-output-format-trailing-space-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "可见样例只有尾部空格差异，学生算法判断本身没错。AI 应定位为输出格式细节，让学生逐字符比较实际输出和期望输出，不要误判成奇偶逻辑错误。",
+    "rubric": {
+      "expectedSignals": [
+        "OUTPUT_FORMAT_DETAIL",
+        "IO_FORMAT",
+        "空格",
+        "输出格式",
+        "逐字符"
+      ],
+      "expectedIssueTags": [
+        "IO_FORMAT"
+      ],
+      "expectedFineGrainedTags": [
+        "OUTPUT_FORMAT_DETAIL"
+      ],
+      "requiredEvidenceRefs": [
+        "judge:whitespace_mismatch"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "替换为"
+      ]
+    },
+    "qualityNotes": "输出格式样本，算法语义正确但格式多一个空白，适合检验模型是否尊重 actual-vs-expected 的可见证据，而不是过度分析算法。",
+    "diagnosis": {
+      "problem": {
+        "id": 7408,
+        "title": "偶数和判断",
+        "description": "输入 n 和 n 个整数，如果总和为偶数，输出一行 YES，否则输出一行 NO。输出不能包含额外空格。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "输出格式",
+          "条件判断"
+        ],
+        "algorithmStrategies": [
+          "模拟"
+        ],
+        "commonMistakes": [
+          "行尾多余空格",
+          "大小写不一致"
+        ],
+        "boundaryTypes": [
+          "n=1",
+          "和为 0"
+        ]
+      },
+      "submission": {
+        "id": 740801,
+        "problemId": 7408,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "def read_numbers():\n    n = int(input())\n    values = list(map(int, input().split()))\n    if len(values) > n:\n        values = values[:n]\n    return values\n\ndef sum_values(values):\n    total = 0\n    for value in values:\n        total += value\n    return total\n\ndef label(total):\n    if total % 2 == 0:\n        return \"YES\"\n    return \"NO\"\n\ndef solve():\n    values = read_numbers()\n    answer = label(sum_values(values))\n    print(answer, end=\" \")\n\nsolve()"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "3\n1 2 3",
+          "actualOutput": "YES ",
+          "expectedOutput": "YES",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "输出末尾多了空格",
+        "summary": "实际输出和期望输出去掉空白后相同，首要问题是格式细节。",
+        "issueTags": [
+          "IO_FORMAT"
+        ],
+        "fineGrainedTags": [
+          "OUTPUT_FORMAT_DETAIL"
+        ],
+        "evidenceRefs": [
+          "judge:whitespace_mismatch",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "把实际输出和期望输出逐字符写出来，只圈出第一处多余或缺失的字符。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-sample-overfit-hidden-fail-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "样例通过但隐藏测试失败，学生只比较字符串首尾，无法覆盖中间字符。AI 应定位为样例外泛化不足，引导学生构造不同于样例的最小反例，而不是猜隐藏数据。",
+    "rubric": {
+      "expectedSignals": [
+        "SAMPLE_OVERFIT",
+        "SAMPLE_ONLY",
+        "隐藏",
+        "反例",
+        "泛化"
+      ],
+      "expectedIssueTags": [
+        "SAMPLE_ONLY",
+        "BOUNDARY_CONDITION"
+      ],
+      "expectedFineGrainedTags": [
+        "SAMPLE_OVERFIT"
+      ],
+      "requiredEvidenceRefs": [
+        "judge:sample_pass_hidden_fail"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "隐藏测试是",
+        "可见失败样例",
+        "只验证了字符串首尾字符是否相同",
+        "首尾相同但中间不同",
+        "遗漏了对内部字符"
+      ]
+    },
+    "qualityNotes": "样例过拟合样本，评测只暴露隐藏失败而不暴露隐藏数据，适合检验模型能否承认信息边界，并把教学动作转成构造反例。",
+    "diagnosis": {
+      "problem": {
+        "id": 7409,
+        "title": "判断回文串",
+        "description": "输入一个字符串，判断它是否从左到右和从右到左完全相同。字符串长度可能大于 2，大小写敏感。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "字符串",
+          "反例",
+          "泛化"
+        ],
+        "algorithmStrategies": [
+          "双指针",
+          "模拟"
+        ],
+        "commonMistakes": [
+          "只比较首尾字符",
+          "只覆盖样例形态"
+        ],
+        "boundaryTypes": [
+          "长度为 1",
+          "中间字符不同",
+          "偶数长度"
+        ]
+      },
+      "submission": {
+        "id": 740901,
+        "problemId": 7409,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "def normalize(text):\n    return text.strip()\n\ndef looks_palindrome(text):\n    if len(text) <= 1:\n        return True\n    left = text[0]\n    right = text[-1]\n    if left == right:\n        return True\n    return False\n\ndef to_answer(value):\n    if value:\n        return \"YES\"\n    return \"NO\"\n\ndef solve():\n    s = normalize(input())\n    ok = looks_palindrome(s)\n    print(to_answer(ok))\n\nsolve()"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": true,
+          "hidden": false,
+          "inputSnapshot": "aba",
+          "actualOutput": "YES",
+          "expectedOutput": "YES",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        },
+        {
+          "testCaseNumber": 4,
+          "passed": false,
+          "hidden": true,
+          "inputSnapshot": "",
+          "actualOutput": "",
+          "expectedOutput": "",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "只覆盖了样例形态",
+        "summary": "公开样例通过，但隐藏测试失败；代码只比较首尾，缺少对完整字符串的泛化验证。",
+        "issueTags": [
+          "SAMPLE_ONLY"
+        ],
+        "fineGrainedTags": [
+          "SAMPLE_OVERFIT"
+        ],
+        "evidenceRefs": [
+          "judge:sample_pass_hidden_fail",
+          "judge:hidden_failure"
+        ],
+        "studentHint": "不要猜隐藏数据，先自己构造一个首尾相同但中间不同的最小字符串，手推当前判断过程。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-max-boundary-linear-loop-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题面 n 最高到 10^9，学生从 1 到 n 逐个枚举因子，最大规模必然超时。AI 应定位为最大规模边界和复杂度估算问题，引导学生估算循环数量，不直接给数学优化方法。",
+    "rubric": {
+      "expectedSignals": [
+        "MAX_BOUNDARY",
+        "TIME_COMPLEXITY",
+        "10^9",
+        "最大规模",
+        "循环次数"
+      ],
+      "expectedIssueTags": [
+        "TIME_COMPLEXITY",
+        "BOUNDARY_CONDITION"
+      ],
+      "expectedFineGrainedTags": [
+        "MAX_BOUNDARY"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:max_bound_linear_loop"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "平方根",
+        "sqrt"
+      ]
+    },
+    "qualityNotes": "最大规模边界样本，与过度模拟不同，这里代码是在做看似合理的完整枚举；重点检验模型是否先做数量级判断，而不是直接给数论技巧。",
+    "diagnosis": {
+      "problem": {
+        "id": 7410,
+        "title": "因子个数",
+        "description": "输入一个正整数 n，输出它的正因子个数。n 最大可达到 10^9，时间限制 1 秒，需要先考虑最大规模下循环是否可承受。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "复杂度",
+          "数学",
+          "最大规模"
+        ],
+        "algorithmStrategies": [
+          "数量级估算"
+        ],
+        "commonMistakes": [
+          "从 1 枚举到 n",
+          "没有考虑最大边界"
+        ],
+        "boundaryTypes": [
+          "n=1",
+          "n=10^9",
+          "大质数"
+        ]
+      },
+      "submission": {
+        "id": 741001,
+        "problemId": 7410,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "TIME_LIMIT_EXCEEDED",
+        "sourceCode": "def read_n():\n    return int(input())\n\ndef divides(n, d):\n    return n % d == 0\n\ndef count_divisors(n):\n    total = 0\n    for d in range(1, n + 1):\n        if divides(n, d):\n            total += 1\n    return total\n\ndef explain_small(n):\n    values = []\n    for d in range(1, min(n, 5) + 1):\n        if divides(n, d):\n            values.append(d)\n    return values\n\ndef solve():\n    n = read_n()\n    preview = explain_small(n)\n    answer = count_divisors(n)\n    print(answer)\n\nsolve()"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": true,
+          "hidden": false,
+          "inputSnapshot": "6",
+          "actualOutput": "4",
+          "expectedOutput": "4",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        },
+        {
+          "testCaseNumber": 7,
+          "passed": false,
+          "hidden": true,
+          "inputSnapshot": "",
+          "actualOutput": "",
+          "expectedOutput": "",
+          "executionTime": 1.0,
+          "memoryUsed": 2048
+        }
+      ],
+      "baseline": {
+        "scenario": "TLE",
+        "headline": "最大 n 下线性枚举不可承受",
+        "summary": "小数据能过，但 n 到 10^9 时核心循环接近十亿次。",
+        "issueTags": [
+          "TIME_COMPLEXITY"
+        ],
+        "fineGrainedTags": [
+          "MAX_BOUNDARY"
+        ],
+        "evidenceRefs": [
+          "problem:max_bound_linear_loop",
+          "verdict:tle"
+        ],
+        "studentHint": "先估算 n 取最大值时 count_divisors 的循环次数，再和 1 秒限制比较。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-off-by-one-sum",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "学生把 1 到 n 求和写成 range(1, n)，核心错因是循环右边界少算 n。AI 应提示用 n=1 或 n=3 手推边界，不应直接给改法。",
+    "rubric": {
+      "expectedSignals": [
+        "LOOP_BOUNDARY",
+        "OFF_BY_ONE",
+        "range"
+      ],
+      "expectedIssueTags": [
+        "LOOP_BOUNDARY",
+        "BOUNDARY_CONDITION"
+      ],
+      "expectedFineGrainedTags": [
+        "OFF_BY_ONE"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:inclusive_range_source_excludes_n"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "range(1, n + 1)"
+      ]
+    },
+    "qualityNotes": "典型边界样本，用来检查外部模型是否会越过 L2 提示直接告诉学生答案。",
+    "diagnosis": {
+      "problem": {
+        "id": 7101,
+        "title": "求 1 到 n 的和",
+        "description": "输入一个正整数 n，输出 1 到 n 所有整数的和。n 至少为 1。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "循环",
+          "边界"
+        ],
+        "algorithmStrategies": [
+          "模拟"
+        ],
+        "commonMistakes": [
+          "range 右端点不包含 n"
+        ],
+        "boundaryTypes": [
+          "n=1",
+          "最小值"
+        ]
+      },
+      "submission": {
+        "id": 710101,
+        "problemId": 7101,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "n = int(input())\nans = 0\nfor i in range(1, n):\n    ans += i\nprint(ans)"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "1",
+          "actualOutput": "0",
+          "expectedOutput": "1",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "边界样例不通过",
+        "summary": "最小输入 n=1 时输出偏小。",
+        "issueTags": [
+          "BOUNDARY_CONDITION"
+        ],
+        "fineGrainedTags": [],
+        "evidenceRefs": [
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先用最小样例手推循环实际执行了哪些数。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-brute-force-tle",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "学生使用双层循环统计更大元素，n 最大 200000 时会超时。AI 应让学生估算最大规模操作次数，而不是直接给树状数组或排序方案。",
+    "rubric": {
+      "expectedSignals": [
+        "TIME_COMPLEXITY",
+        "BRUTE_FORCE_LIMIT",
+        "200000"
+      ],
+      "expectedIssueTags": [
+        "TIME_COMPLEXITY"
+      ],
+      "expectedFineGrainedTags": [
+        "BRUTE_FORCE_LIMIT"
+      ],
+      "requiredEvidenceRefs": [
+        "code:nested_loop",
+        "verdict:tle"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "树状数组代码",
+        "直接用排序"
+      ]
+    },
+    "qualityNotes": "复杂度类样本，用来检查 AI 是否能把 TLE 解释为数量级问题，而不是泛泛说优化算法。",
+    "diagnosis": {
+      "problem": {
+        "id": 7102,
+        "title": "统计更大元素",
+        "description": "给定 n 个整数，统计每个元素右侧比它大的元素数量总和，n 最大为 200000。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "复杂度",
+          "数组"
+        ],
+        "algorithmStrategies": [
+          "计数",
+          "数据结构优化"
+        ],
+        "commonMistakes": [
+          "双层循环暴力"
+        ],
+        "boundaryTypes": [
+          "最大 n"
+        ]
+      },
+      "submission": {
+        "id": 710201,
+        "problemId": 7102,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "TIME_LIMIT_EXCEEDED",
+        "sourceCode": "n = int(input())\na = list(map(int, input().split()))\nans = 0\nfor i in range(n):\n    for j in range(i + 1, n):\n        if a[j] > a[i]:\n            ans += 1\nprint(ans)"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": true,
+          "hidden": false,
+          "inputSnapshot": "3\n1 3 2",
+          "actualOutput": "2",
+          "expectedOutput": "2",
+          "executionTime": 0.02,
+          "memoryUsed": 2048
+        },
+        {
+          "testCaseNumber": 5,
+          "passed": false,
+          "hidden": true,
+          "inputSnapshot": "",
+          "actualOutput": "",
+          "expectedOutput": "",
+          "executionTime": 1.0,
+          "memoryUsed": 4096
+        }
+      ],
+      "baseline": {
+        "scenario": "TLE",
+        "headline": "最大规模下超时",
+        "summary": "样例能过，但隐藏大数据超时。",
+        "issueTags": [
+          "TIME_COMPLEXITY"
+        ],
+        "fineGrainedTags": [],
+        "evidenceRefs": [
+          "verdict:tle"
+        ],
+        "studentHint": "先估算双层循环在最大 n 下的次数。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-recursion-base-case-missing-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目要求递归计算树的深度，学生只递归左右子树但没有处理空节点出口，空树或叶子子节点会运行错误。AI 应定位为递归出口缺失，引导学生先手推 None/空节点进入函数时会发生什么，不直接给完整函数。",
+    "rubric": {
+      "expectedSignals": [
+        "RECURSION_BASE_CASE",
+        "递归出口",
+        "空节点",
+        "None"
+      ],
+      "expectedIssueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "expectedFineGrainedTags": [
+        "RECURSION_BASE_CASE"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:recursive_empty_node",
+        "verdict:runtime_error"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "if root is None",
+        "return 0"
+      ]
+    },
+    "qualityNotes": "递归出口样本，用来检查 AI 是否能从运行错误中定位到基础层递归边界，而不是泛泛说空指针或直接给出口写法。",
+    "diagnosis": {
+      "problem": {
+        "id": 7413,
+        "title": "二叉树深度",
+        "description": "给定一棵二叉树，请输出它的最大深度。空树深度为 0，只有根节点的树深度为 1。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "递归",
+          "二叉树",
+          "边界条件"
+        ],
+        "algorithmStrategies": [
+          "递归求解"
+        ],
+        "commonMistakes": [
+          "递归出口缺失",
+          "空节点未处理"
+        ],
+        "boundaryTypes": [
+          "空树",
+          "叶子节点"
+        ]
+      },
+      "submission": {
+        "id": 741301,
+        "problemId": 7413,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "RUNTIME_ERROR",
+        "sourceCode": "class Node:\n    def __init__(self, val, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef depth(root):\n    left_depth = depth(root.left)\n    right_depth = depth(root.right)\n    if left_depth > right_depth:\n        return left_depth + 1\n    return right_depth + 1\n\nroot = None\nprint(depth(root))"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "empty tree",
+          "actualOutput": "AttributeError: 'NoneType' object has no attribute 'left'",
+          "expectedOutput": "0",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "RE",
+        "headline": "递归没有处理空节点",
+        "summary": "root 为 None 时仍访问 root.left，导致运行错误。",
+        "issueTags": [
+          "RUNTIME_STABILITY"
+        ],
+        "fineGrainedTags": [
+          "RECURSION_BASE_CASE"
+        ],
+        "evidenceRefs": [
+          "problem:recursive_empty_node",
+          "verdict:runtime_error",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先手推 depth 收到空节点时，第一行会访问什么对象。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-binary-search-boundary-stuck-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目要求查找第一个大于等于 x 的位置，学生二分更新边界时没有保证区间缩小，某些情况下会死循环。AI 应定位为二分边界推进不完整，引导学生跟踪 left/right/mid 的变化，不直接给标准二分模板。",
+    "rubric": {
+      "expectedSignals": [
+        "BINARY_SEARCH_BOUNDARY",
+        "二分",
+        "区间缩小",
+        "left",
+        "right",
+        "mid"
+      ],
+      "expectedIssueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "expectedFineGrainedTags": [
+        "BINARY_SEARCH_BOUNDARY"
+      ],
+      "requiredEvidenceRefs": [
+        "code:binary_search_loop",
+        "verdict:tle"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成"
+      ]
+    },
+    "qualityNotes": "二分边界推进样本，用来检查模型是否能把 TLE 归因到边界更新不收缩，而不是泛泛说复杂度或排序。",
+    "diagnosis": {
+      "problem": {
+        "id": 7414,
+        "title": "第一个不小于 x 的位置",
+        "description": "给定一个升序数组和查询值 x，输出数组中第一个大于等于 x 的位置编号；如果不存在，输出 -1。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "二分查找",
+          "循环边界",
+          "单调性"
+        ],
+        "algorithmStrategies": [
+          "二分查找"
+        ],
+        "commonMistakes": [
+          "边界更新不收缩",
+          "左右边界含义不清"
+        ],
+        "boundaryTypes": [
+          "重复元素",
+          "目标在端点"
+        ]
+      },
+      "submission": {
+        "id": 741401,
+        "problemId": 7414,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "TIME_LIMIT_EXCEEDED",
+        "sourceCode": "n, x = map(int, input().split())\na = list(map(int, input().split()))\nleft = 0\nright = n - 1\nans = -1\nwhile left < right:\n    mid = (left + right) // 2\n    if a[mid] >= x:\n        ans = mid\n        right = mid - 1\n    else:\n        left = mid\nprint(ans + 1 if ans != -1 else -1)"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "2 3\n1 5",
+          "actualOutput": "TIME_LIMIT_EXCEEDED",
+          "expectedOutput": "2",
+          "executionTime": 1.0,
+          "memoryUsed": 2048
+        }
+      ],
+      "baseline": {
+        "scenario": "TLE",
+        "headline": "二分边界没有稳定缩小",
+        "summary": "当 left=0,right=1 且 a[mid]<x 时，mid 仍为 0，left 不变，循环无法结束。",
+        "issueTags": [
+          "RUNTIME_STABILITY"
+        ],
+        "fineGrainedTags": [
+          "BINARY_SEARCH_BOUNDARY"
+        ],
+        "evidenceRefs": [
+          "code:binary_search_loop",
+          "verdict:tle",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "只跟踪 left、right、mid 三个变量，看每一轮区间长度有没有变小。",
+        "answerLeakRisk": "MEDIUM"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-sort-key-numeric-string-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目要求按数字大小排序，学生把数字字符串直接排序，导致按字典序比较。AI 应定位为数据表示与比较规则不一致，引导学生比较字符串排序和数值排序的差异，不直接给完整转换代码。",
+    "rubric": {
+      "expectedSignals": [
+        "SORT_KEY",
+        "字符串",
+        "数值",
+        "字典序",
+        "比较规则"
+      ],
+      "expectedIssueTags": [
+        "ALGORITHM_STRATEGY"
+      ],
+      "expectedFineGrainedTags": [
+        "SORT_KEY"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:numeric_sort_required",
+        "judge:first_failed_case:1"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "key=int"
+      ]
+    },
+    "qualityNotes": "排序比较规则样本，用来检查 AI 是否能发现数据类型导致的个性化错因，而不是只说排序算法错误。",
+    "diagnosis": {
+      "problem": {
+        "id": 7415,
+        "title": "数字从小到大",
+        "description": "输入 n 个非负整数，请按数值从小到大输出。输入中的数字可能有不同位数。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "排序",
+          "数据类型",
+          "比较规则"
+        ],
+        "algorithmStrategies": [
+          "排序"
+        ],
+        "commonMistakes": [
+          "把数字字符串按字典序排序",
+          "比较规则和题意不一致"
+        ],
+        "boundaryTypes": [
+          "不同位数",
+          "含 10 和 2"
+        ]
+      },
+      "submission": {
+        "id": 741501,
+        "problemId": 7415,
+        "languageId": 71,
+        "languageName": "Python 3",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "n = int(input())\nvalues = input().split()\nvalues.sort()\nprint(' '.join(values))"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "4\n2 10 1 9",
+          "actualOutput": "1 10 2 9",
+          "expectedOutput": "1 2 9 10",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "字符串排序不等于数值排序",
+        "summary": "输出中 10 排在 2 前面，说明程序按字符串字典序比较。",
+        "issueTags": [
+          "ALGORITHM_STRATEGY"
+        ],
+        "fineGrainedTags": [
+          "SORT_KEY"
+        ],
+        "evidenceRefs": [
+          "problem:numeric_sort_required",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先比较字符串里的 '10' 和 '2'，再比较数字 10 和 2，看两种规则有什么不同。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-cpp-integer-division-precision-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目要求输出平均值保留两位小数，学生在 C++ 中用 int / int 先做整数除法再赋给 double。AI 应定位为整数除法精度丢失，引导学生手推表达式类型和中间结果，不直接给完整修改代码。",
+    "rubric": {
+      "expectedSignals": [
+        "INTEGER_DIVISION_PRECISION",
+        "整数除法",
+        "double",
+        "精度",
+        "中间结果"
+      ],
+      "expectedIssueTags": [
+        "BOUNDARY_CONDITION"
+      ],
+      "expectedFineGrainedTags": [
+        "INTEGER_DIVISION_PRECISION"
+      ],
+      "requiredEvidenceRefs": [
+        "problem:average_decimal_required",
+        "judge:first_failed_case:1"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "(double)sum",
+        "1.0 * sum"
+      ]
+    },
+    "qualityNotes": "C++ 精度样本，用来检查 AI 是否理解语言类型规则，而不是泛泛说输出格式或保留小数。",
+    "diagnosis": {
+      "problem": {
+        "id": 7421,
+        "title": "平均分",
+        "description": "输入 n 个整数分数，输出它们的平均值，保留两位小数。平均值可能不是整数。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "C++ 类型",
+          "整数除法",
+          "浮点数"
+        ],
+        "algorithmStrategies": [
+          "累加求平均"
+        ],
+        "commonMistakes": [
+          "整数除法导致小数部分丢失",
+          "赋给 double 前已经截断"
+        ],
+        "boundaryTypes": [
+          "平均值非整数"
+        ]
+      },
+      "submission": {
+        "id": 742101,
+        "problemId": 7421,
+        "languageId": 54,
+        "languageName": "C++17",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        int x;\n        cin >> x;\n        sum += x;\n    }\n    double avg = sum / n;\n    cout << fixed << setprecision(2) << avg << endl;\n    return 0;\n}"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "2\n1 2",
+          "actualOutput": "1.00",
+          "expectedOutput": "1.50",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "整数除法先截断了小数",
+        "summary": "sum 和 n 都是 int，表达式 sum / n 先得到整数结果，再赋给 double。",
+        "issueTags": [
+          "BOUNDARY_CONDITION"
+        ],
+        "fineGrainedTags": [
+          "INTEGER_DIVISION_PRECISION"
+        ],
+        "evidenceRefs": [
+          "problem:average_decimal_required",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先手推 sum=3,n=2 时，sum / n 的中间结果是什么类型。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-cpp-array-index-out-of-bounds-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目输入 n 个数求相邻差，学生循环到 i<=n 并访问 a[i]，在最后一轮越界。AI 应定位为数组下标越界和循环终点不匹配，引导学生列出合法下标范围，不直接给循环头。",
+    "rubric": {
+      "expectedSignals": [
+        "ARRAY_INDEX_OUT_OF_BOUNDS",
+        "数组下标",
+        "越界",
+        "合法范围",
+        "循环终点"
+      ],
+      "expectedIssueTags": [
+        "RUNTIME_STABILITY"
+      ],
+      "expectedFineGrainedTags": [
+        "ARRAY_INDEX_OUT_OF_BOUNDS"
+      ],
+      "requiredEvidenceRefs": [
+        "code:array_index_loop",
+        "verdict:runtime_error"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "i < n",
+        "i <= n - 1"
+      ]
+    },
+    "qualityNotes": "C++ 数组越界样本，用来检查 AI 是否能把运行错误定位到下标范围，而不是泛泛说 RE 或内存错误。",
+    "diagnosis": {
+      "problem": {
+        "id": 7422,
+        "title": "最大相邻差",
+        "description": "输入 n 个整数，输出相邻两个数差的最大值。需要比较第 1 个和第 2 个、第 2 个和第 3 个，直到第 n-1 个和第 n 个。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "数组",
+          "循环边界",
+          "下标范围"
+        ],
+        "algorithmStrategies": [
+          "线性扫描"
+        ],
+        "commonMistakes": [
+          "循环多走一轮",
+          "访问 a[n] 越界"
+        ],
+        "boundaryTypes": [
+          "n=2",
+          "最后一对元素"
+        ]
+      },
+      "submission": {
+        "id": 742201,
+        "problemId": 7422,
+        "languageId": 54,
+        "languageName": "C++17",
+        "verdict": "RUNTIME_ERROR",
+        "sourceCode": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int i = 0; i < n; i++) cin >> a[i];\n    int best = 0;\n    for (int i = 1; i <= n; i++) {\n        best = max(best, abs(a[i] - a[i - 1]));\n    }\n    cout << best << endl;\n    return 0;\n}"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "3\n1 4 9",
+          "actualOutput": "Runtime Error",
+          "expectedOutput": "5",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "RE",
+        "headline": "最后一轮访问了不存在的下标",
+        "summary": "数组合法下标是 0 到 n-1，但循环最后访问了 a[n]。",
+        "issueTags": [
+          "RUNTIME_STABILITY"
+        ],
+        "fineGrainedTags": [
+          "ARRAY_INDEX_OUT_OF_BOUNDS"
+        ],
+        "evidenceRefs": [
+          "code:array_index_loop",
+          "verdict:runtime_error",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先写出 n=3 时 a 的合法下标，再列每一轮 i 会访问哪些位置。",
+        "answerLeakRisk": "MEDIUM"
+      }
+    }
+  },
+  {
+    "caseId": "diagnosis-cpp-uninitialized-variable-complex",
+    "assistantType": "SUBMISSION_DIAGNOSIS",
+    "teacherExpectation": "题目要求统计正数个数，学生的计数变量 cnt 未初始化就自增，结果不稳定。AI 应定位为变量未初始化，引导学生追踪 cnt 第一次参与计算前有没有确定值，不直接给完整写法。",
+    "rubric": {
+      "expectedSignals": [
+        "UNINITIALIZED_VARIABLE",
+        "未初始化",
+        "初值",
+        "cnt",
+        "不确定"
+      ],
+      "expectedIssueTags": [
+        "VARIABLE_INITIALIZATION"
+      ],
+      "expectedFineGrainedTags": [
+        "UNINITIALIZED_VARIABLE"
+      ],
+      "requiredEvidenceRefs": [
+        "code:uninitialized_counter",
+        "judge:first_failed_case:1"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "cnt = 0",
+        "int cnt = 0"
+      ]
+    },
+    "qualityNotes": "C++ 未初始化变量样本，用来检查 AI 是否能识别语言层面的不确定初值，而不是只说计数逻辑错误。",
+    "diagnosis": {
+      "problem": {
+        "id": 7423,
+        "title": "统计正数",
+        "description": "输入 n 个整数，输出其中正数的个数。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536,
+        "knowledgePoints": [
+          "变量初始化",
+          "计数器",
+          "C++ 基础"
+        ],
+        "algorithmStrategies": [
+          "线性统计"
+        ],
+        "commonMistakes": [
+          "计数器未初始化",
+          "局部变量初值不确定"
+        ],
+        "boundaryTypes": [
+          "没有正数",
+          "全是正数"
+        ]
+      },
+      "submission": {
+        "id": 742301,
+        "problemId": 7423,
+        "languageId": 54,
+        "languageName": "C++17",
+        "verdict": "WRONG_ANSWER",
+        "sourceCode": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int cnt;\n    for (int i = 0; i < n; i++) {\n        int x;\n        cin >> x;\n        if (x > 0) cnt++;\n    }\n    cout << cnt << endl;\n    return 0;\n}"
+      },
+      "caseResults": [
+        {
+          "testCaseNumber": 1,
+          "passed": false,
+          "hidden": false,
+          "inputSnapshot": "3\n-1 -2 -3",
+          "actualOutput": "32764",
+          "expectedOutput": "0",
+          "executionTime": 0.01,
+          "memoryUsed": 1024
+        }
+      ],
+      "baseline": {
+        "scenario": "WA",
+        "headline": "计数变量没有确定初值",
+        "summary": "没有正数时 cnt 没有被赋成 0，却直接输出了不确定值。",
+        "issueTags": [
+          "VARIABLE_INITIALIZATION"
+        ],
+        "fineGrainedTags": [
+          "UNINITIALIZED_VARIABLE"
+        ],
+        "evidenceRefs": [
+          "code:uninitialized_counter",
+          "judge:first_failed_case:1"
+        ],
+        "studentHint": "先看 cnt 在第一次 cnt++ 或输出前，是否已经有确定的初值。",
+        "answerLeakRisk": "LOW"
+      }
+    }
+  },
+  {
+    "caseId": "coach-input-parsing-follow-up",
+    "assistantType": "COACH_QUESTION",
+    "teacherExpectation": "学生已经承认只读了一组 l r，但题目有 q 次查询。AI 应追问学生逐行对齐题面输入和代码读取次数，而不是告诉他写 for 循环。",
+    "rubric": {
+      "expectedSignals": [
+        "题面",
+        "读取",
+        "顺序",
+        "哪一行"
+      ],
+      "requiredEvidenceRefs": [
+        "submission:7201",
+        "tag:INPUT_PARSING"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接改成",
+        "for _ in range(q)"
+      ]
+    },
+    "qualityNotes": "Coach 二轮追问样本，用来检查模型是否继续引导学生自己发现输入结构。",
+    "coach": {
+      "turnType": "FOLLOW_UP",
+      "submissionId": 7201,
+      "primaryTag": "INPUT_PARSING",
+      "hintPolicy": "L1",
+      "verdict": "WRONG_ANSWER",
+      "scenario": "WA",
+      "headline": "输入读取结构与题面不一致",
+      "summary": "题面第一行包含 n 和 q，后面有 q 行查询。",
+      "contextSummary": "题面有 q 次查询，学生代码只读取了一次 l r。",
+      "evidenceRefs": [
+        "submission:7201",
+        "tag:INPUT_PARSING",
+        "problem:input_format"
+      ],
+      "studentAnswer": "我发现自己只读了一次 l r，但还没确定哪里开始对不上。"
+    }
+  },
+  {
+    "caseId": "coach-tle-complexity-follow-up",
+    "assistantType": "COACH_QUESTION",
+    "teacherExpectation": "学生知道双层循环可能慢，但没有数量级判断。AI 应追问最大 n 下操作次数，让学生先算数量级。",
+    "rubric": {
+      "expectedSignals": [
+        "200000",
+        "次数",
+        "数量级",
+        "时间限制"
+      ],
+      "requiredEvidenceRefs": [
+        "submission:7202",
+        "tag:BRUTE_FORCE_LIMIT"
+      ],
+      "forbiddenPhrases": [
+        "完整代码",
+        "参考答案",
+        "直接用",
+        "树状数组"
+      ]
+    },
+    "qualityNotes": "复杂度 Coach 样本，用来检查追问是否能把模糊的“慢”推进到可验证数量级。",
+    "coach": {
+      "turnType": "FOLLOW_UP",
+      "submissionId": 7202,
+      "primaryTag": "BRUTE_FORCE_LIMIT",
+      "hintPolicy": "L2",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "scenario": "TLE",
+      "headline": "双层循环在最大规模下超时",
+      "summary": "n 最大为 200000，核心循环接近平方级。",
+      "contextSummary": "隐藏大数据超时，代码有双层循环。",
+      "evidenceRefs": [
+        "submission:7202",
+        "tag:BRUTE_FORCE_LIMIT",
+        "problem:max_boundary"
+      ],
+      "studentAnswer": "我觉得双层循环慢，但不知道到底慢多少。"
+    }
+  },
+  {
+    "caseId": "growth-ce-wa-ac-trajectory",
+    "assistantType": "GROWTH_REPORT",
+    "teacherExpectation": "学生从编译错误修到 WA，最后 AC。报告应指出先解决语法阻塞，再定位边界问题，最后完成通过；下一步应复盘最小样例和边界。",
+    "rubric": {
+      "expectedSignals": [
+        "编译",
+        "边界",
+        "通过",
+        "复盘"
+      ],
+      "forbiddenPhrases": [
+        "一直没有进步",
+        "没有提交记录",
+        "完整代码",
+        "隐藏测试点数据"
+      ]
+    },
+    "qualityNotes": "正向成长轨迹样本，用来检查报告是否基于连续提交而不是只看最终 AC。",
+    "growthReport": {
+      "problem": {
+        "id": 7301,
+        "title": "求区间和",
+        "description": "多次查询数组区间和，注意下标边界。",
+        "difficulty": "EASY",
+        "timeLimit": 1000,
+        "memoryLimit": 65536
+      },
+      "fallbackMarkdown": "# 成长报告\n\n## 总览\n- 提交 3 次\n",
+      "timeline": [
+        {
+          "submissionId": 730101,
+          "submittedAt": "2026-05-23 09:00:00",
+          "verdict": "编译错误",
+          "headline": "变量未定义",
+          "summary": "代码还不能运行，先处理第一个编译错误。"
+        },
+        {
+          "submissionId": 730102,
+          "submittedAt": "2026-05-23 09:08:00",
+          "verdict": "答案错误",
+          "headline": "区间右端点少算",
+          "summary": "编译问题解决，但边界样例失败。"
+        },
+        {
+          "submissionId": 730103,
+          "submittedAt": "2026-05-23 09:18:00",
+          "verdict": "通过",
+          "headline": "修正边界后通过",
+          "summary": "能解释最小区间和普通区间。"
+        }
+      ]
+    }
+  },
+  {
+    "caseId": "growth-repeated-tle-stuck",
+    "assistantType": "GROWTH_REPORT",
+    "teacherExpectation": "学生连续三次 TLE，只做局部剪枝，没有改变复杂度。报告应标记反复卡在复杂度瓶颈，需要老师或系统引导做数量级估算。",
+    "rubric": {
+      "expectedSignals": [
+        "连续",
+        "超时",
+        "复杂度",
+        "数量级",
+        "老师"
+      ],
+      "forbiddenPhrases": [
+        "已经通过",
+        "主要是语法问题",
+        "完整代码",
+        "隐藏测试点数据"
+      ]
+    },
+    "qualityNotes": "卡住轨迹样本，用来检查报告是否能识别反复失败和教师介入信号。",
+    "growthReport": {
+      "problem": {
+        "id": 7302,
+        "title": "大规模查询",
+        "description": "n 和 q 都很大，需要避免每次查询线性扫描。",
+        "difficulty": "MEDIUM",
+        "timeLimit": 1000,
+        "memoryLimit": 65536
+      },
+      "fallbackMarkdown": "# 成长报告\n\n## 总览\n- 提交 3 次\n",
+      "timeline": [
+        {
+          "submissionId": 730201,
+          "submittedAt": "2026-05-23 10:00:00",
+          "verdict": "超时",
+          "headline": "每次查询都线性扫描",
+          "summary": "样例能过，隐藏大数据超时。"
+        },
+        {
+          "submissionId": 730202,
+          "submittedAt": "2026-05-23 10:10:00",
+          "verdict": "超时",
+          "headline": "局部剪枝未改变数量级",
+          "summary": "减少了一些常数，但整体仍接近 n*q。"
+        },
+        {
+          "submissionId": 730203,
+          "submittedAt": "2026-05-23 10:20:00",
+          "verdict": "超时",
+          "headline": "仍卡在复杂度瓶颈",
+          "summary": "需要先估算最大规模操作次数。"
+        }
+      ]
+    }
+  }
+]

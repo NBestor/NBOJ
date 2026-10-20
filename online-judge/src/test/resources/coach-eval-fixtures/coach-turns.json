@@ -1,0 +1,71 @@
+[
+  {
+    "name": "off-by-one-initial-question",
+    "turnType": "INITIAL",
+    "submissionId": 2101,
+    "primaryTag": "OFF_BY_ONE",
+    "hintPolicy": "L2",
+    "verdict": "WRONG_ANSWER",
+    "scenario": "WA",
+    "headline": "循环边界可能少算一项",
+    "contextSummary": "本次追问基于“差一位错误”。证据包摘要：首个失败点显示 n=1 时输出 0，期望 1。",
+    "evidenceRefs": ["submission:2101", "tag:OFF_BY_ONE", "judge:first_failed_case:1"],
+    "studentAnswer": "",
+    "safeModelResponse": {
+      "question": "请先用 n=1 手推一次循环，写出循环第一次和最后一次取值分别是什么。",
+      "rationale": "要求学生用最小样例验证边界。",
+      "evidenceRefs": ["submission:2101", "tag:OFF_BY_ONE"],
+      "confidence": 0.86,
+      "answerLeakRisk": "LOW"
+    },
+    "expectedQuestionSignals": ["n=1", "循环", "取值"],
+    "requiredEvidenceRefs": ["submission:2101", "tag:OFF_BY_ONE"],
+    "forbiddenPhrases": ["完整代码", "参考答案", "直接改成", "#include", "def "]
+  },
+  {
+    "name": "brute-force-follow-up",
+    "turnType": "FOLLOW_UP",
+    "submissionId": 2102,
+    "primaryTag": "BRUTE_FORCE_LIMIT",
+    "hintPolicy": "L2",
+    "verdict": "TIME_LIMIT_EXCEEDED",
+    "scenario": "TLE",
+    "headline": "最大规模下复杂度过高",
+    "contextSummary": "本次追问基于“暴力规模瓶颈”。证据包摘要：n 最大为 200000，核心循环疑似平方级。",
+    "evidenceRefs": ["submission:2102", "tag:BRUTE_FORCE_LIMIT", "problem:max_boundary"],
+    "studentAnswer": "我觉得双层循环会很慢，但还没算次数。",
+    "safeModelResponse": {
+      "question": "请先估算 n=200000 时双层循环大约执行多少次，再判断这个数量是否可能在 1 秒内完成。",
+      "rationale": "引导学生补复杂度数量级证据。",
+      "evidenceRefs": ["submission:2102", "tag:BRUTE_FORCE_LIMIT"],
+      "confidence": 0.83,
+      "answerLeakRisk": "LOW"
+    },
+    "expectedQuestionSignals": ["200000", "执行多少次", "1 秒"],
+    "requiredEvidenceRefs": ["submission:2102", "tag:BRUTE_FORCE_LIMIT"],
+    "forbiddenPhrases": ["完整代码", "参考答案", "直接改成", "用字典即可", "Counter"]
+  },
+  {
+    "name": "input-parsing-follow-up",
+    "turnType": "FOLLOW_UP",
+    "submissionId": 2103,
+    "primaryTag": "INPUT_PARSING",
+    "hintPolicy": "L1",
+    "verdict": "WRONG_ANSWER",
+    "scenario": "WA",
+    "headline": "输入读取结构与题面不一致",
+    "contextSummary": "本次追问基于“输入读取理解”。题面第一行含 n 和 q，后续 q 行查询。",
+    "evidenceRefs": ["submission:2103", "tag:INPUT_PARSING", "problem:input_format"],
+    "studentAnswer": "我只读了一次 l r。",
+    "safeModelResponse": {
+      "question": "请把题面每一行输入和你代码里的每一次读入按顺序对应起来，哪一行开始对不上？",
+      "rationale": "要求学生逐行核对输入结构。",
+      "evidenceRefs": ["submission:2103", "tag:INPUT_PARSING"],
+      "confidence": 0.8,
+      "answerLeakRisk": "LOW"
+    },
+    "expectedQuestionSignals": ["题面", "读入", "顺序"],
+    "requiredEvidenceRefs": ["submission:2103", "tag:INPUT_PARSING"],
+    "forbiddenPhrases": ["完整代码", "参考答案", "直接改成", "for _ in range(q)"]
+  }
+]

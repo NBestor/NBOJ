@@ -1,0 +1,196 @@
+[
+  {
+    "id": "advanced-coupon-shortest-path-state",
+    "title": "分层优惠最短路多状态剪枝错误",
+    "problemSummary": "无向带权图从 1 到 n，最多使用 k 张优惠券，每张优惠券让一条边费用变为 floor(w / 2)，求最小费用。",
+    "language": "PYTHON",
+    "buggyCode": "",
+    "buggyCodeResource": "/diagnosis-eval-fixtures/long-code-samples/advanced_coupon_shortest_path_wrong.py",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "HIT",
+    "expectedAnchors": ["SK_GRAPH_LAYERED_SHORTEST_PATH", "MP_DP_STATE_MISSING_DIMENSION"],
+    "expectedLibraryPath": ["图论", "最短路", "分层图状态", "状态剪枝与转移"],
+    "expectedGrowthCandidateFields": [],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须拆开讲优惠边权未折半、按节点全局剪枝破坏层状态、只取恰好 k 层这几个独立问题",
+      "下一步必须要求手推一条边或两层状态的小图",
+      "不得直接给完整 Dijkstra 模板"
+    ],
+    "shouldGenerateGrowthCandidate": false,
+    "quickFeedbackKnownLimit": "短反馈可能只抓优惠边权一处，容易漏掉状态剪枝和答案层选择两个独立问题。",
+    "formalMustImproveAtLeastOneOf": ["多条基础建议", "状态维度解释", "关键证据拆分"]
+  },
+  {
+    "id": "advanced-interval-dp-order-sum",
+    "title": "区间 DP 填表顺序与区间和边界错误",
+    "problemSummary": "给定一排石子，反复合并相邻两堆，每次代价为合并区间总重量，求最小总代价。",
+    "language": "PYTHON",
+    "buggyCode": "",
+    "buggyCodeResource": "/diagnosis-eval-fixtures/long-code-samples/advanced_interval_dp_wrong.py",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "HIT",
+    "expectedAnchors": ["SK_DP_INTERVAL", "MP_DP_TRANSITION_ORDER_WRONG"],
+    "expectedLibraryPath": ["动态规划", "区间 DP", "转移顺序"],
+    "expectedGrowthCandidateFields": [],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须指出区间 DP 需要按长度递增计算",
+      "基础层还应拆出区间和右端点开闭错误或线性题误进环形分支",
+      "不得直接给完整转移式"
+    ],
+    "shouldGenerateGrowthCandidate": false,
+    "quickFeedbackKnownLimit": "短反馈通常只说 DP 顺序错，容易漏掉区间和边界和误用模板分支。",
+    "formalMustImproveAtLeastOneOf": ["多条基础建议", "状态依赖顺序", "手推区间表"]
+  },
+  {
+    "id": "advanced-segment-tree-lazy-range",
+    "title": "懒标记线段树区间加与区间最大值错误",
+    "problemSummary": "维护数组，支持区间加和区间最大值查询，数组元素可能为负数。",
+    "language": "PYTHON",
+    "buggyCode": "",
+    "buggyCodeResource": "/diagnosis-eval-fixtures/long-code-samples/advanced_segment_tree_lazy_wrong.py",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "PARTIAL",
+    "expectedAnchors": ["SK_SEGMENT_TREE_LAZY", "MP_RANGE_RIGHT_ENDPOINT_MISSING"],
+    "expectedLibraryPath": ["数据结构", "线段树", "懒标记", "区间更新与查询"],
+    "expectedGrowthCandidateFields": ["suggestedPath", "errorSymptom", "typicalCodePattern", "studentExplanation", "status"],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须分别说明 lazy 覆盖而不是累加、无交集返回 0 破坏负数最大值、右端坐标转换过宽",
+      "下一步必须要求用两次连续区间加和全负查询手推",
+      "不得直接贴完整线段树代码"
+    ],
+    "shouldGenerateGrowthCandidate": true,
+    "quickFeedbackKnownLimit": "短反馈容易只抓坐标或 lazy 一处，无法证明多条结构化建议是否保留。",
+    "formalMustImproveAtLeastOneOf": ["多条基础建议", "负数反例", "懒标记语义"]
+  },
+  {
+    "id": "advanced-offline-connectivity-rollback",
+    "title": "离线动态连通性回滚并查集区间错误",
+    "problemSummary": "给定加边、删边、查询操作，离线回答每个时刻两点是否连通。",
+    "language": "PYTHON",
+    "buggyCode": "",
+    "buggyCodeResource": "/diagnosis-eval-fixtures/long-code-samples/advanced_offline_connectivity_wrong.py",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "HIT",
+    "expectedAnchors": ["SK_UNION_FIND_CONNECTIVITY", "MP_SIM_UPDATE_ORDER_USES_STALE_STATE"],
+    "expectedLibraryPath": ["图论", "并查集", "回滚并查集", "离线时间区间"],
+    "expectedGrowthCandidateFields": [],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须拆出删除时刻区间右端错误、rollback no-op 记录恢复不完整、组件数恢复方式错误",
+      "下一步必须要求手推一条边从加入到删除的时间覆盖区间",
+      "不得直接给完整离线连通性模板"
+    ],
+    "shouldGenerateGrowthCandidate": false,
+    "quickFeedbackKnownLimit": "短反馈容易把问题泛化成并查集写错，缺少时间区间和回滚栈两个证据拆分。",
+    "formalMustImproveAtLeastOneOf": ["多条基础建议", "时间区间手推", "回滚状态恢复"]
+  },
+  {
+    "id": "advanced-tree-rerooting-weighted",
+    "title": "树形换根 DP 权重贡献公式错误",
+    "problemSummary": "给定一棵带点权树，对每个点求其到所有点的距离乘对应点权之和。",
+    "language": "PYTHON",
+    "buggyCode": "",
+    "buggyCodeResource": "/diagnosis-eval-fixtures/long-code-samples/advanced_tree_rerooting_wrong.py",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "PARTIAL",
+    "expectedAnchors": ["SK_TREE_DP_REROOTING", "MP_DP_STATE_MISSING_DIMENSION"],
+    "expectedLibraryPath": ["动态规划", "树形 DP", "换根 DP", "贡献转移"],
+    "expectedGrowthCandidateFields": ["suggestedPath", "errorSymptom", "typicalCodePattern", "studentExplanation", "status"],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须指出子树贡献用了节点数量而不是子树权重",
+      "基础层还应说明换根公式对子树内外贡献方向写反或漏权重",
+      "下一步必须要求用三点链和非全 1 权重手推"
+    ],
+    "shouldGenerateGrowthCandidate": true,
+    "quickFeedbackKnownLimit": "短反馈容易把换根公式错误说成泛泛 DP 错，无法区分权重贡献和子树内外方向。",
+    "formalMustImproveAtLeastOneOf": ["多条基础建议", "权重贡献解释", "最小链反例"]
+  },
+  {
+    "id": "string-window-boundary",
+    "title": "字符串滑动窗口右边界更新时机错误",
+    "problemSummary": "求满足条件的最短/最长子串长度。",
+    "language": "PYTHON",
+    "buggyCode": "s = input().strip()\nk = int(input())\nleft = 0\ncnt = {}\nans = 0\nfor right, ch in enumerate(s):\n    cnt[ch] = cnt.get(ch, 0) + 1\n    while len(cnt) > k:\n        cnt[s[left]] -= 1\n        left += 1\n    ans = max(ans, right - left)\nprint(ans)\n",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "PARTIAL",
+    "expectedAnchors": ["SK_TWO_POINTERS_WINDOW", "MP_RANGE_RIGHT_ENDPOINT_MISSING"],
+    "expectedLibraryPath": ["算法基础", "双指针与滑动窗口", "窗口边界长度"],
+    "expectedGrowthCandidateFields": ["suggestedPath", "errorSymptom", "typicalCodePattern", "studentExplanation", "status"],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须指出窗口长度和左右端点是否包含的关系",
+      "下一步必须要求手推一个长度为 1 的窗口",
+      "不得直接给 right-left+1"
+    ],
+    "shouldGenerateGrowthCandidate": true,
+    "quickFeedbackKnownLimit": "快反馈可能说 off-by-one，但缺少滑动窗口左右端包含语义。",
+    "formalMustImproveAtLeastOneOf": ["窗口语义", "最小样例", "扩库候选"]
+  },
+  {
+    "id": "sliding-window-balance-count",
+    "title": "滑窗调平计数与窗口状态不同步",
+    "problemSummary": "通过移动窗口维护频次或代价，求满足平衡条件的最优长度。",
+    "language": "PYTHON",
+    "buggyCode": "n, k = map(int, input().split())\na = list(map(int, input().split()))\nleft = 0\ncost = 0\nans = 0\nfor right in range(n):\n    cost += a[right]\n    while cost > k:\n        left += 1\n        cost -= a[left]\n    ans = max(ans, right - left + 1)\nprint(ans)\n",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "PARTIAL",
+    "expectedAnchors": ["SK_TWO_POINTERS_WINDOW", "MP_SIM_UPDATE_ORDER_USES_STALE_STATE"],
+    "expectedLibraryPath": ["算法基础", "双指针与滑动窗口", "窗口状态不变量"],
+    "expectedGrowthCandidateFields": ["suggestedPath", "errorSymptom", "typicalCodePattern", "studentExplanation", "status"],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须指出缩窗时先移动指针再扣除元素会让窗口状态不同步",
+      "下一步必须要求写出 left 移动前后窗口实际包含哪些元素",
+      "提高层可建议统一维护窗口不变量"
+    ],
+    "shouldGenerateGrowthCandidate": true,
+    "quickFeedbackKnownLimit": "快反馈常说更新顺序错误，但不能说明窗口不变量被破坏。",
+    "formalMustImproveAtLeastOneOf": ["不变量解释", "窗口状态手推", "扩库候选"]
+  },
+  {
+    "id": "layered-shortest-path-state",
+    "title": "分层最短路状态维度缺失",
+    "problemSummary": "允许最多 k 次特殊操作，求从起点到终点的最短路。",
+    "language": "CPP17",
+    "buggyCode": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){\n  int n,m,k; cin>>n>>m>>k;\n  vector<vector<pair<int,int>>> g(n+1);\n  for(int i=0;i<m;i++){int u,v,w;cin>>u>>v>>w;g[u].push_back({v,w});g[v].push_back({u,w});}\n  vector<long long>d(n+1,4e18); d[1]=0;\n  priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<pair<long long,int>>> pq;\n  pq.push({0,1});\n  while(!pq.empty()){\n    auto [du,u]=pq.top(); pq.pop(); if(du!=d[u]) continue;\n    for(auto [v,w]:g[u]) if(d[v]>du+w){d[v]=du+w; pq.push({d[v],v});}\n  }\n  cout<<d[n]<<\"\\n\";\n}\n",
+    "judgeResult": "WRONG_ANSWER",
+    "expectedLibraryFit": "HIT",
+    "expectedAnchors": ["SK_GRAPH_LAYERED_SHORTEST_PATH", "MP_DP_STATE_MISSING_DIMENSION"],
+    "expectedLibraryPath": ["图论", "最短路", "分层图状态", "状态维度缺失"],
+    "expectedGrowthCandidateFields": [],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须指出状态没有记录已使用特殊操作次数",
+      "提高层可以建议把节点和层数共同作为状态",
+      "不得直接给完整建图方式或完整 Dijkstra 模板"
+    ],
+    "shouldGenerateGrowthCandidate": false,
+    "quickFeedbackKnownLimit": "快反馈可能只说没有使用 k，但缺少分层状态解释。",
+    "formalMustImproveAtLeastOneOf": ["状态维度", "图模型解释", "答案泄露控制"]
+  },
+  {
+    "id": "layered-discounted-shortest-path-edge",
+    "title": "分层优惠最短路优惠边权未折半",
+    "problemSummary": "无向带权图从 1 到 n，最多使用 k 张优惠券，每张优惠券让一条边费用变为 floor(w / 2)，求最小费用。",
+    "language": "PYTHON",
+    "buggyCode": "import heapq\nimport sys\n\ndef solve():\n    data = list(map(int, sys.stdin.read().split()))\n    if not data:\n        return\n    n, m, k = data[0], data[1], data[2]\n    graph = [[] for _ in range(n + 1)]\n    index = 3\n    for _ in range(m):\n        a, b, w = data[index], data[index + 1], data[index + 2]\n        index += 3\n        graph[a].append((b, w))\n        graph[b].append((a, w))\n\n    dist = [[10 ** 18] * (k + 1) for _ in range(n + 1)]\n    dist[1][0] = 0\n    heap = [(0, 1, 0)]\n\n    while heap:\n        cost, node, used = heapq.heappop(heap)\n        if cost != dist[node][used]:\n            continue\n        for nxt, weight in graph[node]:\n            normal = cost + weight\n            if normal < dist[nxt][used]:\n                dist[nxt][used] = normal\n                heapq.heappush(heap, (normal, nxt, used))\n\n            if used < k:\n                discounted = cost + weight\n                if discounted < dist[nxt][used + 1]:\n                    dist[nxt][used + 1] = discounted\n                    heapq.heappush(heap, (discounted, nxt, used + 1))\n\n    answer = min(dist[n])\n    print(-1 if answer >= 10 ** 18 else answer)\n\nif __name__ == \"__main__\":\n    solve()\n",
+    "judgeResult": "WRONG_ANSWER; sample input 3 3 1 / 1 2 5 / 2 3 5 / 1 3 100 expected 7 but buggy code outputs 10",
+    "expectedLibraryFit": "PARTIAL",
+    "expectedAnchors": ["SK_GRAPH_LAYERED_SHORTEST_PATH"],
+    "expectedLibraryPath": ["图论", "最短路", "Dijkstra", "分层图状态转移"],
+    "expectedGrowthCandidateFields": ["suggestedPath", "errorSymptom", "typicalCodePattern", "studentExplanation", "status"],
+    "contextPackageRequirements": ["完整题目", "完整代码", "判题参考信号", "统一知识树诊断层"],
+    "expectedStudentFeedbackQuality": [
+      "基础层必须指出优惠转移仍使用原边权而不是 floor(w / 2)",
+      "下一步必须要求手推只有一条边且 k=1 的最小样例",
+      "不得把主因诊断为 dist 初始化、heap 初始化或状态维度缺失"
+    ],
+    "shouldGenerateGrowthCandidate": true,
+    "quickFeedbackKnownLimit": "快反馈或旧链路可能根据输出偏大误猜初始化或堆状态，没有抓住 discounted = cost + weight 这一行。",
+    "formalMustImproveAtLeastOneOf": ["优惠边权语义", "关键代码行", "标准库路径", "扩库候选"]
+  }
+]

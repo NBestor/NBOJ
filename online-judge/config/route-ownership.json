@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "productionHost": "tuotuzju.com",
+  "onlineJudge": {
+    "publicPath": "/code/",
+    "apiPath": "/code/api/",
+    "assetsPath": "/code/assets/",
+    "upstream": "127.0.0.1:8081",
+    "proxyMarker": "Code-8081"
+  },
+  "platform": {
+    "reservedPaths": [
+      "/app/",
+      "/download/",
+      "/api/"
+    ]
+  },
+  "compatibility": {
+    "legacyOnlineJudgePath": "/app/",
+    "policy": "redirect-only-when-request-reaches-online-judge"
+  }
+}

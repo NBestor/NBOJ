@@ -1,0 +1,51 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Runtime ###
+.env
+data/
+backups/*
+!backups/standard-library/
+backups/standard-library/*
+!backups/standard-library/generated-fallback-archive-2026-07-06/
+!backups/standard-library/generated-fallback-archive-2026-07-06/**
+output/
+*.log
+tmp-*.md
+tmp-*.pdf
+tmp-*.txt
+
+### Frontend ###
+frontend/node_modules/
+frontend/*.tsbuildinfo

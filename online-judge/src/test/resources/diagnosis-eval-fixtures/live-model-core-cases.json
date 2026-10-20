@@ -1,0 +1,354 @@
+[
+  {
+    "caseId": "live-core-input-parsing",
+    "teacherExpectation": "题面有 q 次区间查询，学生代码只读取并输出了一次查询。模型应定位为输入读取结构和题面不一致，而不是泛泛说边界或前缀和。",
+    "problem": {
+      "id": 8401,
+      "title": "区间和多次查询",
+      "description": "第一行输入 n 和 q，第二行输入 n 个整数。接下来 q 行，每行给出 l 和 r，需要分别输出每次查询区间 [l,r] 的元素和。q 可能大于 1。",
+      "difficulty": "MEDIUM",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": ["前缀和", "输入读取", "循环"],
+      "algorithmStrategies": ["前缀和", "多次查询"],
+      "commonMistakes": ["只读取第一组查询", "把 q 次查询当成一次查询"],
+      "boundaryTypes": ["q=1", "q>1"]
+    },
+    "submission": {
+      "id": 840101,
+      "problemId": 8401,
+      "languageId": 71,
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "import sys\n\ndef read_numbers():\n    line = sys.stdin.readline().strip()\n    if not line:\n        return []\n    return list(map(int, line.split()))\n\ndef build_prefix(values):\n    prefix = [0]\n    total = 0\n    for value in values:\n        total += value\n        prefix.append(total)\n    return prefix\n\ndef range_sum(prefix, left, right):\n    return prefix[right] - prefix[left - 1]\n\nn, q = read_numbers()\nnums = read_numbers()\nprefix = build_prefix(nums)\nl, r = read_numbers()\nprint(range_sum(prefix, l, r))"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "5 2\n1 2 3 4 5\n1 3\n2 5",
+        "actualOutput": "6",
+        "expectedOutput": "6\n14",
+        "executionTime": 0.02,
+        "memoryUsed": 2048
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "headline": "只处理了一次查询",
+      "summary": "样例包含两次查询，但程序只读取并输出第一组查询结果。",
+      "issueTags": ["IO_FORMAT"],
+      "fineGrainedTags": ["INPUT_PARSING"],
+      "evidenceRefs": ["problem:repeated_input_source_single_read", "judge:first_failed_case:1"],
+      "studentHint": "把题面输入的每一行和代码中的每次读取按顺序画出来，先找第一处次数不一致的位置。",
+      "answerLeakRisk": "LOW"
+    },
+    "expectedIssueTags": ["IO_FORMAT"],
+    "expectedFineTags": ["INPUT_PARSING"],
+    "requiredEvidenceRefs": ["problem:repeated_input_source_single_read"],
+    "mustMention": ["输入结构", "多组查询", "读取次数"],
+    "mustNotMention": ["完整代码", "参考答案", "for _ in range(q)"],
+    "quality": {
+      "bugPattern": "live-core-input-parsing",
+      "misconception": "把 q 次查询当成一次查询来读。",
+      "expectedStudentMove": "逐行对照题面输入和代码读取次数。",
+      "evalPurpose": "验证真实模型能把边界误判修正为输入结构问题。"
+    }
+  },
+  {
+    "caseId": "live-core-state-reset",
+    "teacherExpectation": "题面是多组数据，学生把 cur 和 best 放在组循环外累计，导致上一组状态污染下一组。模型应提示检查每组开始前状态是否重置。",
+    "problem": {
+      "id": 8402,
+      "title": "多组最长连续 1",
+      "description": "第一行输入 T，接下来 T 组数据。每组给出一个只包含 0 和 1 的字符串，请分别输出该组字符串中最长连续 1 的长度。每组数据应独立计算。",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": ["字符串", "多组数据", "状态变量"],
+      "algorithmStrategies": ["线性扫描"],
+      "commonMistakes": ["多组数据状态没有重置", "上一组结果影响下一组"],
+      "boundaryTypes": ["全 0", "连续多组"]
+    },
+    "submission": {
+      "id": 840201,
+      "problemId": 8402,
+      "languageId": 71,
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "def update_run(ch, cur, best):\n    if ch == '1':\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\n    return cur, best\n\ndef solve_case(text, cur, best):\n    for ch in text.strip():\n        cur, best = update_run(ch, cur, best)\n    return cur, best\n\nT = int(input())\nbest = 0\ncur = 0\nfor _ in range(T):\n    s = input().strip()\n    cur, best = solve_case(s, cur, best)\n    print(best)"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "2\n111\n0",
+        "actualOutput": "3\n3",
+        "expectedOutput": "3\n0",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "headline": "多组之间状态没有独立",
+      "summary": "第二组全 0 仍输出 3，说明上一组的 best 留到了下一组。",
+      "issueTags": ["VARIABLE_INITIALIZATION"],
+      "fineGrainedTags": ["STATE_RESET"],
+      "evidenceRefs": ["problem:multi_case_state_before_loop", "judge:first_failed_case:1"],
+      "studentHint": "只跟踪第二组开始前 cur 和 best 的值，判断它们是否仍带着第一组的信息。",
+      "answerLeakRisk": "LOW"
+    },
+    "expectedIssueTags": ["VARIABLE_INITIALIZATION"],
+    "expectedFineTags": ["STATE_RESET"],
+    "requiredEvidenceRefs": ["problem:multi_case_state_before_loop"],
+    "mustMention": ["多组", "状态", "重置"],
+    "mustNotMention": ["完整代码", "参考答案", "把 best 和 cur 放进循环"],
+    "quality": {
+      "bugPattern": "live-core-state-reset",
+      "misconception": "认为多组数据可以共享上一组的状态变量。",
+      "expectedStudentMove": "在第二组开始前写出 cur 和 best 的值。",
+      "evalPurpose": "验证真实模型能识别多组数据状态污染。"
+    }
+  },
+  {
+    "caseId": "live-core-dp-state-design",
+    "teacherExpectation": "题目要求选择若干不相邻位置，学生虽然写了 dp，但状态转移只在上一状态和当前单个值之间取最大。模型应定位为 DP 状态来源不足。",
+    "problem": {
+      "id": 8403,
+      "title": "不相邻选择最大和",
+      "description": "给定 n 个非负整数，从中选择若干位置，使任意两个被选位置不相邻，求能得到的最大和。",
+      "difficulty": "MEDIUM",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": ["动态规划", "状态设计"],
+      "algorithmStrategies": ["DP"],
+      "commonMistakes": ["状态只记录当前最大值，没有表达选择当前元素的来源"],
+      "boundaryTypes": ["n=1", "相邻大数"]
+    },
+    "submission": {
+      "id": 840301,
+      "problemId": 8403,
+      "languageId": 71,
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "def choose_best(previous, current):\n    if previous >= current:\n        return previous\n    return current\n\ndef solve(values):\n    n = len(values)\n    if n == 0:\n        return 0\n    dp = [0] * n\n    dp[0] = values[0]\n    for i in range(1, n):\n        skip_current = dp[i - 1]\n        take_current = values[i]\n        dp[i] = choose_best(skip_current, take_current)\n    return dp[-1]\n\nn = int(input())\na = list(map(int, input().split()))\nprint(solve(a))"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "5\n2 7 9 3 1",
+        "actualOutput": "9",
+        "expectedOutput": "12",
+        "executionTime": 0.01,
+        "memoryUsed": 2048
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "headline": "DP 状态没有覆盖选择当前值的来源",
+      "summary": "样例中最优结果需要组合不相邻位置，但代码只在历史最大值和当前单值之间比较。",
+      "issueTags": ["ALGORITHM_STRATEGY"],
+      "fineGrainedTags": ["DP_STATE_DESIGN"],
+      "evidenceRefs": ["problem:dp_state_needs_design", "judge:first_failed_case:1"],
+      "studentHint": "先用小样例说明 dp[i] 表示什么，再问选择当前位置时需要从哪个不会相邻的状态来。",
+      "answerLeakRisk": "LOW"
+    },
+    "expectedIssueTags": ["ALGORITHM_STRATEGY", "STATE_TRANSITION"],
+    "expectedFineTags": ["DP_STATE_DESIGN"],
+    "requiredEvidenceRefs": ["problem:dp_state_needs_design"],
+    "mustMention": ["DP", "状态", "不相邻"],
+    "mustNotMention": ["完整代码", "参考答案", "dp[i - 2] + a[i]"],
+    "quality": {
+      "bugPattern": "live-core-dp-state-design",
+      "misconception": "写了 dp 就等于表达了不相邻选择约束。",
+      "expectedStudentMove": "说明选择当前位置时来自哪个安全状态。",
+      "evalPurpose": "验证真实模型能区分使用 DP 和状态设计正确。"
+    }
+  },
+  {
+    "caseId": "live-core-greedy-counterexample",
+    "teacherExpectation": "题面没有保证贪心性质，学生按面值从大到小选硬币会在 1,3,4 凑 6 时失败。模型应要求学生构造反例验证贪心假设。",
+    "problem": {
+      "id": 8404,
+      "title": "最少硬币数",
+      "description": "给定 m 种硬币面值和目标金额 target，每种硬币数量不限，求凑出 target 的最少硬币数。面值不保证满足贪心性质。",
+      "difficulty": "MEDIUM",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": ["算法策略", "反例", "贪心"],
+      "algorithmStrategies": ["反例验证", "状态设计"],
+      "commonMistakes": ["默认最大面值优先一定最优", "没有验证贪心假设"],
+      "boundaryTypes": ["无法凑出", "非规范硬币系统"]
+    },
+    "submission": {
+      "id": 840401,
+      "problemId": 8404,
+      "languageId": 71,
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "m, target = map(int, input().split())\ncoins = list(map(int, input().split()))\ncoins.sort(reverse=True)\ncount = 0\nrest = target\nfor coin in coins:\n    while rest >= coin:\n        rest -= coin\n        count += 1\n    if rest == 0:\n        break\nprint(count if rest == 0 else -1)"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "3 6\n1 3 4",
+        "actualOutput": "3",
+        "expectedOutput": "2",
+        "executionTime": 0.01,
+        "memoryUsed": 2048
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "headline": "贪心策略缺少成立条件",
+      "summary": "最大面值优先在 1,3,4 凑 6 时不是最优，说明策略假设被反例破坏。",
+      "issueTags": ["ALGORITHM_STRATEGY"],
+      "fineGrainedTags": ["GREEDY_ASSUMPTION"],
+      "evidenceRefs": ["problem:greedy_assumption_unproven", "judge:first_failed_case:1"],
+      "studentHint": "先写出当前贪心在这个小样例里的选择过程，再找是否存在硬币数更少的组合。",
+      "answerLeakRisk": "LOW"
+    },
+    "expectedIssueTags": ["ALGORITHM_STRATEGY"],
+    "expectedFineTags": ["GREEDY_ASSUMPTION"],
+    "requiredEvidenceRefs": ["problem:greedy_assumption_unproven"],
+    "mustMention": ["贪心", "反例", "局部选择"],
+    "mustNotMention": ["完整代码", "参考答案", "动态规划代码"],
+    "quality": {
+      "bugPattern": "live-core-greedy-counterexample",
+      "misconception": "认为局部最优选择天然成立。",
+      "expectedStudentMove": "用 1,3,4 凑 6 对照贪心选择和更优组合。",
+      "evalPurpose": "验证真实模型能用反例解释策略错误。"
+    }
+  },
+  {
+    "caseId": "live-core-max-boundary-complexity",
+    "teacherExpectation": "题面 n 最高到 10^9，学生从 1 到 n 逐个枚举因子，最大规模必然超时。模型应定位为最大规模边界和复杂度估算问题。",
+    "problem": {
+      "id": 8405,
+      "title": "因子个数",
+      "description": "输入一个正整数 n，输出它的正因子个数。n 最大可达到 10^9，时间限制 1 秒，需要先考虑最大规模下循环是否可承受。",
+      "difficulty": "MEDIUM",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": ["复杂度", "数学", "最大规模"],
+      "algorithmStrategies": ["数量级估算"],
+      "commonMistakes": ["从 1 枚举到 n", "没有考虑最大边界"],
+      "boundaryTypes": ["n=1", "n=10^9", "大质数"]
+    },
+    "submission": {
+      "id": 840501,
+      "problemId": 8405,
+      "languageId": 71,
+      "languageName": "Python 3",
+      "verdict": "TIME_LIMIT_EXCEEDED",
+      "sourceCode": "n = int(input())\ntotal = 0\nfor d in range(1, n + 1):\n    if n % d == 0:\n        total += 1\nprint(total)"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": true,
+        "hidden": false,
+        "inputSnapshot": "6",
+        "actualOutput": "4",
+        "expectedOutput": "4",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      },
+      {
+        "testCaseNumber": 7,
+        "passed": false,
+        "hidden": true,
+        "inputSnapshot": "",
+        "actualOutput": "",
+        "expectedOutput": "",
+        "executionTime": 1.0,
+        "memoryUsed": 2048
+      }
+    ],
+    "baseline": {
+      "scenario": "TLE",
+      "headline": "最大 n 下线性枚举不可承受",
+      "summary": "小数据能过，但 n 到 10^9 时核心循环接近十亿次。",
+      "issueTags": ["TIME_COMPLEXITY"],
+      "fineGrainedTags": ["MAX_BOUNDARY"],
+      "evidenceRefs": ["problem:max_bound_linear_loop", "verdict:tle"],
+      "studentHint": "先估算 n 取最大值时循环次数，再和 1 秒限制比较。",
+      "answerLeakRisk": "LOW"
+    },
+    "expectedIssueTags": ["TIME_COMPLEXITY", "BOUNDARY_CONDITION"],
+    "expectedFineTags": ["MAX_BOUNDARY"],
+    "requiredEvidenceRefs": ["problem:max_bound_linear_loop"],
+    "mustMention": ["最大规模", "10^9", "循环次数"],
+    "mustNotMention": ["完整代码", "参考答案", "sqrt"],
+    "quality": {
+      "bugPattern": "live-core-max-boundary-complexity",
+      "misconception": "小样例通过就说明线性枚举可接受。",
+      "expectedStudentMove": "估算最大规模下循环次数。",
+      "evalPurpose": "验证真实模型能把 TLE 解释为数量级问题。"
+    }
+  },
+  {
+    "caseId": "live-core-output-format",
+    "teacherExpectation": "可见样例只有尾部空格差异，学生算法判断本身没错。模型应定位为输出格式细节，让学生逐字符比较实际输出和期望输出。",
+    "problem": {
+      "id": 8406,
+      "title": "偶数和判断",
+      "description": "输入 n 和 n 个整数，如果总和为偶数，输出一行 YES，否则输出一行 NO。输出不能包含额外空格。",
+      "difficulty": "EASY",
+      "timeLimit": 1000,
+      "memoryLimit": 65536,
+      "knowledgePoints": ["输出格式", "条件判断"],
+      "algorithmStrategies": ["模拟"],
+      "commonMistakes": ["行尾多余空格", "大小写不一致"],
+      "boundaryTypes": ["n=1", "和为 0"]
+    },
+    "submission": {
+      "id": 840601,
+      "problemId": 8406,
+      "languageId": 71,
+      "languageName": "Python 3",
+      "verdict": "WRONG_ANSWER",
+      "sourceCode": "n = int(input())\nvalues = list(map(int, input().split()))\ntotal = sum(values[:n])\nanswer = \"YES\" if total % 2 == 0 else \"NO\"\nprint(answer, end=\" \")"
+    },
+    "caseResults": [
+      {
+        "testCaseNumber": 1,
+        "passed": false,
+        "hidden": false,
+        "inputSnapshot": "3\n1 2 3",
+        "actualOutput": "YES ",
+        "expectedOutput": "YES",
+        "executionTime": 0.01,
+        "memoryUsed": 1024
+      }
+    ],
+    "baseline": {
+      "scenario": "WA",
+      "headline": "输出末尾多了空格",
+      "summary": "实际输出和期望输出去掉空白后相同，首要问题是格式细节。",
+      "issueTags": ["IO_FORMAT"],
+      "fineGrainedTags": ["OUTPUT_FORMAT_DETAIL"],
+      "evidenceRefs": ["judge:whitespace_mismatch", "judge:first_failed_case:1"],
+      "studentHint": "把实际输出和期望输出逐字符写出来，只圈出第一处多余或缺失的字符。",
+      "answerLeakRisk": "LOW"
+    },
+    "expectedIssueTags": ["IO_FORMAT"],
+    "expectedFineTags": ["OUTPUT_FORMAT_DETAIL"],
+    "requiredEvidenceRefs": ["judge:whitespace_mismatch"],
+    "mustMention": ["输出格式", "空格", "逐字符"],
+    "mustNotMention": ["完整代码", "参考答案", "替换为"],
+    "quality": {
+      "bugPattern": "live-core-output-format",
+      "misconception": "只看算法结果，不比较输出字符细节。",
+      "expectedStudentMove": "逐字符对照 actual 和 expected。",
+      "evalPurpose": "验证真实模型能尊重输出格式证据。"
+    }
+  }
+]
